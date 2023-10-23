@@ -23,9 +23,9 @@ autonumber
 actor Actor
 participant SingleStockInteractor
 database API
-
-entity StockPrice
 entity Stock
+entity StockPrice
+
 participant SingleStockOutputData
 boundary SingleStockOutputBoundary
 
@@ -35,12 +35,13 @@ SingleStockInteractor -> API : check symbol
 API --> SingleStockInteractor
 SingleStockInteractor -> API : historicalPrice
 API --> SingleStockInteractor
-SingleStockInteractor -> StockPrice : create
-StockPrice --> SingleStockInteractor
 SingleStockInteractor -> Stock: create
+Stock -> StockPrice : create
+StockPrice --> Stock
 Stock --> SingleStockInteractor
+
 SingleStockInteractor -> API: currentPrice
-API -> Stock: set currentPrice
+API -> Stock: set
 Stock --> SingleStockInteractor
 SingleStockInteractor ->  SingleStockOutputData : create
 SingleStockOutputData --> SingleStockInteractor
@@ -61,8 +62,8 @@ actor Actor
 participant ComparisonInteractor
 database API
 entity user
-entity StockPrice
 entity Stock
+entity StockPrice
 participant ComparisonOutputData
 boundary ComparisonOutputBoundary
 
@@ -71,11 +72,12 @@ Actor -> ComparisonInteractor : execute
 ComparisonInteractor -> user : get favouriteStocks
 user --> ComparisonInteractor
 ComparisonInteractor -> API : historicalPrice
-API -> StockPrice: update
-StockPrice -> Stock : update
+API -> Stock: update
+Stock -> StockPrice : update
+StockPrice --> Stock
 Stock --> ComparisonInteractor
 ComparisonInteractor -> API : currentPrice
-API -> Stock: Update
+API -> Stock: update
 Stock --> ComparisonInteractor
 ComparisonInteractor ->  ComparisonOutputData : create
 ComparisonOutputData --> ComparisonInteractor
@@ -97,8 +99,8 @@ autonumber
 actor Actor
 participant TwoStocksInteractor
 database API
-entity StockPrice
 entity Stock
+entity StockPrice
 participant TwoStocksOutputData
 boundary TwoStocksOutputBoundary
 
@@ -108,12 +110,13 @@ TwoStocksInteractor -> API : check symbol
 API --> TwoStocksInteractor
 TwoStocksInteractor -> API : historicalPrice
 API --> TwoStocksInteractor
-TwoStocksInteractor -> StockPrice : create
-StockPrice --> TwoStocksInteractor
-TwoStocksInteractor -> Stock: create
+TwoStocksInteractor -> Stock : create
+Stock -> StockPrice: create
+StockPrice --> Stock
+
 Stock --> TwoStocksInteractor
 TwoStocksInteractor -> API: currentPrice
-API -> Stock: set currentPrice
+API -> Stock: set
 Stock --> TwoStocksInteractor
 TwoStocksInteractor ->  TwoStocksOutputData : create
 TwoStocksOutputData --> TwoStocksInteractor
