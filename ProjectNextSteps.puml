@@ -14,10 +14,7 @@ SingleStockView -> SingleStockController : execute
 SingleStockController -> SingleStockInputBoundary : execute
 SingleStockInputBoundary --> SingleStockController
 SingleStockController --> SingleStockView
-
-
-
-
+SingleStockView --> Actor
 
 @enduml
 
@@ -30,7 +27,7 @@ database API
 entity StockPrice
 entity Stock
 participant SingleStockOutputData
-boundary OutputBoundary
+boundary SingleStockOutputBoundary
 
 
 Actor -> SingleStockInteractor : execute
@@ -40,14 +37,96 @@ SingleStockInteractor -> API : historicalPrice
 API --> SingleStockInteractor
 SingleStockInteractor -> StockPrice : create
 StockPrice --> SingleStockInteractor
-SingleStockInteractor -> API: currentPrice
-API --> SingleStockInteractor
 SingleStockInteractor -> Stock: create
+Stock --> SingleStockInteractor
+SingleStockInteractor -> API: currentPrice
+API -> Stock: set currentPrice
 Stock --> SingleStockInteractor
 SingleStockInteractor ->  SingleStockOutputData : create
 SingleStockOutputData --> SingleStockInteractor
-SingleStockInteractor -> OutputBoundary: prepareGraphicView
-OutputBoundary --> SingleStockInteractor
-SingleStockInteractor -> OutputBoundary: prepareTabularView
-OutputBoundary --> SingleStockInteractor
+SingleStockInteractor -> SingleStockOutputBoundary: prepareGraphicView
+SingleStockOutputBoundary --> SingleStockInteractor
+SingleStockInteractor -> SingleStockOutputBoundary: prepareTabularView
+SingleStockOutputBoundary --> SingleStockInteractor
+SingleStockInteractor -> SingleStockOutputBoundary: prepareCurrentPriceView
+SingleStockOutputBoundary --> SingleStockInteractor
+SingleStockInteractor --> Actor
+
+
 @enduml
+
+@startuml
+autonumber
+actor Actor
+participant ComparisonInteractor
+database API
+entity user
+entity StockPrice
+entity Stock
+participant ComparisonOutputData
+boundary ComparisonOutputBoundary
+
+
+Actor -> ComparisonInteractor : execute
+ComparisonInteractor -> user : get favouriteStocks
+user --> ComparisonInteractor
+ComparisonInteractor -> API : historicalPrice
+API -> StockPrice: update
+StockPrice -> Stock : update
+Stock --> ComparisonInteractor
+ComparisonInteractor -> API : currentPrice
+API -> Stock: Update
+Stock --> ComparisonInteractor
+ComparisonInteractor ->  ComparisonOutputData : create
+ComparisonOutputData --> ComparisonInteractor
+ComparisonInteractor -> ComparisonOutputBoundary: prepareGraphicView
+ComparisonOutputBoundary --> ComparisonInteractor
+ComparisonInteractor -> ComparisonOutputBoundary: prepareTabularView
+ComparisonOutputBoundary --> ComparisonInteractor
+ComparisonInteractor -> ComparisonOutputBoundary: prepareCurrentPriceViewView
+ComparisonOutputBoundary --> ComparisonInteractor
+
+ComparisonInteractor --> Actor
+
+
+@enduml
+
+
+@startuml
+autonumber
+actor Actor
+participant TwoStocksInteractor
+database API
+entity StockPrice
+entity Stock
+participant TwoStocksOutputData
+boundary TwoStocksOutputBoundary
+
+
+Actor -> TwoStocksInteractor : execute
+TwoStocksInteractor -> API : check symbol
+API --> TwoStocksInteractor
+TwoStocksInteractor -> API : historicalPrice
+API --> TwoStocksInteractor
+TwoStocksInteractor -> StockPrice : create
+StockPrice --> TwoStocksInteractor
+TwoStocksInteractor -> Stock: create
+Stock --> TwoStocksInteractor
+TwoStocksInteractor -> API: currentPrice
+API -> Stock: set currentPrice
+Stock --> TwoStocksInteractor
+TwoStocksInteractor ->  TwoStocksOutputData : create
+TwoStocksOutputData --> TwoStocksInteractor
+TwoStocksInteractor -> TwoStocksOutputBoundary: prepareGraphicView
+TwoStocksOutputBoundary --> TwoStocksInteractor
+TwoStocksInteractor -> TwoStocksOutputBoundary: prepareTabularView
+TwoStocksOutputBoundary --> TwoStocksInteractor
+TwoStocksInteractor -> TwoStocksOutputBoundary: prepareCurrentPriceView
+TwoStocksOutputBoundary --> TwoStocksInteractor
+TwoStocksInteractor --> Actor
+
+
+@enduml
+
+
+
