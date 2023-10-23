@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Actor
+participant SingleStockView
+participant SingleStockController
+boundary SingleStockInputBoundary
+
+
+Actor -> SingleStockView : input stock symbol
+SingleStockView -> SingleStockController : execute
+SingleStockController -> SingleStockInputBoundary : execute
+SingleStockInputBoundary --> SingleStockController
+SingleStockController --> SingleStockView
+
+
+
+
+
+@enduml
+
+@startuml
+autonumber
+actor Actor
+participant SingleStockInteractor
+database API
+
+entity StockPrice
+entity Stock
+participant SingleStockOutputData
+boundary OutputBoundary
+
+
+Actor -> SingleStockInteractor : execute
+SingleStockInteractor -> API : check symbol
+API --> SingleStockInteractor
+SingleStockInteractor -> API : historicalPrice
+API --> SingleStockInteractor
+SingleStockInteractor -> StockPrice : create
+StockPrice --> SingleStockInteractor
+SingleStockInteractor -> API: currentPrice
+API --> SingleStockInteractor
+SingleStockInteractor -> Stock: create
+Stock --> SingleStockInteractor
+SingleStockInteractor ->  SingleStockOutputData : create
+SingleStockOutputData --> SingleStockInteractor
+SingleStockInteractor -> OutputBoundary: prepareGraphicView
+OutputBoundary --> SingleStockInteractor
+SingleStockInteractor -> OutputBoundary: prepareTabularView
+OutputBoundary --> SingleStockInteractor
+@enduml
