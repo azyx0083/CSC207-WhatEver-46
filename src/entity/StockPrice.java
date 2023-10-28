@@ -1,13 +1,15 @@
 package entity;
 
 public class StockPrice {
+    private String date;
     private float high;
     private float low;
     private float open;
     private float close;
     private int volume;
 
-    public StockPrice(float high, float low, float open, float close, int volume) {
+    public StockPrice(String date, float high, float low, float open, float close, int volume) {
+        this.date = date;
         this.high = high;
         this.low = low;
         this.open = open;
@@ -21,6 +23,10 @@ public class StockPrice {
         this.open = open;
         this.close = close;
         this.volume = volume;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public float getHigh() {
