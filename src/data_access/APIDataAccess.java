@@ -11,7 +11,7 @@ import java.util.Map;
 public class APIDataAccess implements StockDataAccessInterface {
     final private String APIkey = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
 
-    private Map<String, float> timeSeries = new HashMap<String, Object>();
+    private Map<String, Object> timeSeries = new HashMap<String, Object>();
 
     private HttpResponse<String> response;
     public APIDataAccess(String stockSymbol, String interval) {
@@ -27,9 +27,11 @@ public class APIDataAccess implements StockDataAccessInterface {
             String[] keyValues = response.body().split("\n");
             String[] keys = keyValues[0].split(";");
             String[] values = keyValues[1].split(";");
-            for (int i = 0; i < 6; i++) {
+            timeSeries.put(keys[0], values[0]);
+            for (int i = 1; i < 5; i++) {
                 timeSeries.put(keys[i], Float.parseFloat(values[i]));
             }
+            timeSeries.put(keys[5], Integer.parseInt(values[5]));
         } catch (InterruptedException | IOException e) {
             System.out.println("not sure ngl haha fix later..?");
         }
@@ -38,6 +40,11 @@ public class APIDataAccess implements StockDataAccessInterface {
 
     @Override
     public StockPrice getStockPrice() {
-        return new StockPrice(timeSeries.get("high"), timeSeries.get("low"), timeSeries.get("open"), timeSeries.get("close"), (int)timeSeries.get("volume"));
+        return new StockPrice((String)timeSeries.get("datetime"),
+                (float)timeSeries.get("high"),
+                (float)timeSeries.get("low"),
+                (float)timeSeries.get("open"),
+                (float)timeSeries.get("close"),
+                (int)timeSeries.get("volume"));
     }
 }
