@@ -1,17 +1,20 @@
 package interface_adapter.single_stock;
 
-public class SingleStockState {
-    private String name = "";
-    private String symbol = "";
-    private String error = null;
+import entity.StockPrice;
+import entity.StockPriceDataset;
 
-    public SingleStockState(String name, String symbol, String error) {
+public class SingleStockGraphicalViewModel extends SingleStockViewModel{
+    private String name;
+    private String symbol;
+    private String error;
+    private StockPriceDataset data;
+
+    public SingleStockGraphicalViewModel(String name, String symbol, StockPriceDataset data) {
+        super();
         this.name = name;
         this.symbol = symbol;
-        this.error = error;
-    }
-
-    public SingleStockState() {
+        this.error = null;
+        this.data = data;
     }
 
     public String getError() {
@@ -36,5 +39,9 @@ public class SingleStockState {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public StockPriceDataset getData() {
+        return data;
     }
 }

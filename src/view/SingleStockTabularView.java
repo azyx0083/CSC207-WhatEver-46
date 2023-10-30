@@ -2,8 +2,7 @@ package view;
 
 import interface_adapter.menu.MenuController;
 import interface_adapter.single_stock.SingleStockController;
-import interface_adapter.single_stock.SingleStockState;
-import interface_adapter.single_stock.SingleStockTabularState;
+import interface_adapter.single_stock.SingleStockTabularViewModel;
 import interface_adapter.single_stock.SingleStockViewModel;
 
 import javax.swing.*;
@@ -16,13 +15,13 @@ import java.beans.PropertyChangeListener;
 public class SingleStockTabularView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Tabular";
 
-    private final SingleStockViewModel singleStockViewModel;
+    private final SingleStockTabularViewModel singleStockViewModel;
     private final SingleStockController singleStockController;
     private final MenuController menuController;
     private final JButton graphical;
     private final JButton menu;
 
-    public SingleStockTabularView(SingleStockViewModel singleStockViewModel,
+    public SingleStockTabularView(SingleStockTabularViewModel singleStockViewModel,
                                   SingleStockController singleStockController,
                                   MenuController menuController) {
         this.singleStockViewModel = singleStockViewModel;
@@ -30,13 +29,12 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         this.menuController = menuController;
         singleStockViewModel.addPropertyChangeListener(this);
 
-        SingleStockTabularState state = (SingleStockTabularState) singleStockViewModel.getSingleStockState();
 
-        JLabel title = new JLabel(state.getName());
+        JLabel title = new JLabel(singleStockViewModel.getName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel symbol = new JLabel(state.getSymbol());
+        JLabel symbol = new JLabel(singleStockViewModel.getSymbol());
 
-        JTable table = new JTable(state.getData(), state.getColumnNames());
+        JTable table = new JTable(singleStockViewModel.getData(), singleStockViewModel.getColumnNames());
 
         JPanel Buttons = new JPanel();
         menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
@@ -50,8 +48,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(graphical)) {
-                    SingleStockState currState = singleStockViewModel.getSingleStockState();
-                    singleStockController.execute(currState.getSymbol(), "graphical");
+                    singleStockController.execute(singleStockViewModel.getSymbol(), "graphical");
                 }
             }
         });

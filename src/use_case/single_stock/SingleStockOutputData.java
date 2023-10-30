@@ -8,11 +8,11 @@ public class SingleStockOutputData {
     private final Object[][] data;
     private final String[] columnNames;
 
-    public SingleStockOutputData(Stock stock) {
-        name = stock.getName();
-        symbol = stock.getSymbol();
-        data = stock.getHistoricalPrices();
-        columnNames = stock.getHistoricalDates();
+    public SingleStockOutputData(String name, String symbol, Object[][] data, String[] columnNames) {
+        this.name = name;
+        this.symbol = symbol;
+        this.data = data;
+        this.columnNames = columnNames;
     }
 
     public String getName() {

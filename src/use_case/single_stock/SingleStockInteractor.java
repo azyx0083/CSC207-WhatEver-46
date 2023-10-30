@@ -22,7 +22,8 @@ public class SingleStockInteractor implements SingleStockInputBoundary{
         }
         else {
             Stock stock = singleStockAPIDataAccessObject.getStockData(symbol);
-            SingleStockOutputData stockOutputData = new SingleStockOutputData(stock);
+            SingleStockOutputData stockOutputData = new SingleStockOutputData(stock.getName(),
+                    stock.getSymbol(), stock.getHistoricalPrices(), stock.getHistoricalDates());
             if (mode.equals("tabular")) {
                 singleStockPresenter.prepareTabularView(stockOutputData);
             }
