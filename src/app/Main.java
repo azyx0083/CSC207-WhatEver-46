@@ -1,17 +1,26 @@
 package app;
 
-import data_access.*;
-//TODO remove later; testing purposes only
+
+import  view.*;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        APIDataAccess api = new APIDataAccess("AMZN", "1day");
-        System.out.println(api.getStockPrice().getDate());
-        System.out.println(api.getStockPrice().getHigh());
-        System.out.println(api.getStockPrice().getLow());
-        System.out.println(api.getStockPrice().getVolume());
-        System.out.println(api.getStockPrice().getOpen());
-        System.out.println(api.getStockPrice().getClose());
-        //TODO also remove later; for testing
+        JFrame application = new JFrame("Single Stock Example");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+        SingleStockGraphicalView graphicalView = new SingleStockGraphicalView();
+        SingleStockTabularView tabularView = new SingleStockTabularView();
+        MenuView menuView = new MenuView();
+        views.add(graphicalView, graphicalView.viewName);
+        views.add(tabularView,tabularView.viewName);
+        views.add(menuView, menuView.viewName);
+        application.pack();
+        application.setVisible(true);
+
     }
 }
