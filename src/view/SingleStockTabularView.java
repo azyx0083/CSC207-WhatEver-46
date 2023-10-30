@@ -1,5 +1,6 @@
 package view;
 
+
 import interface_adapter.single_stock.SingleStockController;
 import interface_adapter.single_stock.SingleStockState;
 import interface_adapter.single_stock.SingleStockTabularState;
