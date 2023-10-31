@@ -8,12 +8,12 @@ import java.beans.PropertyChangeSupport;
 public class SingleStockViewModel extends ViewModel {
 
     public static final String MENU_BUTTON_LABEL = "Menu";
-    public static final String GRAPHICAL_BUTTON_LABEL = "Graphical Display";
+    public static final String GRAPHICAL_BUTTON_LABEL = "Graph";
 
-    public static final String TABULAR_BUTTON_LABEL = "Tabular Display";
+    public static final String TABULAR_BUTTON_LABEL = "Table";
 
     public SingleStockViewModel() {
-        super("tablular");
+        super("single stock");
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);

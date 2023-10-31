@@ -1,7 +1,7 @@
 package use_case.single_stock;
 
 public interface SingleStockOutputBoundary {
-    void prepareTabularView(SingleStockOutputData data);
-    void prepareGraphicalView(SingleStockOutputData data);
+    void prepareTabularView(SingleStockTabularOutputData data);
+    void prepareGraphicalView(SingleStockGraphicalOutputData data);
     void prepareFailedView(String error);
 }

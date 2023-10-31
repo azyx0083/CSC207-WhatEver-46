@@ -33,14 +33,15 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         JLabel title = new JLabel(singleStockViewModel.getName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel symbol = new JLabel(singleStockViewModel.getSymbol());
+        symbol.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTable table = new JTable(singleStockViewModel.getData(), singleStockViewModel.getColumnNames());
 
         JPanel Buttons = new JPanel();
-        menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
-        Buttons.add(menu);
         graphical = new JButton(SingleStockViewModel.GRAPHICAL_BUTTON_LABEL);
         Buttons.add(graphical);
+        menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
+        Buttons.add(menu);
 
         menu.addActionListener(null);
 
@@ -56,7 +57,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(symbol);
-        this.add(table);
+        this.add(new JScrollPane(table));
         this.add(Buttons);
 
     }

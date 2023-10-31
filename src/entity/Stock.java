@@ -5,13 +5,12 @@ import javax.management.ObjectName;
 public class Stock {
     private String name;
     private String symbol;
-    private float currentPrice;
     private StockPrice[] historicalPrice;
 
-    public Stock(String name, String symbol, float currentPrice) {
+    public Stock(String name, String symbol, StockPrice[] historicalPrice) {
         this.name = name;
         this.symbol = symbol;
-        this.currentPrice = currentPrice;
+        this.historicalPrice = historicalPrice;
     }
 
     public Object[][] getHistoricalPrices() {
@@ -53,7 +52,7 @@ public class Stock {
         return symbol;
     }
 
-    public float getCurrentPrice() {
-        return currentPrice;
+    public StockPrice[] getHistoricalPriceList() {
+        return historicalPrice;
     }
 }

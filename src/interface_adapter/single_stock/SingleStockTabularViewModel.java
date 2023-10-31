@@ -1,11 +1,15 @@
 package interface_adapter.single_stock;
 
 public class SingleStockTabularViewModel extends SingleStockViewModel{
-    private String name;
-    private String symbol;
-    private String error;
-    private Object[][] data;
-    private String[] columnNames;
+    private String name = "";
+    private String symbol = "";
+    private String error = null;
+    private Object[][] data = null;
+    private String[] columnNames = null;
+
+    public SingleStockTabularViewModel() {
+        super();
+    }
 
     public SingleStockTabularViewModel(String name, String symbol, Object[][] data, String[] columnNames) {
         super();

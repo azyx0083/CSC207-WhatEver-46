@@ -1,14 +1,12 @@
 package use_case.single_stock;
 
-import entity.Stock;
-
-public class SingleStockOutputData {
+public class SingleStockTabularOutputData {
     private final String name;
     private final String symbol;
     private final Object[][] data;
     private final String[] columnNames;
 
-    public SingleStockOutputData(String name, String symbol, Object[][] data, String[] columnNames) {
+    public SingleStockTabularOutputData(String name, String symbol, Object[][] data, String[] columnNames) {
         this.name = name;
         this.symbol = symbol;
         this.data = data;

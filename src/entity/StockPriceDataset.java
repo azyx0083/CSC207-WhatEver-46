@@ -8,15 +8,15 @@ import org.jfree.data.xy.OHLCDataset;
 import java.util.List;
 
 public class StockPriceDataset implements OHLCDataset{
-    private List<StockPrice> prices;
+    private StockPrice[] prices;
 
-    public StockPriceDataset(List<StockPrice> prices) {
+    public StockPriceDataset(StockPrice[] prices) {
         this.prices = prices;
     }
 
     @Override
     public Number getHigh(int i, int i1) {
-        return prices.get(i).getHigh();
+        return prices[i].getHigh();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getLow(int i, int i1) {
-        return prices.get(i).getLow();
+        return prices[i].getLow();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getOpen(int i, int i1) {
-        return prices.get(i).getOpen();
+        return prices[i].getOpen();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getClose(int i, int i1) {
-        return prices.get(i).getClose();
+        return prices[i].getClose();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getVolume(int i, int i1) {
-        return prices.get(i).getVolume();
+        return prices[i].getVolume();
     }
 
     @Override
