@@ -1,23 +1,15 @@
 package entity;
 
 public class StockPrice {
-    private String date;
-    private float high;
-    private float low;
-    private float open;
-    private float close;
-    private int volume;
+    private final String date;
+    private final float high;
+    private final float low;
+    private final float open;
+    private final float close;
+    private final int volume;
 
     public StockPrice(String date, float high, float low, float open, float close, int volume) {
         this.date = date;
-        this.high = high;
-        this.low = low;
-        this.open = open;
-        this.close = close;
-        this.volume = volume;
-    }
-
-    public void update(float high, float low, float open, float close, int volume) {
         this.high = high;
         this.low = low;
         this.open = open;

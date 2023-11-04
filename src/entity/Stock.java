@@ -5,12 +5,20 @@ import javax.management.ObjectName;
 public class Stock {
     private String name;
     private String symbol;
+    private String exchange;
+    private String currency;
+    private String country;
+    private String type;
+    private float currentPrice;
     private StockPrice[] historicalPrice;
 
-    public Stock(String name, String symbol, StockPrice[] historicalPrice) {
+    public Stock(String name, String symbol, String exchange, String currency, String country, String type) {
         this.name = name;
         this.symbol = symbol;
-        this.historicalPrice = historicalPrice;
+        this.exchange = exchange;
+        this.currency = currency;
+        this.country = country;
+        this.type = type;
     }
 
     public Object[][] getHistoricalPrices() {
@@ -48,11 +56,63 @@ public class Stock {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSymbol() {
         return symbol;
     }
 
-    public StockPrice[] getHistoricalPriceList() {
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public float getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(float currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+    public StockPrice[] getHistoricalPrice() {
         return historicalPrice;
+    }
+
+    public void setHistoricalPrice(StockPrice[] historicalPrice) {
+        this.historicalPrice = historicalPrice;
     }
 }
