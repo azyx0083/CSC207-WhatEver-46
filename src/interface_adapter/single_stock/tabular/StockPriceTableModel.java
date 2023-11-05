@@ -5,10 +5,10 @@ import org.jetbrains.annotations.Nls;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-public class StockTableModel implements TableModel {
+public class StockPriceTableModel implements TableModel {
     private final Object[][] data;
 
-    public StockTableModel(Object[][] data) {
+    public StockPriceTableModel(Object[][] data) {
         this.data = data;
     }
 

@@ -1,4 +1,4 @@
-package entity;
+package interface_adapter.single_stock.graphical;
 
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
@@ -8,15 +8,15 @@ import org.jfree.data.xy.OHLCDataset;
 import java.util.List;
 
 public class StockPriceDataset implements OHLCDataset{
-    private StockPrice[] prices;
+    private Object[][] data;
 
-    public StockPriceDataset(StockPrice[] prices) {
-        this.prices = prices;
+    public StockPriceDataset(Object[][] data) {
+        this.data = data;
     }
 
     @Override
     public Number getHigh(int i, int i1) {
-        return prices[i].getHigh();
+        return null;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getLow(int i, int i1) {
-        return prices[i].getLow();
+        return null;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getOpen(int i, int i1) {
-        return prices[i].getOpen();
+        return null;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getClose(int i, int i1) {
-        return prices[i].getClose();
+        return null;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class StockPriceDataset implements OHLCDataset{
 
     @Override
     public Number getVolume(int i, int i1) {
-        return prices[i].getVolume();
+        return null;
     }
 
     @Override
