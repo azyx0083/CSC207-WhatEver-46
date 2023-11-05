@@ -1,7 +1,6 @@
 package interface_adapter.single_stock.graphical;
 
 import interface_adapter.single_stock.SingleStockState;
-import interface_adapter.single_stock.tabular.StockPriceTableModel;
 
 public class SingleStockGraphicalState extends SingleStockState {
     private final StockPriceDataset data;
