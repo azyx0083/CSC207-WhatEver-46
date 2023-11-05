@@ -19,12 +19,10 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
     private final SingleStockTabularController singleStockController;
     private final MenuController menuController;
     private final JButton graphical;
-    private final JButton menu;
-    private final JPanel Buttons;
-    private JLabel title;
-    private JLabel currentPrice;
-    private JLabel detail;
-    private JTable table;
+    private final JLabel title;
+    private final JLabel currentPrice;
+    private final JLabel detail;
+    private final JTable table;
 
     public SingleStockTabularView(SingleStockViewModel singleStockViewModel,
                                   SingleStockTabularController singleStockController,
@@ -34,11 +32,11 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         this.menuController = menuController;
         singleStockViewModel.addPropertyChangeListener(this);
 
-        Buttons = new JPanel();
+        JPanel buttons = new JPanel();
         graphical = new JButton(SingleStockViewModel.GRAPHICAL_BUTTON_LABEL);
-        Buttons.add(graphical);
-        menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
-        Buttons.add(menu);
+        buttons.add(graphical);
+        JButton menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
+        buttons.add(menu);
 
         title = new JLabel();
         title.setFont(new Font("Serif", Font.BOLD, 18));
@@ -54,12 +52,9 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
 
         menu.addActionListener(null);
 
-        graphical.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(graphical)) {
-                    singleStockController.execute();
-                }
+        graphical.addActionListener(e -> {
+            if (e.getSource().equals(graphical)) {
+                singleStockController.execute();
             }
         });
 
@@ -68,14 +63,13 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         this.add(currentPrice);
         this.add(detail);
         this.add(new JScrollPane(table));
-        this.add(Buttons);
+        this.add(buttons);
 
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
-        SingleStockTabularState state = (SingleStockTabularState) singleStockViewModel.getState();
+        SingleStockTabularState state = (SingleStockTabularState) evt.getNewValue();
 
         title.setText(state.getTitle());
         currentPrice.setText(state.getCurrentPrice());

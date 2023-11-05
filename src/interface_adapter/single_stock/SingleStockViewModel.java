@@ -24,7 +24,7 @@ public class SingleStockViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("error", null, this);
+        support.firePropertyChange("state", null, this.state);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

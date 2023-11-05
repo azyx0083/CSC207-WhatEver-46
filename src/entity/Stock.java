@@ -43,7 +43,7 @@ public class Stock {
             high[i] = historicalPrice[i - 1].getHigh();
             volume[i] = historicalPrice[i - 1].getVolume();
         }
-        return new Object[][]{date, open, close, low, high, volume};
+        return new Object[][]{date, open, high, low, close, volume};
     }
 
     public String getName() {
