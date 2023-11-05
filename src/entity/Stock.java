@@ -22,28 +22,15 @@ public class Stock {
     public Object[][] getHistoricalPrices() {
         int length = historicalPrice.length + 1;
 
-        Object[] date = new Object[length];
-        date[0] = " ";
-        Object[] open = new Object[length];
-        open[0] = "open price";
-        Object[] close = new Object[length];
-        close[0] = "close price";
-        Object[] low = new Object[length];
-        low[0] = "low price";
-        Object[] high = new Object[length];
-        high[0] = "high price";
-        Object[] volume = new Object[length];
-        volume[0] = "volume";
+        Object[][] data = new Object[length][6];
+        data[0] = new String[]{"Date", "Open", "High", "Low", "Close", "Volume"};
 
-        for (int i = 1; i <= historicalPrice.length; i++) {
-            date[i] = historicalPrice[i - 1].getDate();
-            open[i] = historicalPrice[i - 1].getOpen();
-            close[i] = historicalPrice[i - 1].getClose();
-            low[i] = historicalPrice[i - 1].getLow();
-            high[i] = historicalPrice[i - 1].getHigh();
-            volume[i] = historicalPrice[i - 1].getVolume();
+        for (int i = 0; i < historicalPrice.length; i++) {
+            StockPrice price = historicalPrice[i];
+            data[i+1] = new Object[]{price.getDate(), price.getOpen(), price.getHigh(),
+                    price.getLow(), price.getClose(), price.getVolume()};
         }
-        return new Object[][]{date, open, high, low, close, volume};
+        return data;
     }
 
     public String getName() {
