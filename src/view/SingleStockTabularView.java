@@ -1,8 +1,8 @@
 package view;
 
 import interface_adapter.menu.MenuController;
-import interface_adapter.single_stock.SingleStockController;
-import interface_adapter.single_stock.SingleStockTabularViewModel;
+import interface_adapter.single_stock.tabular.SingleStockTabularController;
+import interface_adapter.single_stock.tabular.SingleStockTabularState;
 import interface_adapter.single_stock.SingleStockViewModel;
 
 import javax.swing.*;
@@ -13,35 +13,44 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SingleStockTabularView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "Tabular";
+    public final String viewName = "tabular";
 
-    private final SingleStockTabularViewModel singleStockViewModel;
-    private final SingleStockController singleStockController;
+    private final SingleStockViewModel singleStockViewModel;
+    private final SingleStockTabularController singleStockController;
     private final MenuController menuController;
     private final JButton graphical;
     private final JButton menu;
+    private final JPanel Buttons;
+    private JLabel title;
+    private JLabel currentPrice;
+    private JLabel detail;
+    private JTable table;
 
-    public SingleStockTabularView(SingleStockTabularViewModel singleStockViewModel,
-                                  SingleStockController singleStockController,
+    public SingleStockTabularView(SingleStockViewModel singleStockViewModel,
+                                  SingleStockTabularController singleStockController,
                                   MenuController menuController) {
         this.singleStockViewModel = singleStockViewModel;
         this.singleStockController = singleStockController;
         this.menuController = menuController;
         singleStockViewModel.addPropertyChangeListener(this);
 
-
-        JLabel title = new JLabel(singleStockViewModel.getName());
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel symbol = new JLabel(singleStockViewModel.getSymbol());
-        symbol.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JTable table = new JTable(singleStockViewModel.getData(), singleStockViewModel.getColumnNames());
-
-        JPanel Buttons = new JPanel();
+        Buttons = new JPanel();
         graphical = new JButton(SingleStockViewModel.GRAPHICAL_BUTTON_LABEL);
         Buttons.add(graphical);
         menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
         Buttons.add(menu);
+
+        title = new JLabel();
+        title.setFont(new Font("Serif", Font.BOLD, 18));
+        title.setAlignmentX(CENTER_ALIGNMENT);
+        currentPrice = new JLabel();
+        currentPrice.setFont(new Font("Serif", Font.BOLD, 20));
+        currentPrice.setAlignmentX(CENTER_ALIGNMENT);
+        detail = new JLabel();
+        detail.setFont(new Font("Serif", Font.PLAIN, 14));
+        detail.setAlignmentX(CENTER_ALIGNMENT);
+
+        table = new JTable();
 
         menu.addActionListener(null);
 
@@ -49,14 +58,15 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(graphical)) {
-                    singleStockController.execute(singleStockViewModel.getSymbol(), "graphical");
+                    singleStockController.execute();
                 }
             }
         });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
-        this.add(symbol);
+        this.add(currentPrice);
+        this.add(detail);
         this.add(new JScrollPane(table));
         this.add(Buttons);
 
@@ -64,10 +74,19 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+        SingleStockTabularState state = (SingleStockTabularState) singleStockViewModel.getState();
+
+        title.setText(state.getTitle());
+        currentPrice.setText(state.getCurrentPrice());
+        detail.setText(state.getDetail());
+
+        table.setModel(state.getData());
+
+        this.repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 }
