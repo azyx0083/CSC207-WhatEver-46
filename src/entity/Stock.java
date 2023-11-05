@@ -1,7 +1,5 @@
 package entity;
 
-import javax.management.ObjectName;
-
 public class Stock {
     private String name;
     private String symbol;
@@ -22,34 +20,30 @@ public class Stock {
     }
 
     public Object[][] getHistoricalPrices() {
-        Object[] open = new Object[historicalPrice.length + 1];
+        int length = historicalPrice.length + 1;
+
+        Object[] date = new Object[length];
+        date[0] = " ";
+        Object[] open = new Object[length];
         open[0] = "open price";
-        Object[] close = new Object[historicalPrice.length + 1];
+        Object[] close = new Object[length];
         close[0] = "close price";
-        Object[] low = new Object[historicalPrice.length + 1];
+        Object[] low = new Object[length];
         low[0] = "low price";
-        Object[] high = new Object[historicalPrice.length + 1];
+        Object[] high = new Object[length];
         high[0] = "high price";
-        Object[] volume = new Object[historicalPrice.length + 1];
+        Object[] volume = new Object[length];
         volume[0] = "volume";
 
         for (int i = 1; i <= historicalPrice.length; i++) {
+            date[i] = historicalPrice[i - 1].getDate();
             open[i] = historicalPrice[i - 1].getOpen();
             close[i] = historicalPrice[i - 1].getClose();
             low[i] = historicalPrice[i - 1].getLow();
             high[i] = historicalPrice[i - 1].getHigh();
             volume[i] = historicalPrice[i - 1].getVolume();
         }
-        return new Object[][]{open, close, low, high, volume};
-    }
-
-    public String[] getHistoricalDates() {
-        String[] dates = new String[historicalPrice.length + 1];
-        dates[0] = "";
-        for (int i = 1; i <= historicalPrice.length; i++) {
-            dates[i] = historicalPrice[i-1].getDate();
-        }
-        return dates;
+        return new Object[][]{date, open, close, low, high, volume};
     }
 
     public String getName() {
@@ -106,10 +100,6 @@ public class Stock {
 
     public void setCurrentPrice(float currentPrice) {
         this.currentPrice = currentPrice;
-    }
-
-    public StockPrice[] getHistoricalPrice() {
-        return historicalPrice;
     }
 
     public void setHistoricalPrice(StockPrice[] historicalPrice) {

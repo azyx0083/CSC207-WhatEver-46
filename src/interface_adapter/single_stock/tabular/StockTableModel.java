@@ -6,7 +6,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 public class StockTableModel implements TableModel {
-    private Object[][] data;
+    private final Object[][] data;
 
     public StockTableModel(Object[][] data) {
         this.data = data;
