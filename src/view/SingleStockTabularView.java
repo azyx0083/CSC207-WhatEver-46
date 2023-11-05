@@ -39,16 +39,18 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         buttons.add(menu);
 
         title = new JLabel();
-        title.setFont(new Font("Serif", Font.BOLD, 18));
+        title.setFont(SingleStockViewModel.font1);
         title.setAlignmentX(CENTER_ALIGNMENT);
         currentPrice = new JLabel();
-        currentPrice.setFont(new Font("Serif", Font.BOLD, 20));
+        currentPrice.setFont(SingleStockViewModel.font2);
         currentPrice.setAlignmentX(CENTER_ALIGNMENT);
         detail = new JLabel();
-        detail.setFont(new Font("Serif", Font.PLAIN, 14));
+        detail.setFont(SingleStockViewModel.font3);
         detail.setAlignmentX(CENTER_ALIGNMENT);
 
         table = new JTable();
+        JScrollPane tableScroll = new JScrollPane(table);
+        tableScroll.setPreferredSize(new Dimension(0, 180));
 
         menu.addActionListener(null);
 
@@ -59,10 +61,13 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.add(title);
         this.add(currentPrice);
         this.add(detail);
-        this.add(new JScrollPane(table));
+        this.add(Box.createRigidArea(new Dimension(0, 20)));
+        this.add(tableScroll);
+        this.add(Box.createGlue());
         this.add(buttons);
 
     }
@@ -74,6 +79,8 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         title.setText(state.getTitle());
         currentPrice.setText(state.getCurrentPrice());
         detail.setText(state.getDetail());
+
+
 
         table.setModel(state.getData());
 
