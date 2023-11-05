@@ -14,7 +14,7 @@ public class StockPriceTableModel implements TableModel {
 
     @Override
     public int getRowCount() {
-        return data.length;
+        return data.length - 1;
     }
 
     @Override
@@ -40,12 +40,12 @@ public class StockPriceTableModel implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return data[rowIndex][columnIndex];
+        return data[rowIndex + 1][columnIndex];
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        data[rowIndex][columnIndex] = aValue;
+        data[rowIndex + 1][columnIndex] = aValue;
     }
 
     @Override
