@@ -1,11 +1,11 @@
 package interface_adapter.single_stock.tabular;
 
-import use_case.single_stock.tabular.SingleStockTabularInputBoundary;
+import use_case.single_stock.SingleStockInputBoundary;
 
 public class SingleStockTabularController {
-    SingleStockTabularInputBoundary singleStockTabularUseCaseInteractor;
+    SingleStockInputBoundary singleStockTabularUseCaseInteractor;
 
-    public SingleStockTabularController(SingleStockTabularInputBoundary singleStockUseCaseInteractor) {
+    public SingleStockTabularController(SingleStockInputBoundary singleStockUseCaseInteractor) {
         this.singleStockTabularUseCaseInteractor = singleStockUseCaseInteractor;
     }
 

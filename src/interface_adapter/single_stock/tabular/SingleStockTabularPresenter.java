@@ -2,12 +2,12 @@ package interface_adapter.single_stock.tabular;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.single_stock.SingleStockViewModel;
-import use_case.single_stock.tabular.SingleStockTabularOutputBoundary;
-import use_case.single_stock.tabular.SingleStockTabularOutputData;
+import use_case.single_stock.SingleStockOutputBoundary;
+import use_case.single_stock.SingleStockOutputData;
 
-public class SingleStockTabularPresenter implements SingleStockTabularOutputBoundary {
-    private SingleStockViewModel singleStockViewModel;
-    private ViewManagerModel viewManagerModel;
+public class SingleStockTabularPresenter implements SingleStockOutputBoundary {
+    private final SingleStockViewModel singleStockViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     public SingleStockTabularPresenter(SingleStockViewModel singleStockViewModel, ViewManagerModel viewManagerModel) {
         this.singleStockViewModel = singleStockViewModel;
@@ -15,7 +15,7 @@ public class SingleStockTabularPresenter implements SingleStockTabularOutputBoun
     }
 
     @Override
-    public void prepareView(SingleStockTabularOutputData data) {
+    public void prepareView(SingleStockOutputData data) {
         SingleStockTabularState state = new SingleStockTabularState(data.getTitle(),
                 data.getCurrentPrice(), data.getDetails(), data.getData());
         singleStockViewModel.setState(state);

@@ -1,11 +1,11 @@
 package interface_adapter.single_stock.graphical;
 
-import use_case.single_stock.graphical.SingleStockGraphicalInputBoundary;
+import use_case.single_stock.SingleStockInputBoundary;
 
 public class SingleStockGraphicalController {
-    private final SingleStockGraphicalInputBoundary singleStockGraphicalInteractor;
+    private final SingleStockInputBoundary singleStockGraphicalInteractor;
 
-    public SingleStockGraphicalController(SingleStockGraphicalInputBoundary singleStockGraphicalInteractor) {
+    public SingleStockGraphicalController(SingleStockInputBoundary singleStockGraphicalInteractor) {
         this.singleStockGraphicalInteractor = singleStockGraphicalInteractor;
     }
 

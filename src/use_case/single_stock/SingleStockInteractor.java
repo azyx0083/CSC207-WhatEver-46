@@ -1,14 +1,13 @@
-package use_case.single_stock.tabular;
+package use_case.single_stock;
 
 import entity.Stock;
-import use_case.single_stock.SingleStockAPIDataAccessInterface;
 
-public class SingleStockTabularInteractor implements SingleStockTabularInputBoundary {
-    private final SingleStockTabularOutputBoundary singleStockPresenter;
+public class SingleStockInteractor implements SingleStockInputBoundary {
+    private final SingleStockOutputBoundary singleStockPresenter;
     private final SingleStockAPIDataAccessInterface singleStockAPIDataAccessObject;
 
-    public SingleStockTabularInteractor(SingleStockTabularOutputBoundary singleStockPresenter,
-                                        SingleStockAPIDataAccessInterface singleStockAPIDataAccessObject) {
+    public SingleStockInteractor(SingleStockOutputBoundary singleStockPresenter,
+                                 SingleStockAPIDataAccessInterface singleStockAPIDataAccessObject) {
         this.singleStockPresenter = singleStockPresenter;
         this.singleStockAPIDataAccessObject = singleStockAPIDataAccessObject;
     }
@@ -17,7 +16,7 @@ public class SingleStockTabularInteractor implements SingleStockTabularInputBoun
     @Override
     public void execute() {
         Stock stock = singleStockAPIDataAccessObject.getStock();
-        SingleStockTabularOutputData stockOutputData = new SingleStockTabularOutputData(stock.getName(),
+        SingleStockOutputData stockOutputData = new SingleStockOutputData(stock.getName(),
                 stock.getSymbol(), stock.getCurrentPrice(), stock.getCurrency(), stock.getExchange(),
                 stock.getCountry(), stock.getType(), stock.getHistoricalPrices());
         singleStockPresenter.prepareView(stockOutputData);
