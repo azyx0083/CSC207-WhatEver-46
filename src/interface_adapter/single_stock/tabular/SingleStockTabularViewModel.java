@@ -1,24 +1,20 @@
-package interface_adapter.single_stock;
+package interface_adapter.single_stock.tabular;
 
 import interface_adapter.ViewModel;
+import interface_adapter.single_stock.SingleStockState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class SingleStockViewModel extends ViewModel {
-
+public class SingleStockTabularViewModel extends ViewModel {
     public static final String MENU_BUTTON_LABEL = "Menu";
     public static final String GRAPHICAL_BUTTON_LABEL = "Graph";
 
-    public static final String TABULAR_BUTTON_LABEL = "Table";
+    private SingleStockTabularState state;
 
-    private SingleStockState state;
-
-    public SingleStockViewModel() {
-        super("single stock");
+    public SingleStockTabularViewModel() {
+        super("tabular");
     }
-
-    public SingleStockViewModel(String viewName) {super(viewName);}
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -35,7 +31,7 @@ public class SingleStockViewModel extends ViewModel {
         return state;
     }
 
-    public void setState(SingleStockState state) {
+    public void setState(SingleStockTabularState state) {
         this.state = state;
     }
 }

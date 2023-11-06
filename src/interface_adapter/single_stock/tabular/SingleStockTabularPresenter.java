@@ -1,15 +1,14 @@
 package interface_adapter.single_stock.tabular;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.single_stock.SingleStockViewModel;
 import use_case.single_stock.SingleStockOutputBoundary;
 import use_case.single_stock.SingleStockOutputData;
 
 public class SingleStockTabularPresenter implements SingleStockOutputBoundary {
-    private final SingleStockViewModel singleStockViewModel;
+    private final SingleStockTabularViewModel singleStockViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public SingleStockTabularPresenter(SingleStockViewModel singleStockViewModel, ViewManagerModel viewManagerModel) {
+    public SingleStockTabularPresenter(SingleStockTabularViewModel singleStockViewModel, ViewManagerModel viewManagerModel) {
         this.singleStockViewModel = singleStockViewModel;
         this.viewManagerModel = viewManagerModel;
     }
@@ -20,7 +19,7 @@ public class SingleStockTabularPresenter implements SingleStockOutputBoundary {
                 data.getCurrentPrice(), data.getDetails(), data.getData());
         singleStockViewModel.setState(state);
         singleStockViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView("tabular");
+        viewManagerModel.setActiveView(singleStockViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

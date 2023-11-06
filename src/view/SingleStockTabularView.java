@@ -1,9 +1,9 @@
 package view;
 
 import interface_adapter.menu.MenuController;
-import interface_adapter.single_stock.tabular.SingleStockTabularController;
+import interface_adapter.single_stock.graphical.SingleStockGraphicalController;
+import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularState;
-import interface_adapter.single_stock.SingleStockViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,17 +15,18 @@ import java.beans.PropertyChangeListener;
 public class SingleStockTabularView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "tabular";
 
-    private final SingleStockViewModel singleStockViewModel;
-    private final SingleStockTabularController singleStockController;
+    private final SingleStockTabularViewModel singleStockViewModel;
+    private final SingleStockGraphicalController singleStockController;
     private final MenuController menuController;
     private final JButton graphical;
+    private final JButton menu;
     private final JLabel title;
     private final JLabel currentPrice;
     private final JLabel detail;
     private final JTable table;
 
-    public SingleStockTabularView(SingleStockViewModel singleStockViewModel,
-                                  SingleStockTabularController singleStockController,
+    public SingleStockTabularView(SingleStockTabularViewModel singleStockViewModel,
+                                  SingleStockGraphicalController singleStockController,
                                   MenuController menuController) {
         this.singleStockViewModel = singleStockViewModel;
         this.singleStockController = singleStockController;
@@ -33,26 +34,32 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         singleStockViewModel.addPropertyChangeListener(this);
 
         JPanel buttons = new JPanel();
-        graphical = new JButton(SingleStockViewModel.GRAPHICAL_BUTTON_LABEL);
+        graphical = new JButton(SingleStockTabularViewModel.GRAPHICAL_BUTTON_LABEL);
         buttons.add(graphical);
-        JButton menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
+        menu = new JButton(SingleStockTabularViewModel.MENU_BUTTON_LABEL);
         buttons.add(menu);
 
         title = new JLabel();
-        title.setFont(SingleStockViewModel.font1);
+        title.setFont(SingleStockTabularViewModel.font1);
         title.setAlignmentX(CENTER_ALIGNMENT);
         currentPrice = new JLabel();
-        currentPrice.setFont(SingleStockViewModel.font2);
+        currentPrice.setFont(SingleStockTabularViewModel.font2);
         currentPrice.setAlignmentX(CENTER_ALIGNMENT);
         detail = new JLabel();
-        detail.setFont(SingleStockViewModel.font3);
+        detail.setFont(SingleStockTabularViewModel.font3);
         detail.setAlignmentX(CENTER_ALIGNMENT);
 
         table = new JTable();
         JScrollPane tableScroll = new JScrollPane(table);
         tableScroll.setPreferredSize(new Dimension(0, 180));
 
-        menu.addActionListener(null);
+        menu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(menu))
+                    menuController.execute();
+            }
+        });
 
         graphical.addActionListener(e -> {
             if (e.getSource().equals(graphical)) {
@@ -79,8 +86,6 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         title.setText(state.getTitle());
         currentPrice.setText(state.getCurrentPrice());
         detail.setText(state.getDetail());
-
-
 
         table.setModel(state.getData());
 
