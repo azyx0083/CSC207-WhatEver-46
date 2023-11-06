@@ -2,10 +2,12 @@ package interface_adapter.single_stock.tabular;
 
 import interface_adapter.single_stock.SingleStockState;
 
+import java.util.HashMap;
+
 public class SingleStockTabularState extends SingleStockState {
     private final StockPriceTableModel data;
 
-    public SingleStockTabularState(String title, String currentPrice, String detail, Object[][] data) {
+    public SingleStockTabularState(String title, String currentPrice, String detail, HashMap<String, Object[]> data) {
         super(title, currentPrice, detail);
         this.data = new StockPriceTableModel(data);
     }

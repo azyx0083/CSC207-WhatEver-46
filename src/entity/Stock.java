@@ -1,5 +1,8 @@
 package entity;
 
+import java.util.HashMap;
+import java.util.Hashtable;
+
 public class Stock {
     private String name;
     private String symbol;
@@ -19,16 +22,26 @@ public class Stock {
         this.type = type;
     }
 
-    public Object[][] getHistoricalPrices() {
-        int length = historicalPrice.length + 1;
+    public HashMap<String, Object[]> getHistoricalPrices() {
+        int length = historicalPrice.length;
 
-        Object[][] data = new Object[length][6];
-        data[0] = new String[]{"Date", "Open", "High", "Low", "Close", "Volume"};
+        HashMap<String, Object[]> data = new HashMap<>();
+        data.put("date", new String[length]);
+        data.put("open", new Float[length]);
+        data.put("close", new Float[length]);
+        data.put("high", new Float[length]);
+        data.put("low", new Float[length]);
+        data.put("volume", new Integer[length]);
 
         for (int i = 0; i < historicalPrice.length; i++) {
             StockPrice price = historicalPrice[i];
-            data[i+1] = new Object[]{price.getDate(), price.getOpen(), price.getHigh(),
-                    price.getLow(), price.getClose(), price.getVolume()};
+            data.get("date")[i] = price.getDate();
+            data.get("open")[i] = price.getOpen();
+            data.get("close")[i] = price.getClose();
+            data.get("high")[i] = price.getHigh();
+            data.get("low")[i] = price.getLow();
+            data.get("volume")[i] = price.getVolume();
+
         }
         return data;
     }

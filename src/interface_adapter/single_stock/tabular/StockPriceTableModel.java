@@ -4,33 +4,35 @@ import org.jetbrains.annotations.Nls;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import java.util.HashMap;
 
 public class StockPriceTableModel implements TableModel {
-    private final Object[][] data;
+    private final HashMap<String, Object[]> data;
+    private final String[] columnNames = new String[]{"date", "open", "high", "low", "close", "volume"};
 
-    public StockPriceTableModel(Object[][] data) {
+    public StockPriceTableModel(HashMap<String, Object[]> data) {
         this.data = data;
     }
 
     @Override
     public int getRowCount() {
-        return data.length - 1;
+        return data.get(columnNames[1]).length;
     }
 
     @Override
     public int getColumnCount() {
-        return data[0].length;
+        return columnNames.length;
     }
 
     @Nls
     @Override
     public String getColumnName(int columnIndex) {
-        return (String) data[0][columnIndex];
+        return columnNames[columnIndex];
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return data[0][columnIndex].getClass();
+        return columnNames[columnIndex].getClass();
     }
 
     @Override
@@ -40,12 +42,13 @@ public class StockPriceTableModel implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return data[rowIndex + 1][columnIndex];
+        return data.get(columnNames[columnIndex])[rowIndex];
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        data[rowIndex + 1][columnIndex] = aValue;
+        if (isCellEditable(rowIndex, columnIndex))
+            data.get(columnNames[columnIndex])[rowIndex] = aValue;
     }
 
     @Override
