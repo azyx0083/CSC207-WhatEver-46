@@ -9,7 +9,6 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -55,14 +54,14 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
                 return null;
 
             } else {
-                return String.format("%s is not a valid symbol. Please try again.", symbol);
+                return String.format("%s is not a valid symbol. Please enter a correct stock symbol.", symbol);
             }
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            return "Frequent request. Please try again later.";
         }
     }
 
-    private void setInfo(String symbol, String exchange) {
+    private void setInfo(String symbol, String exchange) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
@@ -73,28 +72,25 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
                 .addHeader("X-RapidAPI-Key", APIkey)
                 .addHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com")
                 .build();
-        try {
-            Response response = client.newCall(request).execute();
-            assert response.body() != null;
-            JSONObject responseBody = new JSONObject(response.body().string());
 
-            if (responseBody.getString("status").equals("ok")) {
-                JSONArray data = responseBody.getJSONArray("data");
-                JSONObject info = data.getJSONObject(0);
-                String name = info.getString("name");
-                String currency = info.getString("currency");
-                String country = info.getString("country");
-                String type = info.getString("type");
-                stock = new Stock(name, symbol, exchange, currency, country, type);
-            } else {
-                throw new RuntimeException(responseBody.getString("message"));
-            }
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
+        Response response = client.newCall(request).execute();
+        assert response.body() != null;
+        JSONObject responseBody = new JSONObject(response.body().string());
+
+        if (responseBody.has("data")) {
+            JSONArray data = responseBody.getJSONArray("data");
+            JSONObject info = data.getJSONObject(0);
+            String name = info.getString("name");
+            String currency = info.getString("currency");
+            String country = info.getString("country");
+            String type = info.getString("type");
+            stock = new Stock(name, symbol, exchange, currency, country, type);
+        } else {
+            throw new IOException(responseBody.getString("message"));
         }
     }
 
-    private void setCurrentPrice(String symbol) {
+    private void setCurrentPrice(String symbol) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
@@ -105,15 +101,15 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
                 .addHeader("X-RapidAPI-Key", APIkey)
                 .addHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com")
                 .build();
-        try {
-            Response response = client.newCall(request).execute();
-            assert response.body() != null;
-            JSONObject responseBody = new JSONObject(response.body().string());
+        Response response = client.newCall(request).execute();
+        assert response.body() != null;
+        JSONObject responseBody = new JSONObject(response.body().string());
+        if (responseBody.has("price")) {
             float price = responseBody.getFloat("price");
             stock.setCurrentPrice(price);
 
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
+        } else {
+            throw new IOException(responseBody.getString("message"));
         }
     }
 
