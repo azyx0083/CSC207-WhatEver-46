@@ -7,8 +7,8 @@ import java.util.HashMap;
 public class SingleStockTabularState extends SingleStockState {
     private final StockPriceTableModel data;
 
-    public SingleStockTabularState(String title, String currentPrice, String detail, HashMap<String, Object[]> data) {
-        super(title, currentPrice, detail);
+    public SingleStockTabularState(String symbol, String title, String currentPrice, String detail, HashMap<String, Object[]> data) {
+        super(symbol, title, currentPrice, detail);
         this.data = new StockPriceTableModel(data);
     }
 

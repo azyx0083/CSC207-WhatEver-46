@@ -15,7 +15,7 @@ public class SingleStockTabularPresenter implements SingleStockOutputBoundary {
 
     @Override
     public void prepareView(SingleStockOutputData data) {
-        SingleStockTabularState state = new SingleStockTabularState(data.getTitle(),
+        SingleStockTabularState state = new SingleStockTabularState(data.getSymbol(), data.getTitle(),
                 data.getCurrentPrice(), data.getDetails(), data.getData());
         singleStockViewModel.setState(state);
         singleStockViewModel.firePropertyChanged();

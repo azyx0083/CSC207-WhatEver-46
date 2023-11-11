@@ -9,7 +9,7 @@ public class SingleStockTabularController {
         this.singleStockTabularUseCaseInteractor = singleStockUseCaseInteractor;
     }
 
-    public void execute() {
-        singleStockTabularUseCaseInteractor.execute();
+    public void execute(String symbol) {
+        singleStockTabularUseCaseInteractor.execute(symbol);
     }
 }

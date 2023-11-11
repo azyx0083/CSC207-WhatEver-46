@@ -9,7 +9,7 @@ public class SingleStockGraphicalController {
         this.singleStockGraphicalInteractor = singleStockGraphicalInteractor;
     }
 
-    public void execute() {
-        singleStockGraphicalInteractor.execute();
+    public void execute(String symbol) {
+        singleStockGraphicalInteractor.execute(symbol);
     }
 }

@@ -3,6 +3,7 @@ package use_case.single_stock;
 import java.util.HashMap;
 
 public class SingleStockOutputData {
+    private final String symbol;
     private final String title;
     private final String currentPrice;
     private final String details;
@@ -12,6 +13,7 @@ public class SingleStockOutputData {
     public SingleStockOutputData(String name, String symbol, float currentPrice,
                                  String currency, String exchange, String country, String type,
                                  HashMap<String, Object[]> data) {
+        this.symbol = symbol;
         this.title = String.format("%s-%s", symbol, name);
         this.currentPrice = String.format("%s %s", currentPrice, currency);
         this.details = String.format("%s | %s | %s", exchange, country, type);
@@ -32,5 +34,9 @@ public class SingleStockOutputData {
 
     public HashMap<String, Object[]> getData() {
         return data;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }
