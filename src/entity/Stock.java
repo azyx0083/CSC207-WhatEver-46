@@ -2,9 +2,12 @@ package entity;
 
 import java.util.HashMap;
 
+/**
+ * Represent a stock.
+ */
 public class Stock {
     private String name;
-    private String symbol;
+    private final String symbol;
     private String exchange;
     private String currency;
     private String country;
@@ -12,15 +15,36 @@ public class Stock {
     private float currentPrice;
     private StockPrice[] historicalPrice;
 
-    public Stock(String name, String symbol, String exchange, String currency, String country, String type) {
-        this.name = name;
+    /**
+     * Initializing a stock with given stock symbol.
+     * @param symbol the stock's symbol all capitalized in String.
+     */
+    public Stock(String symbol) {
         this.symbol = symbol;
-        this.exchange = exchange;
+    }
+
+    /**
+     * Set the name, currency, country and type for the current stock.
+     * @param name the stock's official name in String
+     * @param currency the stock's currency in current stock market exchange in String
+     * @param country the country for the current stock in String
+     * @param type the type of the stock in String, eg: "common stock"
+     */
+    public void setInfo(String name, String currency, String country, String type) {
+        this.name = name;
         this.currency = currency;
         this.country = country;
         this.type = type;
     }
 
+    /**
+     *
+     * @return the historicalPrice of current stock in the form of HashMap. The key value pairs are: "date" and String[]
+     * with dates in the form yyyy-MM-dd; "open" and Float[] with open prices correspond to each date; "close" and
+     * Float[] with close price correspond to each date; "high" and Float[] with high price correspond to each date;
+     * "low" and Float[] with low price correspond to each date; "volume" and Integer[] with volume amount correspond
+     * to each date.
+     */
     public HashMap<String, Object[]> getHistoricalPrices() {
         int length = historicalPrice.length;
 
@@ -45,62 +69,82 @@ public class Stock {
         return data;
     }
 
+    /**
+     *
+     * @return the stock name
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     *
+     * @return the stock symbol
+     */
     public String getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
+    /**
+     *
+     * @return the stock market exchange for the current stock
+     */
     public String getExchange() {
         return exchange;
     }
 
+    /**
+     * Set the stock market exchange for the current stock
+     * @param exchange a valid stock market exchange in String
+     */
     public void setExchange(String exchange) {
         this.exchange = exchange;
     }
 
+    /**
+     *
+     * @return the currency for the current stock
+     */
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
+    /**
+     *
+     * @return the country for the current stock
+     */
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
+    /**
+     *
+     * @return the stock type
+     */
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    /**
+     *
+     * @return the real time price of the current stock
+     */
     public float getCurrentPrice() {
         return currentPrice;
     }
 
+    /**
+     * Set the real time price for the current stock
+     * @param currentPrice the real time price of the current stock in float
+     */
     public void setCurrentPrice(float currentPrice) {
         this.currentPrice = currentPrice;
     }
 
+    /**
+     * Set the historical prices for the current stock
+     * @param historicalPrice the historical prices of the current price in StockPrice[]
+     */
     public void setHistoricalPrice(StockPrice[] historicalPrice) {
         this.historicalPrice = historicalPrice;
     }
