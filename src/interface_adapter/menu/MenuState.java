@@ -1,2 +1,4 @@
-package interface_adapter.menu;public class MenuState {
+package interface_adapter.menu;
+
+public class MenuState {
 }

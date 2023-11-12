@@ -1,8 +1,9 @@
 package use_case.menu;
 
-public class MenuInputData implements MenuInputBoundary{
-    @Override
-    public void execute(MenuInputData menuInputData) {
+public class MenuInputData{
+    final private String stockSymbol;
 
+    public MenuInputData(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
     }
 }
