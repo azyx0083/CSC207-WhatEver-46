@@ -19,7 +19,7 @@ public class Main {
 
         SingleStockGraphicalView graphicalView = new SingleStockGraphicalView();
         SingleStockTabularView tabularView = new SingleStockTabularView();
-        MenuView menuView = new MenuView();
+        //MenuView menuView = new MenuView(); TODO fix
 
         views.add(graphicalView, graphicalView.viewName);
         views.add(tabularView,tabularView.viewName);
