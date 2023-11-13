@@ -5,8 +5,7 @@ import use_case.menu.*;
 
 public class MenuController{
     public void executeStockSearch(String stockSymbol) {
-        MenuInputData menuInputData = new MenuInputData(stockSymbol);
-
+        //SearchInputData searchInputData = new SearchInputData(stockSymbol); TODO uncomment once implemented
 
     }
 }

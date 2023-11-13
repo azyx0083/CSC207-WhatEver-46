@@ -2,7 +2,7 @@ package app;
 
 
 import use_case.menu.MenuInputData;
-import  view.*;
+import view.*;
 import javax.swing.*;
 import java.awt.*;
 
