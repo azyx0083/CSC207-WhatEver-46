@@ -1,7 +1,6 @@
 package use_case.menu;
 
 public interface MenuOutputBoundary {
-    void prepareSuccessView(); //stock symbol is valid
+    void prepareMenuView();
 
-    void prepareFailView(); //stock symbol is invalid
 }

@@ -14,4 +14,8 @@ public class MenuViewModel {
     public MenuState getState() {
         return state;
     }
+
+    public String getViewName() {
+        return "menu";
+    }
 }
