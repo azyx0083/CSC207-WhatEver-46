@@ -1,6 +1,7 @@
 package view;
 import interface_adapter.single_stock.graphical.SingleStockGraphicalController;
 import interface_adapter.single_stock.tabular.SingleStockTabularController;
+import interface_adapter.single_stock.tabular.SingleStockTabularState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,5 +62,20 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         this.add(stockName);
         this.add(stockSymbol);
         this.add(buttons);
+    }
+    //let the app actually show the stock name and symbol
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        SearchState state = (SearchState) evt.getNewValue();
+
+        stockName.setText(state.getName());
+        stockSymbol.setText(state.getSymbol());
+
+
+        this.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
     }
 }
