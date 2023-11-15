@@ -1,6 +1,6 @@
 package use_case.single_stock;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class SingleStockOutputData {
     private final String symbol;
@@ -8,11 +8,11 @@ public class SingleStockOutputData {
     private final String currentPrice;
     private final String details;
 
-    private final HashMap<String, Object[]> data;
+    private final Map<String, Object[]> data;
 
     public SingleStockOutputData(String name, String symbol, float currentPrice,
                                  String currency, String exchange, String country, String type,
-                                 HashMap<String, Object[]> data) {
+                                 Map<String, Object[]> data) {
         this.symbol = symbol;
         this.title = String.format("%s-%s", symbol, name);
         this.currentPrice = String.format("%s %s", currentPrice, currency);
@@ -32,7 +32,7 @@ public class SingleStockOutputData {
         return details;
     }
 
-    public HashMap<String, Object[]> getData() {
+    public Map<String, Object[]> getData() {
         return data;
     }
 

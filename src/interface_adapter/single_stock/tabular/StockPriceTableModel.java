@@ -4,13 +4,13 @@ import org.jetbrains.annotations.Nls;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-import java.util.HashMap;
+import java.util.Map;
 
 public class StockPriceTableModel implements TableModel {
-    private final HashMap<String, Object[]> data;
+    private final Map<String, Object[]> data;
     private final String[] columnNames = new String[]{"date", "open", "high", "low", "close", "volume"};
 
-    public StockPriceTableModel(HashMap<String, Object[]> data) {
+    public StockPriceTableModel(Map<String, Object[]> data) {
         this.data = data;
     }
 
