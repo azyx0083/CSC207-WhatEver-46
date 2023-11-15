@@ -1,6 +1,9 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represent a stock.
@@ -13,7 +16,7 @@ public class Stock {
     private String country;
     private String type;
     private float currentPrice;
-    private StockPrice[] historicalPrice;
+    private List<StockPrice> historicalPrice;
 
     /**
      * Initializing a stock with given stock symbol.
@@ -45,10 +48,10 @@ public class Stock {
      * "low" and Float[] with low price correspond to each date; "volume" and Integer[] with volume amount correspond
      * to each date.
      */
-    public HashMap<String, Object[]> getHistoricalPrices() {
-        int length = historicalPrice.length;
+    public Map<String, Object[]> getHistoricalPrices() {
+        int length = historicalPrice.size();
 
-        HashMap<String, Object[]> data = new HashMap<>();
+        Map<String, Object[]> data = new HashMap<>();
         data.put("date", new String[length]);
         data.put("open", new Float[length]);
         data.put("close", new Float[length]);
@@ -56,8 +59,8 @@ public class Stock {
         data.put("low", new Float[length]);
         data.put("volume", new Integer[length]);
 
-        for (int i = 0; i < historicalPrice.length; i++) {
-            StockPrice price = historicalPrice[i];
+        for (int i = 0; i < length; i++) {
+            StockPrice price = historicalPrice.get(i);
             data.get("date")[i] = price.getDate();
             data.get("open")[i] = price.getOpen();
             data.get("close")[i] = price.getClose();
@@ -142,10 +145,29 @@ public class Stock {
     }
 
     /**
-     * Set the historical prices for the current stock
+     * update the historical prices of the current stock using the list of stock price provided
      * @param historicalPrice the historical prices of the current price in StockPrice[]
      */
-    public void setHistoricalPrice(StockPrice[] historicalPrice) {
+    public void update(List<StockPrice> historicalPrice) {
+        // application of dependency injection design patter
+        // create the list of StockPrice outside of Stock and update them all at once
         this.historicalPrice = historicalPrice;
+    }
+
+    /**
+     * update the historical price of the current stock to be an empty list
+     */
+    public void update() {
+        this.historicalPrice = new ArrayList<>();
+    }
+
+    /**
+     * add the provided stock price as a historical price
+     * @param stockPrice a historical stock price of the current stock
+     */
+    public void addPrice(StockPrice stockPrice) {
+        // application of dependency injection design pattern
+        // create the StockPrice object outside of Stock and inject it here
+        this.historicalPrice.add(stockPrice);
     }
 }

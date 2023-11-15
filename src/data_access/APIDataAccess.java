@@ -51,17 +51,18 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
 
         if (responseBody.getString("status").equals("ok")) {
             JSONArray data = responseBody.getJSONArray("values");
-            JSONObject meta = responseBody.getJSONObject("meta");
-            String exchange = meta.getString("exchange");
-            StockPrice[] stockPrices = new StockPrice[outputSize];
+            String exchange = responseBody.getJSONObject("meta").getString("exchange");
+            stock.setExchange(exchange);
+            stock.update();
             for (int i = 0; i < outputSize; i++) {
                 JSONObject price = data.getJSONObject(i);
-                stockPrices[i] = new StockPrice(price.getString("datetime"), price.getFloat("high"),
+                StockPrice stockprice =  new StockPrice(price.getString("datetime"), price.getFloat("high"),
                         price.getFloat("low"), price.getFloat("open"), price.getFloat("close"),
                         price.getInt("volume"));
+                // create the StockPrice object first before inject into Stock object
+                // Dependency injection
+                stock.addPrice(stockprice);
             }
-            stock.setHistoricalPrice(stockPrices);
-            stock.setExchange(exchange);
         } else {
             throw new IOException();
         }
