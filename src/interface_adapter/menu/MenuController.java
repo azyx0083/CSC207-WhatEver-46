@@ -1,6 +1,5 @@
 package interface_adapter.menu;
 
-import use_case.*;
 import use_case.menu.*;
 
 public class MenuController{

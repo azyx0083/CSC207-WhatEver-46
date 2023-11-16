@@ -26,8 +26,8 @@ public class Main {
         SingleStockTabularView tabularView = new SingleStockTabularView();
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
 
-        views.add(graphicalView, graphicalView.viewName);
-        views.add(tabularView,tabularView.viewName);
+        /*views.add(graphicalView, graphicalView.viewName);
+        views.add(tabularView,tabularView.viewName);*/
         views.add(menuView, menuView.viewName);
 
         application.pack();
