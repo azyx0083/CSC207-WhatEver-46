@@ -33,4 +33,8 @@ public class SearchViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
+    public SearchState getState() {
+        return state;
+    }
+
 }
