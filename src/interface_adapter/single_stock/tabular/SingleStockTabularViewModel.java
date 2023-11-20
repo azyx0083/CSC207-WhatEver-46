@@ -1,37 +1,20 @@
 package interface_adapter.single_stock.tabular;
 
-import interface_adapter.ViewModel;
-import interface_adapter.single_stock.SingleStockState;
+import interface_adapter.single_stock.SingleStockViewModel;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+/**
+ * ViewModel that store all information required to prepare SingleStockTabularView
+ */
+public class SingleStockTabularViewModel extends SingleStockViewModel {
+    // Information required to visualize a table and a graph share the same structure except the viewName
+    // Let SingleStockTabularViewModel extend the SingleStockViewModel allow the minimum amount of new code
+    // if we want to add a new visualization of our data in the future
+    // Apply the Open/Close Principle
 
-public class SingleStockTabularViewModel extends ViewModel {
-    public static final String MENU_BUTTON_LABEL = "Menu";
-    public static final String GRAPHICAL_BUTTON_LABEL = "Graph";
-
-    private SingleStockTabularState state;
-
+    /**
+     * Initialize the SingleStockTabularViewModel with the viewName being tabular
+     */
     public SingleStockTabularViewModel() {
         super("tabular");
-    }
-
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    @Override
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    public SingleStockState getState() {
-        return state;
-    }
-
-    public void setState(SingleStockTabularState state) {
-        this.state = state;
     }
 }

@@ -1,9 +1,10 @@
 package view;
 
 import interface_adapter.menu.MenuController;
-import interface_adapter.single_stock.graphical.SingleStockGraphicalController;
+import interface_adapter.single_stock.SingleStockController;
+import interface_adapter.single_stock.SingleStockState;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
-import interface_adapter.single_stock.tabular.SingleStockTabularState;
+import interface_adapter.single_stock.tabular.StockPriceTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
     public final String viewName = "tabular";
 
     private final SingleStockTabularViewModel singleStockViewModel;
-    private final SingleStockGraphicalController singleStockController;
+    private final SingleStockController singleStockController;
     private final MenuController menuController;
     private final JButton graphical;
     private final JButton menu;
@@ -35,7 +36,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
      * @param menuController the interface adapter correspond to the menu button
      */
     public SingleStockTabularView(SingleStockTabularViewModel singleStockViewModel,
-                                  SingleStockGraphicalController singleStockController,
+                                  SingleStockController singleStockController,
                                   MenuController menuController) {
         this.singleStockViewModel = singleStockViewModel;
         this.singleStockController = singleStockController;
@@ -97,14 +98,14 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        SingleStockTabularState state = (SingleStockTabularState) evt.getNewValue();
+        SingleStockState state = (SingleStockState) evt.getNewValue();
 
         // Reassign the JLabel for all three titles and the JTable for historical prices
         title.setText(state.getTitle());
         currentPrice.setText(state.getCurrentPrice());
         detail.setText(state.getDetail());
 
-        table.setModel(state.getData());
+        table.setModel((StockPriceTableModel)state.getData());
 
         // Repaint to refresh
         this.repaint();
