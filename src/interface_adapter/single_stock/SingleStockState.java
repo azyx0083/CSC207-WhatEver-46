@@ -30,7 +30,6 @@ public class SingleStockState {
     }
 
     /**
-     *
      * @return the details of the stock in the form StockExchange | Country | StockType
      */
     public String getDetail() {
