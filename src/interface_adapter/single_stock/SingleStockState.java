@@ -4,16 +4,21 @@ package interface_adapter.single_stock;
  * The data structure that store the specific data for a stock (subject to changes)
  */
 public class SingleStockState {
-    private String symbol = "";
-    private String title = "";
-    private String currentPrice = "";
-    private String detail = "";
-    private SingleStockData data = null;
+    private String symbol;
+    private String title;
+    private String currentPrice;
+    private String detail;
+    private final SingleStockData data;
 
     /**
      * Initialize a SingleStockState
      */
-    public SingleStockState() {}
+    public SingleStockState(SingleStockData data) {
+        // Separate the functionality required for each data visualization to a new adapter class
+        // Construct the SingleStockData outside the SingleStockState, so they are not dependent
+        // Apply Dependency Injection design pattern and Single Responsibility Principle
+        this.data = data;
+    }
 
     /**
      * @return the title of the stock in the form Symbol-Name
@@ -82,13 +87,5 @@ public class SingleStockState {
      */
     public void setDetail(String detail) {
         this.detail = detail;
-    }
-
-    /**
-     * Set the SingleStockData
-     * @param data the SingleStockData that required for visualization
-     */
-    public void setData(SingleStockData data) {
-        this.data = data;
     }
 }

@@ -20,12 +20,9 @@ public class StockPriceTableModel extends AbstractTableModel implements SingleSt
 
     /**
      * Initialize a StockPriceTableModel
-     * @param data contain the historical prices of the stock as a Map<String, Object[]>
-     *             The keys represent the column names and the values are Array of data correspond to the column name
      */
-    public StockPriceTableModel(Map<String, Object[]> data) {
+    public StockPriceTableModel() {
         super();
-        this.data = data;
     }
 
     /**

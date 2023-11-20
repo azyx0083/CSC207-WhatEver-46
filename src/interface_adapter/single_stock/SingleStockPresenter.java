@@ -10,19 +10,15 @@ import use_case.single_stock.SingleStockOutputData;
 public class SingleStockPresenter implements SingleStockOutputBoundary {
     private final SingleStockViewModel singleStockViewModel;
     private final ViewManagerModel viewManagerModel;
-    private final SingleStockStateUpdater updater;
 
     /**
      * Initialize a SingleStockPresenter
      * @param singleStockViewModel the ViewModel that store all information required to prepare a SingleStockView
      * @param viewManagerModel the ViewModel that trigger the switch to a new view
-     * @param updater the SingleStockStateSetter that update the information required to prepare the view
      */
-    public SingleStockPresenter(SingleStockViewModel singleStockViewModel, ViewManagerModel viewManagerModel,
-                                SingleStockStateUpdater updater) {
+    public SingleStockPresenter(SingleStockViewModel singleStockViewModel, ViewManagerModel viewManagerModel) {
         this.singleStockViewModel = singleStockViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.updater = updater;
     }
 
     /**
@@ -31,8 +27,14 @@ public class SingleStockPresenter implements SingleStockOutputBoundary {
      */
     public void prepareView(SingleStockOutputData data) {
         SingleStockState state = singleStockViewModel.getState();
-        updater.updateState(data, state);
-        singleStockViewModel.setState(state);
+        state.setSymbol(data.getSymbol());
+        state.setTitle(data.getTitle());
+        state.setCurrentPrice(data.getCurrentPrice());
+        state.setDetail(data.getDetails());
+        // SingleStockPresenter only depends on the SingleStockData interface not the concrete implementation
+        // The different data structure adapters implement the SingleStockData interface
+        // Apply Dependency Inversion Principle
+        state.getData().updateData(data.getData());
         singleStockViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(singleStockViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -6,9 +6,7 @@ import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.single_stock.SingleStockController;
 import interface_adapter.single_stock.SingleStockPresenter;
-import interface_adapter.single_stock.graphical.SingleStockGraphicalStateUpdater;
 import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
-import interface_adapter.single_stock.tabular.SingleStockTabularStateUpdater;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import use_case.single_stock.SingleStockInputBoundary;
 import use_case.single_stock.SingleStockInteractor;
@@ -43,7 +41,7 @@ public class SingleStockUseCaseFactory {
                                                                   SingleStockTabularViewModel singleStockViewModel,
                                                                   APIDataAccess apiDataAccessObject) {
         SingleStockOutputBoundary singleStockOutputBoundary = new SingleStockPresenter(singleStockViewModel,
-                viewManagerModel, new SingleStockTabularStateUpdater());
+                viewManagerModel);
         SingleStockInputBoundary singleStockInteractor = new SingleStockInteractor(singleStockOutputBoundary, apiDataAccessObject);
         return new SingleStockController(singleStockInteractor);
     }
@@ -52,7 +50,7 @@ public class SingleStockUseCaseFactory {
                                                                                    SingleStockGraphicalViewModel singleStockViewModel,
                                                                                    APIDataAccess apiDataAccessObject) {
         SingleStockOutputBoundary singleStockOutputBoundary = new SingleStockPresenter(singleStockViewModel,
-                viewManagerModel, new SingleStockGraphicalStateUpdater());
+                viewManagerModel);
         SingleStockInputBoundary singleStockInputBoundary = new SingleStockInteractor(singleStockOutputBoundary, apiDataAccessObject);
         return new SingleStockController(singleStockInputBoundary);
     }
