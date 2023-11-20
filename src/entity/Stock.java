@@ -27,26 +27,12 @@ public class Stock {
     }
 
     /**
-     * Set the name, currency, country and type for the current stock.
-     * @param name the stock's official name in String
-     * @param currency the stock's currency in current stock market exchange in String
-     * @param country the country for the current stock in String
-     * @param type the type of the stock in String, eg: "common stock"
-     */
-    public void setInfo(String name, String currency, String country, String type) {
-        this.name = name;
-        this.currency = currency;
-        this.country = country;
-        this.type = type;
-    }
-
-    /**
-     *
-     * @return the historicalPrice of current stock in the form of HashMap. The key value pairs are: "date" and String[]
-     * with dates in the form yyyy-MM-dd; "open" and Float[] with open prices correspond to each date; "close" and
-     * Float[] with close price correspond to each date; "high" and Float[] with high price correspond to each date;
-     * "low" and Float[] with low price correspond to each date; "volume" and Integer[] with volume amount correspond
-     * to each date.
+     * @return the Map<String, Object[]> that store all the historical price of the stock
+     *         the key of the Map are date, volume, open, high, low and close
+     *         the value of date is String[] that store the date of each historical price in the form yyyy-MM-dd
+     *         the value of volume is Integer[] that store the number of stock trades of each historical price
+     *         the value of each price is  Float[] that store the corresponding price of each historical price
+     *         the values with the same index correspond to the same StockPrice
      */
     public Map<String, Object[]> getHistoricalPrices() {
         int length = historicalPrice.size();
@@ -97,14 +83,6 @@ public class Stock {
     }
 
     /**
-     * Set the stock market exchange for the current stock
-     * @param exchange a valid stock market exchange in String
-     */
-    public void setExchange(String exchange) {
-        this.exchange = exchange;
-    }
-
-    /**
      *
      * @return the currency for the current stock
      */
@@ -137,7 +115,7 @@ public class Stock {
     }
 
     /**
-     * Set the real time price for the current stock
+     * Set the real time price of the current stock
      * @param currentPrice the real time price of the current stock in float
      */
     public void setCurrentPrice(float currentPrice) {
@@ -145,13 +123,43 @@ public class Stock {
     }
 
     /**
-     * update the historical prices of the current stock using the list of stock price provided
-     * @param historicalPrice the historical prices of the current price in StockPrice[]
+     * Set the stock market exchange of the current stock
+     * @param exchange a valid stock market exchange in String
      */
-    public void update(List<StockPrice> historicalPrice) {
-        // application of dependency injection design patter
-        // create the list of StockPrice outside of Stock and update them all at once
-        this.historicalPrice = historicalPrice;
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
+
+    /**
+     * Set the stock name of the current stock
+     * @param name the official stock name of the stock
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set the currency of the current stock
+     * @param currency the currency of the stock's current and historical prices
+     */
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * Set the country of the current stock
+     * @param country the country of the stock's stock market exchange
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
+     * Set the type of the current stock
+     * @param type the stock type
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**

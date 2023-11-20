@@ -94,11 +94,10 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
         if (responseBody.has("data")) {
             JSONArray data = responseBody.getJSONArray("data");
             JSONObject info = data.getJSONObject(0);
-            String name = info.getString("name");
-            String currency = info.getString("currency");
-            String country = info.getString("country");
-            String type = info.getString("type");
-            stock.setInfo(name, currency, country, type);
+            stock.setName(info.getString("name"));
+            stock.setCurrency(info.getString("currency"));
+            stock.setCountry(info.getString("country"));
+            stock.setType(info.getString("type"));
         } else {
             throw new Exception(responseBody.getString("message"));
         }
@@ -125,8 +124,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
         assert response.body() != null;
         JSONObject responseBody = new JSONObject(response.body().string());
         if (responseBody.has("price")) {
-            float price = responseBody.getFloat("price");
-            stock.setCurrentPrice(price);
+            stock.setCurrentPrice(responseBody.getFloat("price"));
 
         } else {
             throw new Exception(responseBody.getString("message"));
