@@ -1,2 +1,4 @@
-package interface_adapter.search;public class SearchPresenter {
+package interface_adapter.search;
+
+public class SearchPresenter {
 }

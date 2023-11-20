@@ -32,13 +32,13 @@ public class SingleStockGraphicalView extends JPanel implements ActionListener, 
         SingleStockGraphicalState = SingleStockViewModel.getSingleStockState();
 
         // Setting up stock title and symbols
-        JLabel title = new JLabel(state.getName());
+        JLabel title = new JLabel(SingleStockGraphicalState.getName());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel symbol = new JLabel(state.getSymbol());
+        JLabel symbol = new JLabel(SingleStockGraphicalState.getSymbol());
 
         // Setting up new buttons
         JPanel buttons = new JPanel();
-        table = new JButton(SingleStockViewModel.TABLE_BUTTON_LABEL);
+        table = new JButton(SingleStockViewModel. TABLE_BUTTON_LABEL);
         buttons.add(table);
         menu = new JButton(SingleStockViewModel.MENU_BUTTON_LABEL);
         buttons.add(menu);

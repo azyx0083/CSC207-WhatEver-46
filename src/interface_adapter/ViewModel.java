@@ -1,4 +1,4 @@
-package interface_adapter.search;
+package interface_adapter;
 
 public class ViewModel {
 }
