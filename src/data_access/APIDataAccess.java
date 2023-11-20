@@ -19,9 +19,10 @@ import org.json.JSONObject;
  */
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
     final private String APIkey = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
-    private User currentUser = new DefaultUser();
+    private User currentUser;
 
     public APIDataAccess() {
+        currentUser = new DefaultUser();
     }
 
     /**
@@ -33,7 +34,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @throws Exception if reach the limited number of api calls per minute
      * @throws IOException if the parameter symbol is not a valid symbol; throw an Exception
      */
-    public void setHistoricalPrice(String symbol, String interval, int outputSize, Stock stock) throws Exception{
+    private void setHistoricalPrice(String symbol, String interval, int outputSize, Stock stock) throws Exception{
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
@@ -173,10 +174,14 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @return the stock name correspond to the given stock symbol
      */
     public String getName(String symbol) {
-        return currentUser.getSearchHistories().get(symbol).getName();
+        try {
+            return currentUser.getSearchHistories().get(symbol).getName();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
+    public User getCurrentUser() {
+        return currentUser;
     }
 }
