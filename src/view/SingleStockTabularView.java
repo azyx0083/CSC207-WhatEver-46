@@ -7,7 +7,6 @@ import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import interface_adapter.single_stock.tabular.StockPriceTableModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -49,23 +48,18 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         buttons.add(graphical);
         menu = new JButton(SingleStockTabularViewModel.MENU_BUTTON_LABEL);
         buttons.add(menu);
-        buttons.setAlignmentY(BOTTOM_ALIGNMENT);
 
         // Create the three titles to display the general info of the stock
         title = new JLabel();
         title.setFont(SingleStockTabularViewModel.font1);
-        title.setAlignmentX(CENTER_ALIGNMENT);
         currentPrice = new JLabel();
         currentPrice.setFont(SingleStockTabularViewModel.font2);
-        currentPrice.setAlignmentX(CENTER_ALIGNMENT);
         detail = new JLabel();
         detail.setFont(SingleStockTabularViewModel.font3);
-        detail.setAlignmentX(CENTER_ALIGNMENT);
 
         // Create the table to display historical prices of the stock
         table = new JTable();
         JScrollPane tableScroll = new JScrollPane(table);
-        tableScroll.setPreferredSize(new Dimension(400, 600));
 
         // Click the menu button will lead to the menu usecase
         menu.addActionListener(e -> {
@@ -82,13 +76,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
 
         // Set up the layout for current view
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(currentPrice);
-        this.add(detail);
-        tableScroll.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        this.add(tableScroll);
-        this.add(buttons);
+        this.add(new SingleStockPanel(title, currentPrice, detail, tableScroll, buttons));
     }
 
     /**
