@@ -12,6 +12,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * this class will act like DefaultOHLCDataset, the different is this class will take HashMap
+ * as the input and constructor doesn't require Key and Date.
+ */
 public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
     private HashMap<String, Object[]> data;
     private OHLCSeriesCollection dataset = new OHLCSeriesCollection();
@@ -27,102 +31,102 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
     /**
      * get the data and cast the type to Number from the initialized map with key "high"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type Number
      */
     @Override
     public Number getHigh(int i, int i1) {
-        return (Number) data.get("high")[i];
+        return (Number) data.get("high")[i1];
     }
     /**
      * get the data and cast the type to double from the initialized map with key "high"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type double
      */
     @Override
     public double getHighValue(int i, int i1) {
-        return (double)data.get("high")[i];
+        return (double)data.get("high")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "low"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type Number
      */
     @Override
     public Number getLow(int i, int i1) {
-        return (Number) data.get("low")[i];
+        return (Number) data.get("low")[i1];
     }
     /**
      * get the data and cast the type to double from the initialized map with key "low"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type double
      */
     @Override
     public double getLowValue(int i, int i1) {
-        return (double) data.get("low")[i];
+        return (double) data.get("low")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "open"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type Number
      */
     @Override
     public Number getOpen(int i, int i1) {
-        return (Number) data.get("open")[i];
+        return (Number) data.get("open")[i1];
     }
     /**
      * get the data and cast the type to double from the initialized map with key "open"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type double
      */
     @Override
     public double getOpenValue(int i, int i1) {
-        return (double) data.get("open")[i];
+        return (double) data.get("open")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "close"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type Number
      */
     @Override
     public Number getClose(int i, int i1) {
-        return (Number) data.get("close")[i];
+        return (Number) data.get("close")[i1];
     }
     /**
      * get the data and cast the type to double from the initialized map with key "close"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type double
      */
     @Override
     public double getCloseValue(int i, int i1) {
-        return (double) data.get("close")[i];
+        return (double) data.get("close")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "volume"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type Number
      */
     @Override
     public Number getVolume(int i, int i1) {
-        return (Number) data.get("volume")[i];
+        return (Number) data.get("volume")[i1];
     }
     /**
      * get the data and cast the type to double from the initialized map with key "volume"
      * @param i series
-     * @param i1 default param
+     * @param i1 index of item needed
      * @return data with type double
      */
     @Override
     public double getVolumeValue(int i, int i1) {
-        return (double) data.get("volume")[i];
+        return (double) data.get("volume")[i1];
     }
 
     @Override
