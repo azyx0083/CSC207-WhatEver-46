@@ -67,8 +67,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SearchState state = (SearchState) evt.getNewValue();
-        if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        if (state.getSymbolError() != null) {
+            JOptionPane.showMessageDialog(this, state.getSymbolError());
         }else{
             stockName.setText(state.getName());
             stockSymbol.setText(state.getSymbol());
