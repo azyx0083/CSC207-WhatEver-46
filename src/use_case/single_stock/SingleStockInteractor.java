@@ -31,7 +31,7 @@ public class SingleStockInteractor implements SingleStockInputBoundary {
         Stock stock = singleStockAPIDataAccessObject.getStock(symbol);
         SingleStockOutputData stockOutputData = new SingleStockOutputData(stock.getName(),
                 stock.getSymbol(), stock.getCurrentPrice(), stock.getCurrency(), stock.getExchange(),
-                stock.getCountry(), stock.getType(), stock.getHistoricalPrices());
+                stock.getCountry(), stock.getType(), stock.getHistoricalPrice());
         singleStockPresenter.prepareView(stockOutputData);
     }
 }

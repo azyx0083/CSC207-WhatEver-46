@@ -27,14 +27,11 @@ public class SingleStockPresenter implements SingleStockOutputBoundary {
      */
     public void prepareView(SingleStockOutputData data) {
         SingleStockState state = singleStockViewModel.getState();
-        state.setSymbol(data.getSymbol());
-        state.setTitle(data.getTitle());
-        state.setCurrentPrice(data.getCurrentPrice());
-        state.setDetail(data.getDetails());
         // SingleStockPresenter only depends on the SingleStockData interface not the concrete implementation
         // The different data structure adapters implement the SingleStockData interface
-        // Apply Dependency Inversion Principle
-        state.getData().updateData(data.getData());
+        // Apply Adapter design pattern
+        singleStockViewModel.setState(new SingleStockState(data.getSymbol(), data.getTitle(), data.getCurrentPrice(),
+                data.getDetails(), state.getData().updateData(data.getData())));
         singleStockViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(singleStockViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

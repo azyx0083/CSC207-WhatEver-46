@@ -6,6 +6,7 @@ import use_case.search.SearchAPIDataAccessInterface;
 import use_case.single_stock.SingleStockAPIDataAccessInterface;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -15,14 +16,15 @@ import org.json.JSONObject;
 
 
 /**
- *
+ * DataAccessObject that is responsible for all API calls
  */
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
-    final private String APIkey = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
-    private User currentUser;
+    private static final String API_KEY = System.getenv("API_KEY");
+    private final Map<String, Stock> searchHistories;
+    private final String[] columnNames = new String[]{"high", "low", "open", "close"};
 
     public APIDataAccess() {
-        currentUser = new DefaultUser();
+        searchHistories = new HashMap<>();
     }
 
     /**
@@ -34,74 +36,63 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @throws Exception if reach the limited number of api calls per minute
      * @throws IOException if the parameter symbol is not a valid symbol; throw an Exception
      */
-    private void setHistoricalPrice(String symbol, String interval, int outputSize, Stock stock) throws Exception{
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-
+    private String setHistoricalPrice(String symbol, String interval, int outputSize, Stock stock) throws Exception{
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(String.format("https://twelve-data1.p.rapidapi.com/time_series?symbol=%s&interval=%s&outputsize=%s",
                         symbol, interval, outputSize))
-                .get()
-                .addHeader("X-RapidAPI-Key", APIkey)
+                .addHeader("X-RapidAPI-Key", API_KEY)
                 .addHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com")
                 .build();
-
         Response response = client.newCall(request).execute();
         assert response.body() != null;
         JSONObject responseBody = new JSONObject(response.body().string());
 
         if (responseBody.getString("status").equals("ok")) {
             JSONArray data = responseBody.getJSONArray("values");
-            String exchange = responseBody.getJSONObject("meta").getString("exchange");
-            stock.setExchange(exchange);
-            stock.update();
+            Map<String, Object[]> historicalPrice = new HashMap<>();
+            historicalPrice.put("date", new Object[outputSize]);
+            historicalPrice.put("volume", new Object[outputSize]);
+            for (String name : columnNames)
+                historicalPrice.put(name, new Object[outputSize]);
             for (int i = 0; i < outputSize; i++) {
-                JSONObject price = data.getJSONObject(i);
-                StockPrice stockprice =  new StockPrice(price.getString("datetime"), price.getFloat("high"),
-                        price.getFloat("low"), price.getFloat("open"), price.getFloat("close"),
-                        price.getInt("volume"));
-                // create the StockPrice object first before inject into Stock object
-                // Dependency injection
-                stock.addPrice(stockprice);
+                historicalPrice.get("date")[i] = data.getJSONObject(i).getString("datetime");
+                historicalPrice.get("volume")[i] = data.getJSONObject(i).getInt("volume");
+                for (String name : columnNames)
+                    historicalPrice.get(name)[i] = data.getJSONObject(i).getFloat(name);
             }
-        } else {
+            stock.setHistoricalPrice(historicalPrice);
+            return responseBody.getJSONObject("meta").getString("exchange");
+        } else
             throw new IOException();
-        }
     }
 
     /**
      * Set the detailed info including stock name, currency, country and type for the given stock using response from
      * the api call stocks list.
      * @param symbol the stock symbol required for the api call
+     * @param exchange the stock market exchange of the stock
      * @param stock the stock that need to be updated
      * @throws Exception if reach the limited number of api calls per minute
      */
-    private void setInfo(String symbol, Stock stock) throws Exception {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-
+    private void setInfo(String symbol, String exchange, Stock stock) throws Exception {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(String.format("https://twelve-data1.p.rapidapi.com/stocks?symbol=%s&exchange=%s",
-                        symbol, stock.getExchange()))
-                .get()
-                .addHeader("X-RapidAPI-Key", APIkey)
+                        symbol, exchange))
+                .addHeader("X-RapidAPI-Key", API_KEY)
                 .addHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com")
                 .build();
-
         Response response = client.newCall(request).execute();
         assert response.body() != null;
         JSONObject responseBody = new JSONObject(response.body().string());
 
         if (responseBody.has("data")) {
-            JSONArray data = responseBody.getJSONArray("data");
-            JSONObject info = data.getJSONObject(0);
-            stock.setName(info.getString("name"));
-            stock.setCurrency(info.getString("currency"));
-            stock.setCountry(info.getString("country"));
-            stock.setType(info.getString("type"));
-        } else {
+            JSONObject info = responseBody.getJSONArray("data").getJSONObject(0);
+            stock.setInfo(info.getString("name"), exchange, info.getString("currency"),
+                    info.getString("country"), info.getString("type"));
+        } else
             throw new Exception(responseBody.getString("message"));
-        }
     }
 
     /**
@@ -111,25 +102,21 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @throws Exception if reach the limited number of api calls per minute
      */
     private void setCurrentPrice(String symbol, Stock stock) throws Exception {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(String.format("https://twelve-data1.p.rapidapi.com/price?symbol=%s",
                         symbol))
-                .get()
-                .addHeader("X-RapidAPI-Key", APIkey)
+                .addHeader("X-RapidAPI-Key", API_KEY)
                 .addHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com")
                 .build();
         Response response = client.newCall(request).execute();
         assert response.body() != null;
         JSONObject responseBody = new JSONObject(response.body().string());
-        if (responseBody.has("price")) {
-            stock.setCurrentPrice(responseBody.getFloat("price"));
 
-        } else {
+        if (responseBody.has("price"))
+            stock.setCurrentPrice(responseBody.getFloat("price"));
+        else
             throw new Exception(responseBody.getString("message"));
-        }
     }
 
     /**
@@ -139,17 +126,16 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @return If symbol is valid, return null. Otherwise, return the error message based on the type of exception been
      * catch.
      */
-    public String search(String symbol) {
+    public String search(UserSetting setting, String symbol) {
         try {
-            Map<String, Stock> history = currentUser.getSearchHistories();
-            if (history.containsKey(symbol)) {
-                setCurrentPrice(symbol, history.get(symbol));
+            if (searchHistories.containsKey(symbol)) {
+                setCurrentPrice(symbol, searchHistories.get(symbol));
             } else {
                 Stock stock = new Stock(symbol);
-                setHistoricalPrice(symbol, currentUser.getInterval(), currentUser.getOutputSize(), stock);
-                setInfo(symbol, stock);
+                String exchange = setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), stock);
+                setInfo(symbol, exchange, stock);
                 setCurrentPrice(symbol, stock);
-                currentUser.getSearchHistories().put(symbol, stock);
+                searchHistories.put(symbol, stock);
             }
             return null;
         } catch (IOException e) {
@@ -165,7 +151,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @return the Stock with given stock symbol from currentUser's searchHistory
      */
     public Stock getStock(String symbol) {
-        return currentUser.getSearchHistories().get(symbol);
+        return searchHistories.get(symbol);
     }
 
     /**
@@ -174,14 +160,10 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @return the stock name correspond to the given stock symbol
      */
     public String getName(String symbol) {
-        try {
-            return currentUser.getSearchHistories().get(symbol).getName();
-        } catch (Exception e) {
-            return null;
-        }
+        return searchHistories.get(symbol).getName();
     }
 
-    public User getCurrentUser() {
-        return currentUser;
+    public Map<String, Stock> getSearchHistories() {
+        return searchHistories;
     }
 }

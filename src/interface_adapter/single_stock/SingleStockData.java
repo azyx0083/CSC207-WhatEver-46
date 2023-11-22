@@ -18,5 +18,5 @@ public interface SingleStockData {
      * update the SingleStockData
      * @param data the new stock price data
      */
-    void updateData(Map<String, Object[]> data);
+    SingleStockData updateData(Map<String, Object[]> data);
 }

@@ -79,7 +79,8 @@ public class StockPriceTableModel extends AbstractTableModel implements SingleSt
      * @param data the new data
      */
     @Override
-    public void updateData(Map<String, Object[]> data) {
+    public StockPriceTableModel updateData(Map<String, Object[]> data) {
         this.data = data;
+        return this;
     }
 }

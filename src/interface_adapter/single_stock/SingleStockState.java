@@ -20,6 +20,14 @@ public class SingleStockState {
         this.data = data;
     }
 
+    public SingleStockState(String symbol, String title, String currentPrice, String detail, SingleStockData data) {
+        this.symbol = symbol;
+        this.title = title;
+        this.currentPrice = currentPrice;
+        this.detail = detail;
+        this.data = data;
+    }
+
     /**
      * @return the title of the stock in the form Symbol-Name
      */
@@ -55,37 +63,5 @@ public class SingleStockState {
      */
     public SingleStockData getData() {
         return data;
-    }
-
-    /**
-     * Set the stock symbol
-     * @param symbol the new stock symbol
-     */
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    /**
-     * Set the title
-     * @param title the new title in the form Symbol-Name
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * Set the current price
-     * @param currentPrice the new current price in the form CurrentPrice Currency
-     */
-    public void setCurrentPrice(String currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
-    /**
-     * Set the detail
-     * @param detail the new detail in the form StockExchange | Country | StockType
-     */
-    public void setDetail(String detail) {
-        this.detail = detail;
     }
 }
