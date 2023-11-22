@@ -13,28 +13,30 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import org.jfree.chart.JFreeChart;
 
 public class SingleStockGraphicalView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "Graphical View";
-    private final SingleStockViewModel controller;
-    private final SingleStockController viewModel;
+    public final String viewName = "graphical";
+    private final SingleStockGraphicalViewModel viewModel;
+    private final SingleStockController controller;
     private final MenuController menuController;
     private final JButton table;
     private final JButton menu;
 
-    public SingleStockGraphicalView(SingleStockViewModel controller, SingleStockController viewModel,
+    public SingleStockGraphicalView(SingleStockGraphicalViewModel viewModel, SingleStockController controller,
                                     MenuController menuController){
         // Initial setup
         this.controller = controller;
         this.viewModel = viewModel;
         this.menuController = menuController;
         viewModel.addPropertyChangeListener(this);
-        SingleStockGraphicalState = SingleStockViewModel.getSingleStockState();
 
         // Setting up stock title and symbols
-        JLabel title = new JLabel(SingleStockGraphicalState.getName());
+        JLabel title = new JLabel();
+        title.setFont(SingleStockGraphicalViewModel.font1);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel symbol = new JLabel(SingleStockGraphicalState.getSymbol());
+        JLabel symbol = new JLabel();
+        symbol.setFont(SingleStockGraphicalViewModel.font2);
 
         // Setting up new buttons
         JPanel buttons = new JPanel();
@@ -49,14 +51,23 @@ public class SingleStockGraphicalView extends JPanel implements ActionListener, 
         ChartPanel chartPanel = new ChartPanel(chart);
         graph.add(chartPanel); // add the chart to the panel
 
+        // Switching to menu
+        menu.addActionListener(e -> {
+            if (e.getSource().equals(menu))
+                menuController.execute();
+        });
 
-        menu.addActionListener(null);
+        // Switching to graphical
+        table.addActionListener(e -> {
+            if(e.getSource().equals(table))
+                controller.execute(viewModel.getState().getSymbol());
+        });
 
         table.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(table)) {
-                    controller.execute(viewModel.getSymbol(), 'Tabular');
+                    controller.execute(viewModel.getSymbol(), "Tabular");
                 }
             }
         });
@@ -72,7 +83,11 @@ public class SingleStockGraphicalView extends JPanel implements ActionListener, 
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        SingleStockState state = (SingleStockState) evt.getNewValue();
 
+        title.setText(state.getTitle());
+        graph.setModel((StockPriceGraphModel)state.getData());
+        this.repaint();
     }
 
     @Override

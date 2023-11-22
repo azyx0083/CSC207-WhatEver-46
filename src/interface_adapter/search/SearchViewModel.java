@@ -12,12 +12,12 @@ public class SearchViewModel extends ViewModel {
     private SearchState state = new SearchState();
     public SearchViewModel() {
         super("Search");
-    }
+    } // "Search" is the view name.
     public void setState(SearchState state) {
         this.state = state;
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public static final Font font1 = new Font("Serif", Font.BOLD, 18);
+    public static final Font font1 = new Font("Serif", Font.BOLD, 18); // The two fonts to display.
     public static final Font font2 = new Font("Serif", Font.PLAIN, 18);
 
     // This is what the Search Presenter will call to let the ViewModel know
