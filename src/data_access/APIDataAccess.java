@@ -21,7 +21,6 @@ import org.json.JSONObject;
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
     private static final String API_KEY = System.getenv("API_KEY");
     private final Map<String, Stock> searchHistories;
-    private final String[] columnNames = new String[]{"high", "low", "open", "close"};
 
     public APIDataAccess() {
         searchHistories = new HashMap<>();
@@ -50,18 +49,13 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
 
         if (responseBody.getString("status").equals("ok")) {
             JSONArray data = responseBody.getJSONArray("values");
-            Map<String, Object[]> historicalPrice = new HashMap<>();
-            historicalPrice.put("date", new Object[outputSize]);
-            historicalPrice.put("volume", new Object[outputSize]);
-            for (String name : columnNames)
-                historicalPrice.put(name, new Object[outputSize]);
-            for (int i = 0; i < outputSize; i++) {
-                historicalPrice.get("date")[i] = data.getJSONObject(i).getString("datetime");
-                historicalPrice.get("volume")[i] = data.getJSONObject(i).getInt("volume");
-                for (String name : columnNames)
-                    historicalPrice.get(name)[i] = data.getJSONObject(i).getFloat(name);
-            }
-            stock.setHistoricalPrice(historicalPrice);
+            HistoricalPrice prices = new HistoricalPrice(outputSize);
+            for (int i = 0; i < outputSize; i++)
+                prices.addPrice(i, data.getJSONObject(i).getString("datetime"),
+                        data.getJSONObject(i).getFloat("open"), data.getJSONObject(i).getFloat("close"),
+                        data.getJSONObject(i).getFloat("high"), data.getJSONObject(i).getFloat("low"),
+                        data.getJSONObject(i).getInt("volume"));
+            stock.setHistoricalPrice(prices);
             return responseBody.getJSONObject("meta").getString("exchange");
         } else
             throw new IOException();
@@ -126,12 +120,13 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @return If symbol is valid, return null. Otherwise, return the error message based on the type of exception been
      * catch.
      */
-    public String search(UserSetting setting, String symbol) {
+    public String search(String symbol) {
         try {
             if (searchHistories.containsKey(symbol)) {
                 setCurrentPrice(symbol, searchHistories.get(symbol));
             } else {
                 Stock stock = new Stock(symbol);
+                UserSetting setting = new DefaultSetting();
                 String exchange = setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), stock);
                 setInfo(symbol, exchange, stock);
                 setCurrentPrice(symbol, stock);

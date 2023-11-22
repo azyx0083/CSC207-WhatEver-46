@@ -13,7 +13,7 @@ public class Stock {
     private String country;
     private String type;
     private Float currentPrice;
-    private Map<String, Object[]> historicalPrice;
+    private HistoricalPrice historicalPrice;
 
     public Stock(String symbol) {
         this.symbol = symbol;
@@ -37,7 +37,7 @@ public class Stock {
      *         the values with the same index correspond to the price from same date
      */
     public Map<String, Object[]> getHistoricalPrice() {
-        return historicalPrice;
+        return historicalPrice.getPrices();
     }
 
     /**
@@ -83,7 +83,7 @@ public class Stock {
         this.currentPrice = currentPrice;
     }
 
-    public void setHistoricalPrice(Map<String, Object[]> historicalPrice) {
+    public void setHistoricalPrice(HistoricalPrice historicalPrice) {
         this.historicalPrice = historicalPrice;
     }
 

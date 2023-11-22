@@ -18,7 +18,7 @@ class APIDataAccessTest {
     @Test
     void testValid() {
         assert !apiDataAccess.getSearchHistories().containsKey(validSymbol);
-        assertNull(apiDataAccess.search(defaultSetting, validSymbol));
+        assertNull(apiDataAccess.search(validSymbol));
         assertNotNull(apiDataAccess.getName(validSymbol));
         Stock stock = apiDataAccess.getStock(validSymbol);
         assertNotNull(stock.getName());
@@ -38,14 +38,14 @@ class APIDataAccessTest {
 
     @Test
     void testInvalid() {
-        assertEquals(apiDataAccess.search(defaultSetting, invalidSymbol),
+        assertEquals(apiDataAccess.search(invalidSymbol),
                 String.format("%s is not a valid symbol. Please enter a correct stock symbol.", invalidSymbol));
         assertNull(apiDataAccess.getStock(invalidSymbol));
     }
 
     @Test
     void testEmpty() {
-        assertEquals(apiDataAccess.search(defaultSetting, emptySymbol),
+        assertEquals(apiDataAccess.search(emptySymbol),
                 String.format("%s is not a valid symbol. Please enter a correct stock symbol.", emptySymbol));
         assertNull(apiDataAccess.getStock(emptySymbol));
     }
@@ -53,12 +53,12 @@ class APIDataAccessTest {
     @Test
     void testSearchHistory() {
         assert apiDataAccess.getSearchHistories().containsKey(validSymbol);
-        assertNull(apiDataAccess.search(defaultSetting, validSymbol));
+        assertNull(apiDataAccess.search(validSymbol));
     }
 
     @AfterAll
     static void testFrequentRequest() {
-        assertEquals(apiDataAccess.search(defaultSetting, validSymbol2),
+        assertEquals(apiDataAccess.search(validSymbol2),
                 "Frequent request. Please try again later.");
     }
 }
