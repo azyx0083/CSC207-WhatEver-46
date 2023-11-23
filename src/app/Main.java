@@ -1,7 +1,10 @@
 package app;
 
 
-import  view.*;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.menu.*;
+import use_case.menu.*;
+import view.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,12 +16,20 @@ public class Main {
         CardLayout cardLayout = new CardLayout();
         JPanel views = new JPanel(cardLayout);
         application.add(views);
+
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+        MenuViewModel menuViewModel = new MenuViewModel();
+
         SingleStockGraphicalView graphicalView = new SingleStockGraphicalView();
         SingleStockTabularView tabularView = new SingleStockTabularView();
-        MenuView menuView = new MenuView();
-        views.add(graphicalView, graphicalView.viewName);
-        views.add(tabularView,tabularView.viewName);
+        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
+
+        /*views.add(graphicalView, graphicalView.viewName);
+        views.add(tabularView,tabularView.viewName);*/
         views.add(menuView, menuView.viewName);
+
         application.pack();
         application.setVisible(true);
 
