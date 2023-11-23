@@ -64,7 +64,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         // Click the menu button will lead to the menu usecase
         menu.addActionListener(e -> {
             if (e.getSource().equals(menu))
-                menuController.execute();
+                menuController.returnToMenu();
         });
 
         // Click the graphical button will lead to the single stock graphical usecase
