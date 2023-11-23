@@ -33,7 +33,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
      * @param outputSize the output size required for the api call
      * @param stock the stock that need to be updated
      * @throws Exception if reach the limited number of api calls per minute
-     * @throws IOException if the parameter symbol is not a valid symbol; throw an Exception
+     * @throws IOException if the parameter symbol is not a valid symbol
      */
     private String setHistoricalPrice(String symbol, String interval, int outputSize, Stock stock) throws Exception{
         OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -115,7 +115,6 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
 
     /**
      * Using three api calls to search for the given stock symbol and store a corresponding Stock in the searchHistory
-     * for the currentUser.
      * @param symbol the stock symbol that used to perform stock search
      * @return If symbol is valid, return null. Otherwise, return the error message based on the type of exception been
      * catch.
@@ -136,7 +135,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
         } catch (IOException e) {
             return String.format("%s is not a valid symbol. Please enter a correct stock symbol.", symbol);
         } catch (Exception e) {
-            return "Frequent request. Please try again later.";
+            return "Frequent request. Please try again in one minute.";
         }
     }
 
@@ -158,6 +157,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
         return searchHistories.get(symbol).getName();
     }
 
+    // For testing purpose only
     public Map<String, Stock> getSearchHistories() {
         return searchHistories;
     }
