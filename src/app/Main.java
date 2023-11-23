@@ -1,37 +1,55 @@
 package app;
 
 
+import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.menu.*;
-import use_case.menu.*;
-import view.*;
+import interface_adapter.menu.MenuViewModel;
+import interface_adapter.search.SearchViewModel;
+import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
+import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
+import  view.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame application = new JFrame("Single Stock Example");
+        JFrame application = new JFrame("Minimum Viable Product Stock Visualization");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
+
         JPanel views = new JPanel(cardLayout);
         application.add(views);
+
+        APIDataAccess apiDataAccess = new APIDataAccess();
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
         MenuViewModel menuViewModel = new MenuViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
+        SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel();
+        SingleStockGraphicalViewModel singleStockGraphicalViewModel = new SingleStockGraphicalViewModel();
 
-        SingleStockGraphicalView graphicalView = new SingleStockGraphicalView();
-        SingleStockTabularView tabularView = new SingleStockTabularView();
+        SearchView searchView = SearchUseCaseFactory.create(searchViewModel, singleStockTabularViewModel,
+                singleStockGraphicalViewModel, viewManagerModel, apiDataAccess);
+        views.add(searchView, searchView.viewName);
+
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
-
-        /*views.add(graphicalView, graphicalView.viewName);
-        views.add(tabularView,tabularView.viewName);*/
         views.add(menuView, menuView.viewName);
+
+        SingleStockTabularView singleStockTabularView = SingleStockUseCaseFactory.createTabular(viewManagerModel,
+                menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+        views.add(singleStockTabularView,singleStockTabularView.viewName);
+
+        SingleStockGraphicalView singleStockGraphicalView = SingleStockUseCaseFactory.createGraphical(viewManagerModel,
+                menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+        views.add(singleStockGraphicalView,singleStockGraphicalView.viewName);
+
+        viewManagerModel.setActiveView(menuView.viewName);
+        viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
-
     }
 }
