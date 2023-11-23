@@ -31,13 +31,16 @@ public class MenuView extends JPanel{
         this.menuController = menuController;
         this.menuViewModel = menuViewModel;
 
+        this.setPreferredSize(new Dimension(400,200));
+
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel searchLabel = new JLabel(MenuViewModel.SEARCH_LABEL);
-
+        searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         search = new JButton(MenuViewModel.SEARCH_BUTTON_LABEL);
+        search.setAlignmentX(Component.CENTER_ALIGNMENT);
         search.addActionListener(
                 new ActionListener() {
                     @Override
@@ -53,7 +56,9 @@ public class MenuView extends JPanel{
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(searchLabel);
+        this.add(Box.createRigidArea(new Dimension(5,10)));
         this.add(searchInputField);
+        this.add(Box.createRigidArea(new Dimension(5,20)));
         this.add(search);
     }
 }
