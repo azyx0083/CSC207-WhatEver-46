@@ -1,4 +1,4 @@
 package use_case.menu;
 
-public class MenuOutputData {
+public class MenuOutputData { //Shouldn't have any output data
 }

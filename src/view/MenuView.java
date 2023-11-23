@@ -19,6 +19,14 @@ public class MenuView extends JPanel{
     //final SearchViewModel searchViewModel;
     private final JTextField searchInputField = new JTextField(20);
     private final JButton search;
+
+    /**
+     * Constructor method. Makes the view layout and assigns buttons their functionalities.
+     * @param menuController The associated MenuController
+     * @param menuViewModel The associated  MenuViewModel
+     * /@param searchController The associated SearchController
+     * /@param searchViewModel The associated SearchViewModel
+     */
     public MenuView(MenuController menuController, MenuViewModel menuViewModel/*, SearchController searchController, SearchViewModel searchViewModel*/){
         this.menuController = menuController;
         this.menuViewModel = menuViewModel;
@@ -37,7 +45,7 @@ public class MenuView extends JPanel{
                         if (e.getSource().equals(search)) {
                             MenuState menuState = menuViewModel.getState();
 
-                            menuController.executeStockSearch(menuState.getStockSymbol());
+                            //searchController.executeStockSearch(menuState.getStockSymbol()); TODO uncomment after merge
                         }
                     }
                 }

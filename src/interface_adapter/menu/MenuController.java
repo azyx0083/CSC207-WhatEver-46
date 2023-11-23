@@ -5,12 +5,19 @@ import use_case.menu.*;
 public class MenuController{
     final MenuInputBoundary menuInputBoundary;
 
+    /**
+     * Constructor; just assigns an MenuInputBoundary.
+     * @param menuInputBoundary
+     */
     public MenuController(MenuInputBoundary menuInputBoundary) {
         this.menuInputBoundary = menuInputBoundary;
     }
-    public void executeStockSearch(String stockSymbol) {
-        //SearchInputData searchInputData = new SearchInputData(stockSymbol); TODO uncomment once implemented
 
+    /**
+     * Returns to the menu.
+     */
+    public void returnToMenu() {
+        menuInputBoundary.prepareMenuView();
     }
 
 }
