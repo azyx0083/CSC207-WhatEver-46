@@ -1,108 +1,95 @@
 package entity;
 
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.*;
 
+/**
+ * Represent a stock.
+ */
 public class Stock {
+    private final String symbol;
     private String name;
-    private String symbol;
     private String exchange;
     private String currency;
     private String country;
     private String type;
-    private float currentPrice;
-    private StockPrice[] historicalPrice;
+    private Float currentPrice;
+    private HistoricalPrice historicalPrice;
 
-    public Stock(String name, String symbol, String exchange, String currency, String country, String type) {
-        this.name = name;
+    public Stock(String symbol) {
         this.symbol = symbol;
+    }
+
+    public void setInfo(String name, String exchange, String currency, String country, String type) {
+        this.name = name;
         this.exchange = exchange;
         this.currency = currency;
         this.country = country;
         this.type = type;
     }
 
-    public HashMap<String, Object[]> getHistoricalPrices() {
-        int length = historicalPrice.length;
 
-        HashMap<String, Object[]> data = new HashMap<>();
-        data.put("date", new String[length]);
-        data.put("open", new Float[length]);
-        data.put("close", new Float[length]);
-        data.put("high", new Float[length]);
-        data.put("low", new Float[length]);
-        data.put("volume", new Integer[length]);
+    /**
+     * @return the Map<String, Object[]> that store all the historical price of the stock
+     *         the key of the Map are date, volume, open, high, low and close
+     *         the value of date is String[] that store the date of each historical price in the form yyyy-MM-dd
+     *         the value of volume is Integer[] that store the number of stock trades of each historical price
+     *         the value of each price is  Float[] that store the corresponding price of each historical price
+     *         the values with the same index correspond to the price from same date
+     */
+    public Map<String, Object[]> getHistoricalPrice() {
+        return historicalPrice.getPrices();
+    }
 
-        for (int i = 0; i < historicalPrice.length; i++) {
-            StockPrice price = historicalPrice[i];
-            data.get("date")[i] = price.getDate();
-            data.get("open")[i] = price.getOpen();
-            data.get("close")[i] = price.getClose();
-            data.get("high")[i] = price.getHigh();
-            data.get("low")[i] = price.getLow();
-            data.get("volume")[i] = price.getVolume();
+    /**
+     * @return the stock symbol
+     */
+    public String getSymbol() {
+        return symbol;
+    }
 
-        }
-        return data;
+    /**
+     *
+     * @return the real time price of the current stock
+     */
+    public float getCurrentPrice() {
+        return currentPrice;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
     public String getExchange() {
         return exchange;
-    }
-
-    public void setExchange(String exchange) {
-        this.exchange = exchange;
     }
 
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public float getCurrentPrice() {
-        return currentPrice;
-    }
-
+    /**
+     * Set the real time price of the current stock
+     * @param currentPrice the real time price of the current stock in float
+     */
     public void setCurrentPrice(float currentPrice) {
         this.currentPrice = currentPrice;
     }
 
-    public void setHistoricalPrice(StockPrice[] historicalPrice) {
+    public void setHistoricalPrice(HistoricalPrice historicalPrice) {
         this.historicalPrice = historicalPrice;
     }
+
+    public void reset() {
+        currentPrice = null;
+        historicalPrice = null;
+    }
+
 }

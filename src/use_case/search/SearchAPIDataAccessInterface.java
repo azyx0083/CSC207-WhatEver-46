@@ -1,9 +1,7 @@
 package use_case.search;
 
-import entity.Stock;
-
 public interface SearchAPIDataAccessInterface {
-    String timeSeries(String symbol, String interval, int outputSize);
+    String search(String symbol);
 
-    Stock getStock();
+    String getName(String symbol);
 }
