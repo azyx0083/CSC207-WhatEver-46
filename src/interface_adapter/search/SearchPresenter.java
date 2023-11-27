@@ -1,11 +1,17 @@
 package interface_adapter.search;
 
 
-public class SearchPresenter implements SearchOutputBoundary{
-    private final SearchViewModel searchViewModel;
+import interface_adapter.ViewManagerModel;
+import use_case.search.SearchOutputBoundary;
+import use_case.search.SearchOutputData;
 
-    public SearchPresenter(SearchViewModel searchViewModel) {
+public class SearchPresenter implements SearchOutputBoundary {
+    private final SearchViewModel searchViewModel;
+    private final ViewManagerModel viewManagerModel;
+
+    public SearchPresenter(SearchViewModel searchViewModel, ViewManagerModel viewManagerModel) {
         this.searchViewModel = searchViewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     public void prepareSuccessView(SearchOutputData data) {
