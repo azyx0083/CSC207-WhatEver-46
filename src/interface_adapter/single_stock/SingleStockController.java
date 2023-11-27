@@ -1,6 +1,7 @@
 package interface_adapter.single_stock;
 
 import use_case.single_stock.SingleStockInputBoundary;
+import use_case.single_stock.SingleStockInputData;
 
 /**
  * Controller for SingleStock usecase
@@ -21,6 +22,7 @@ public class SingleStockController {
      * @param symbol the stock symbol of the stock that need to be visualized
      */
     public void execute(String symbol) {
-        singleStockUseCaseInteractor.execute(symbol);
+        SingleStockInputData inputData = new SingleStockInputData(symbol);
+        singleStockUseCaseInteractor.execute(inputData);
     }
 }
