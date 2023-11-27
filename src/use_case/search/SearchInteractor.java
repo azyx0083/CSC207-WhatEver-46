@@ -25,12 +25,12 @@ public class SearchInteractor implements SearchInputBoundary{
      */
     @Override
     public void execute(SearchInputData searchInputData) {
-        Object search = searchAPIDataAccessObject.search(searchInputData.getSymbol());
+        Object search = searchAPIDataAccessObject.search(searchInputData.getSymbol().toUpperCase());
         if (search != null){
             searchPresenter.prepareFailView((String)search);
         } else {
-            SearchOutputData searchOutputData = new SearchOutputData(searchInputData.getName(),
-                    searchInputData.getSymbol());
+            SearchOutputData searchOutputData = new SearchOutputData(
+                    searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
             searchPresenter.prepareSuccessView(searchOutputData);
         }
     }

@@ -21,7 +21,6 @@ import java.beans.PropertyChangeListener;
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener{
     public final String viewName = "Search";
     private final SearchViewModel searchViewModel;
-    private final SearchController searchController;
     private final SingleStockController singleStockGraphicalController;
     private final SingleStockController singleStockTabularController;
     private final JButton table;
@@ -29,11 +28,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JLabel stockSymbol;
     private final JTextField searchInputField = new JTextField(15);
     public SearchView(SearchViewModel searchViewModel,
-                      SearchController searchController,
                       SingleStockController singleStockGraphicalController,
                       SingleStockController singleStockTabularController){
         this.searchViewModel = searchViewModel;
-        this.searchController = searchController;
         this.singleStockGraphicalController = singleStockGraphicalController;
         this.singleStockTabularController = singleStockTabularController;
         searchViewModel.addPropertyChangeListener(this);

@@ -21,5 +21,5 @@ public interface SingleStockData {
     SingleStockData updateData(Map<String, Object[]> data);
 
     // For test purpose only
-    Map<String, Object[]> getDate();
+    Map<String, Object[]> getData();
 }

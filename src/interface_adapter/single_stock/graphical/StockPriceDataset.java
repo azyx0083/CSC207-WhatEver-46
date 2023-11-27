@@ -140,7 +140,7 @@ public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset,
     public double getVolumeValue(int i, int i1) {
         return (double) data.get("volume")[i1];
     }
-    
+
 
     @Override
     public int getItemCount(int i) {
@@ -176,5 +176,10 @@ public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset,
     public SingleStockData updateData(Map<String, Object[]> data) {
         this.data = (HashMap)data;
         return this;
+    }
+
+    @Override
+    public Map<String, Object[]> getData() {
+        return this.data;
     }
 }
