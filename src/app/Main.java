@@ -31,8 +31,8 @@ public class Main {
         SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel();
         SingleStockGraphicalViewModel singleStockGraphicalViewModel = new SingleStockGraphicalViewModel();
 
-        SearchView searchView = SearchUseCaseFactory.create(searchViewModel, singleStockTabularViewModel,
-                singleStockGraphicalViewModel, viewManagerModel, apiDataAccess);
+        SearchView searchView = SearchUseCaseFactory.create(searchViewModel,viewManagerModel,
+                singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
         views.add(searchView, searchView.viewName);
 
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
