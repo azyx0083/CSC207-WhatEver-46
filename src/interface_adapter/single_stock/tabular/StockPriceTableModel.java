@@ -83,4 +83,9 @@ public class StockPriceTableModel extends AbstractTableModel implements SingleSt
         this.data = data;
         return this;
     }
+
+    @Override
+    public Map<String, Object[]> getDate() {
+        return this.data;
+    }
 }

@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * DataAccessObject that is responsible for all API calls
  */
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
-    private static final String API_KEY = System.getenv("API_KEY");
+    private static final String API_KEY = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
     private final Map<String, Stock> searchHistories;
 
     public APIDataAccess() {

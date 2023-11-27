@@ -19,4 +19,7 @@ public interface SingleStockData {
      * @param data the new stock price data
      */
     SingleStockData updateData(Map<String, Object[]> data);
+
+    // For test purpose only
+    Map<String, Object[]> getDate();
 }

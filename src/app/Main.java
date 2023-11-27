@@ -35,14 +35,14 @@ public class Main {
                 singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
         views.add(searchView, searchView.viewName);
 
-        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
+        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess);
         views.add(menuView, menuView.viewName);
 
-        SingleStockTabularView singleStockTabularView = SingleStockUseCaseFactory.createTabular(viewManagerModel,
+        SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,
                 menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
         views.add(singleStockTabularView,singleStockTabularView.viewName);
 
-        SingleStockGraphicalView singleStockGraphicalView = SingleStockUseCaseFactory.createGraphical(viewManagerModel,
+        SingleStockGraphicalView singleStockGraphicalView = SingleStockGraphicalUseCaseFactory.createGraphical(viewManagerModel,
                 menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
         views.add(singleStockGraphicalView,singleStockGraphicalView.viewName);
 
