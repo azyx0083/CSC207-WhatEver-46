@@ -1,5 +1,6 @@
 package interface_adapter.single_stock.graphical;
 
+import interface_adapter.single_stock.SingleStockData;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
@@ -11,22 +12,21 @@ import org.jfree.data.xy.OHLCDataset;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * this class will act like DefaultOHLCDataset, the different is this class will take HashMap
  * as the input and constructor doesn't require Key and Date.
  */
-public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
+public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset, SingleStockData {
     private HashMap<String, Object[]> data;
     private OHLCSeriesCollection dataset = new OHLCSeriesCollection();
 
     /**
      * initializing a map with given param
-     * @param data the map that class need
+     *
      */
-    public StockPriceDataset(HashMap<String, Object[]> data) {
-        this.data = data;
-    }
+    public StockPriceDataset() {}
 
     /**
      * get the data and cast the type to Number from the initialized map with key "high"
@@ -192,5 +192,11 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
     @Override
     public void setGroup(DatasetGroup datasetGroup) {
         dataset.setGroup(datasetGroup);
+    }
+
+    @Override
+    public SingleStockData updateData(Map<String, Object[]> data) {
+        this.data = (HashMap)data;
+        return this;
     }
 }
