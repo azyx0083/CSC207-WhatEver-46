@@ -23,7 +23,7 @@ public class SingleStockGraphicalUseCaseFactory {
                                                            APIDataAccess apiDataAccessObject) {
         SingleStockController singleStockController = SingleStockTabularUseCaseFactory.createSingleStockTabularUseCase(viewManagerModel,
                 singleStockTabularViewModel, apiDataAccessObject);
-        MenuController menuController = MenuUseCaseFactory.createMenuController(menuViewModel, viewManagerModel);
+        MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel, menuViewModel);
         return new SingleStockGraphicalView(singleStockGraphicalViewModel, singleStockController, menuController);
     }
 

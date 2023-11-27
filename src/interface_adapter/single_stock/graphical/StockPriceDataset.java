@@ -5,10 +5,13 @@ import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.DefaultHighLowDataset;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.OHLCDataset;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,15 +21,24 @@ import java.util.Map;
  * this class will act like DefaultOHLCDataset, the different is this class will take HashMap
  * as the input and constructor doesn't require Key and Date.
  */
-public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset, SingleStockData {
+public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset, SingleStockData {
     private HashMap<String, Object[]> data;
-    private OHLCSeriesCollection dataset = new OHLCSeriesCollection();
 
     /**
      * initializing a map with given param
      *
      */
     public StockPriceDataset() {}
+
+    @Override
+    public int getSeriesCount() {
+        return 0;
+    }
+
+    @Override
+    public Comparable getSeriesKey(int i) {
+        return null;
+    }
 
     /**
      * get the data and cast the type to Number from the initialized map with key "high"
@@ -128,70 +140,36 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset, 
     public double getVolumeValue(int i, int i1) {
         return (double) data.get("volume")[i1];
     }
-
-    @Override
-    public DomainOrder getDomainOrder() {
-        return dataset.getDomainOrder();
-    }
+    
 
     @Override
     public int getItemCount(int i) {
-        return dataset.getItemCount(i);
+        if(data.isEmpty()){
+            return 0;
+        } else {
+            return data.get("open").length;
+        }
     }
 
     @Override
     public Number getX(int i, int i1) {
-        return dataset.getX(i, i1);
+        String date = (String) data.get("date")[i1];
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return format.parse(date).getTime();
+        } catch (ParseException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public double getXValue(int i, int i1) {
-        return dataset.getXValue(i,i1);
+        return super.getXValue(i, i1);
     }
 
     @Override
     public Number getY(int i, int i1) {
-        return dataset.getY(i,i1);
-    }
-
-    @Override
-    public double getYValue(int i, int i1) {
-        return dataset.getYValue(i, i1);
-    }
-
-    @Override
-    public int getSeriesCount() {
-        return dataset.getSeriesCount();
-    }
-
-    @Override
-    public Comparable getSeriesKey(int i) {
-        return dataset.getSeriesKey(i);
-    }
-
-    @Override
-    public int indexOf(Comparable comparable) {
-        return dataset.indexOf(comparable);
-    }
-
-    @Override
-    public void addChangeListener(DatasetChangeListener datasetChangeListener) {
-        dataset.addChangeListener(datasetChangeListener);
-    }
-
-    @Override
-    public void removeChangeListener(DatasetChangeListener datasetChangeListener) {
-        dataset.removeChangeListener(datasetChangeListener);
-    }
-
-    @Override
-    public DatasetGroup getGroup() {
-        return dataset.getGroup();
-    }
-
-    @Override
-    public void setGroup(DatasetGroup datasetGroup) {
-        dataset.setGroup(datasetGroup);
+        return this.getClose(i, i1);
     }
 
     @Override

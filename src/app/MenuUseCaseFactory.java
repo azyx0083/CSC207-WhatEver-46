@@ -17,18 +17,19 @@ public class MenuUseCaseFactory {
      * @return a new MenuView object
      */
     public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
-        MenuOutputBoundary menuOutputBoundary = new MenuPresenter(viewManagerModel, menuViewModel);
-        MenuInputBoundary menuInputBoundary = new MenuInteractor(menuOutputBoundary);
-        MenuController menuController = createMenuController(menuInputBoundary);
+        MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
         return new MenuView(menuController, menuViewModel);
     }
 
     /**
      * Helper method for MenuUseCaseFactory.create(). Static as other views may need a MenuController.
-     * @param menuInputBoundary
-     * @return new MenuController object
+     * @param viewManagerModel master manager model
+     * @param menuViewModel the menu view model
+     * @return new MenuController object.
      */
-    public static MenuController createMenuController(MenuInputBoundary menuInputBoundary) {
+    public static MenuController createMenuController(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
+        MenuOutputBoundary menuOutputBoundary = new MenuPresenter(viewManagerModel, menuViewModel);
+        MenuInputBoundary menuInputBoundary = new MenuInteractor(menuOutputBoundary);
         return new MenuController(menuInputBoundary);
     }
 }
