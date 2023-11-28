@@ -6,13 +6,13 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class OptionsViewModel extends ViewModel {
+public class SearchViewModel extends ViewModel {
     public static String[] LABEL = new String[]{"Graph", "Table"};
-    private OptionsState state = new OptionsState();
-    public OptionsViewModel() {
+    private SearchState state = new SearchState();
+    public SearchViewModel() {
         super("Search");
     } // "Search" is the view name.
-    public void setState(OptionsState state) {
+    public void setState(SearchState state) {
         this.state = state;
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -30,7 +30,7 @@ public class OptionsViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public OptionsState getState() {
+    public SearchState getState() {
         return state;
     }
 

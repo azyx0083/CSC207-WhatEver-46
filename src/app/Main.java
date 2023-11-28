@@ -4,7 +4,7 @@ package app;
 import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuViewModel;
-import interface_adapter.search.OptionsViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.single_stock.SingleStockViewModel;
 import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
@@ -30,7 +30,7 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         MenuViewModel menuViewModel = new MenuViewModel();
-        OptionsViewModel optionsViewModel = new OptionsViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
         SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel();
         SingleStockGraphicalViewModel singleStockGraphicalViewModel = new SingleStockGraphicalViewModel();
 
@@ -38,7 +38,7 @@ public class Main {
         singleStockViewModels.put("Table", singleStockTabularViewModel);
         singleStockViewModels.put("Graph", singleStockGraphicalViewModel);
 
-        OptionsView optionsView = OptionsUseCaseFactory.create(optionsViewModel,viewManagerModel,
+        OptionsView optionsView = OptionsUseCaseFactory.create(searchViewModel,viewManagerModel,
                 singleStockViewModels, apiDataAccess);
         views.add(optionsView, optionsView.viewName);
 

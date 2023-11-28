@@ -1,20 +1,20 @@
 package interface_adapter.search;
 
-public class OptionsState {
+public class SearchState {
     private String name = "";
     private String nameError = null;
     private String symbol = "";
     private String symbolError = null;
 
     // Copy constructor
-    public OptionsState(OptionsState copy) {
+    public SearchState(SearchState copy) {
         name = copy.name;
         nameError = copy.nameError;
         symbol = copy.symbol;
         symbolError = copy.symbolError;
     }
     // Explicit default constructor
-    public OptionsState() {}
+    public SearchState() {}
 
     // The getters
     public String getName() {

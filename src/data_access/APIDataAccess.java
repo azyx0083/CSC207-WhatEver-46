@@ -9,7 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.search.OptionsAPIDataAccessInterface;
+import use_case.search.SearchAPIDataAccessInterface;
 import use_case.single_stock.SingleStockAPIDataAccessInterface;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * DataAccessObject that is responsible for all API calls
  */
-public class APIDataAccess implements SingleStockAPIDataAccessInterface, OptionsAPIDataAccessInterface {
+public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
     private static final String API_KEY = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
     private final Map<String, Stock> searchHistories;
 

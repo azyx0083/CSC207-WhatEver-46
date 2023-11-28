@@ -1,6 +1,6 @@
 package use_case.search;
 
-public class OptionsOutputData {
+public class SearchOutputData {
     private final String name;
     private final String symbol;
 
@@ -10,7 +10,7 @@ public class OptionsOutputData {
      * @param name stock name
      * @param symbol symbol of stock
      */
-    public OptionsOutputData(String name, String symbol){
+    public SearchOutputData(String name, String symbol){
         this.name = name;
         this.symbol = symbol;
     }
