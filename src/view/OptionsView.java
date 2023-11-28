@@ -1,6 +1,6 @@
 package view;
-import interface_adapter.search.SearchState;
-import interface_adapter.search.SearchViewModel;
+import interface_adapter.search.OptionsState;
+import interface_adapter.search.OptionsViewModel;
 import interface_adapter.single_stock.SingleStockController;
 
 
@@ -13,16 +13,16 @@ import java.util.Map;
 
 public class OptionsView extends JPanel implements ActionListener, PropertyChangeListener{
     public final String viewName = "Search";
-    private final SearchViewModel searchViewModel;
+    private final OptionsViewModel optionsViewModel;
     private final Map<String, SingleStockController> map;
     private final String[] labelList;
     private final JLabel stockSymbol;
-    public OptionsView(SearchViewModel searchViewModel,
+    public OptionsView(OptionsViewModel optionsViewModel,
                        Map<String, SingleStockController> map){
-        this.searchViewModel = searchViewModel;
+        this.optionsViewModel = optionsViewModel;
         this.map = map;
-        this.labelList = SearchViewModel.LABEL;
-        searchViewModel.addPropertyChangeListener(this);
+        this.labelList = OptionsViewModel.LABEL;
+        optionsViewModel.addPropertyChangeListener(this);
 
 
         //creat buttons for graphical view and tabular view
@@ -32,7 +32,7 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
             buttons.add(button);
             button.addActionListener(e -> {
                 if (e.getSource().equals(button)){
-                    SearchState currentState = searchViewModel.getState();
+                    OptionsState currentState = optionsViewModel.getState();
                     map.get(x).execute(currentState.getSymbol());
                 }
             });
@@ -40,7 +40,7 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
 
         //creat the label contains symbol that user searched
         stockSymbol = new JLabel();
-        stockSymbol.setFont(searchViewModel.font2);
+        stockSymbol.setFont(optionsViewModel.font2);
         stockSymbol.setAlignmentX(CENTER_ALIGNMENT);
 
 
@@ -53,7 +53,7 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
     //let the app actually show the stock symbol
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        SearchState state = (SearchState) evt.getNewValue();
+        OptionsState state = (OptionsState) evt.getNewValue();
         if (state.getSymbolError() != null) {
             JOptionPane.showMessageDialog(this, state.getSymbolError());
         }else{

@@ -1,8 +1,8 @@
 package use_case.search;
 
-public class SearchInputData {
+public class OptionsInputData {
     private final String symbol;
-    public SearchInputData(String symbol){
+    public OptionsInputData(String symbol){
         this.symbol = symbol.toUpperCase();
     }
     public String getSymbol(){return symbol;}

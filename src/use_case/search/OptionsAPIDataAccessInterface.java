@@ -1,6 +1,6 @@
 package use_case.search;
 
-public interface SearchAPIDataAccessInterface {
+public interface OptionsAPIDataAccessInterface {
     String search(String symbol);
 
     String getName(String symbol);

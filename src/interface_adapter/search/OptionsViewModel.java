@@ -5,15 +5,14 @@ import interface_adapter.ViewModel;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
-public class SearchViewModel extends ViewModel {
+public class OptionsViewModel extends ViewModel {
     public static String[] LABEL = new String[]{"Graph", "Table"};
-    private SearchState state = new SearchState();
-    public SearchViewModel() {
+    private OptionsState state = new OptionsState();
+    public OptionsViewModel() {
         super("Search");
     } // "Search" is the view name.
-    public void setState(SearchState state) {
+    public void setState(OptionsState state) {
         this.state = state;
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -31,7 +30,7 @@ public class SearchViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public SearchState getState() {
+    public OptionsState getState() {
         return state;
     }
 
