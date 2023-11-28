@@ -10,8 +10,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class SingleStockViewModel extends ViewModel {
     public static final String MENU_BUTTON_LABEL = "Menu";
-    public static final String TABULAR_BUTTON_LABEL = "Table";
-    public static final String GRAPHICAL_BUTTON_LABEL = "Graph";
+    public static String[] BUTTON_LABELS= new String[]{"Table", "Graph"};
     private SingleStockState state;
 
     /**

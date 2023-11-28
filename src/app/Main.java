@@ -5,11 +5,14 @@ import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.single_stock.SingleStockViewModel;
 import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import  view.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,19 +34,23 @@ public class Main {
         SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel();
         SingleStockGraphicalViewModel singleStockGraphicalViewModel = new SingleStockGraphicalViewModel();
 
+        Map<String, SingleStockViewModel> singleStockViewModels = new HashMap<>();
+        singleStockViewModels.put("Table", singleStockTabularViewModel);
+        singleStockViewModels.put("Graph", singleStockGraphicalViewModel);
+
         SearchView searchView = SearchUseCaseFactory.create(searchViewModel,viewManagerModel,
-                singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+                singleStockViewModels, apiDataAccess);
         views.add(searchView, searchView.viewName);
 
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess);
         views.add(menuView, menuView.viewName);
 
         SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,
-                menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+                menuViewModel, singleStockViewModels, apiDataAccess);
         views.add(singleStockTabularView,singleStockTabularView.viewName);
 
         SingleStockGraphicalView singleStockGraphicalView = SingleStockGraphicalUseCaseFactory.createGraphical(viewManagerModel,
-                menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+                menuViewModel, singleStockViewModels, apiDataAccess);
         views.add(singleStockGraphicalView,singleStockGraphicalView.viewName);
 
         viewManagerModel.setActiveView(menuView.viewName);
