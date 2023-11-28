@@ -22,7 +22,7 @@ import java.util.Map;
  * as the input and constructor doesn't require Key and Date.
  */
 public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset, SingleStockData {
-    private HashMap<String, Object[]> data;
+    private Map<String, Object[]> data;
 
     /**
      * initializing a map with given param
@@ -174,7 +174,7 @@ public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset,
 
     @Override
     public SingleStockData updateData(Map<String, Object[]> data) {
-        this.data = (HashMap)data;
+        this.data = data;
         return this;
     }
 

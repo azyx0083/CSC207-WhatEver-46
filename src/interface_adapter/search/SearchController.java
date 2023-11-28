@@ -9,8 +9,8 @@ public class SearchController {
         this.userSearchCaseInteractor = userSearchCaseInteractor;
     }
 
-    public void execute(String name, String symbol) {
-        SearchInputData searchInputData = new SearchInputData(name, symbol); // Assume that both are needed to search.
+    public void execute(String symbol) {
+        SearchInputData searchInputData = new SearchInputData(symbol); // Assume that both are needed to search.
         userSearchCaseInteractor.execute(searchInputData);
     }
 }

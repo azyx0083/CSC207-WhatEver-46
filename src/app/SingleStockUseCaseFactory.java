@@ -7,15 +7,16 @@ import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SingleStockUseCaseFactory {
-    public static ArrayList<SingleStockController> createSingleStockUsecase(ViewManagerModel viewManagerModel,
-                                                                            SingleStockTabularViewModel singleStockTabularViewModel,
-                                                                            SingleStockGraphicalViewModel singleStockGraphicalViewModel,
-                                                                            APIDataAccess apiDataAccess) {
+    public static List<SingleStockController> createSingleStockUsecase(ViewManagerModel viewManagerModel,
+                                                                       SingleStockTabularViewModel singleStockTabularViewModel,
+                                                                       SingleStockGraphicalViewModel singleStockGraphicalViewModel,
+                                                                       APIDataAccess apiDataAccess) {
         SingleStockController graphicalController = SingleStockGraphicalUseCaseFactory.createSingleStockGraphicalUseCase(viewManagerModel, singleStockGraphicalViewModel, apiDataAccess);
         SingleStockController tabularController = SingleStockTabularUseCaseFactory.createSingleStockTabularUseCase(viewManagerModel, singleStockTabularViewModel, apiDataAccess);
-        ArrayList<SingleStockController> controllers = new ArrayList<>();
+        List<SingleStockController> controllers = new ArrayList<>();
         controllers.add(tabularController);
         controllers.add(graphicalController);
         return controllers;
