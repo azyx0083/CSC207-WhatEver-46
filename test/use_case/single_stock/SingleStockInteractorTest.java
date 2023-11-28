@@ -47,7 +47,7 @@ class SingleStockInteractorTest {
         assertEquals(title, viewModel.getState().getTitle());
         assertEquals(detail, viewModel.getState().getDetail());
         assertEquals(currentPrice, viewModel.getState().getCurrentPrice());
-        assertEquals(stock.getHistoricalPrice(), viewModel.getState().getData().getDate());
+        assertEquals(stock.getHistoricalPrice(), viewModel.getState().getData().getData());
     }
 
     @Test

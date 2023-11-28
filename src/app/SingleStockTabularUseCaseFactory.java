@@ -5,33 +5,23 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.single_stock.SingleStockController;
-import interface_adapter.single_stock.SingleStockPresenter;
-import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
+import interface_adapter.single_stock.SingleStockViewModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
-import use_case.single_stock.SingleStockInputBoundary;
-import use_case.single_stock.SingleStockInteractor;
-import use_case.single_stock.SingleStockOutputBoundary;
 import view.SingleStockTabularView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SingleStockTabularUseCaseFactory {
     public static SingleStockTabularView createTabular(ViewManagerModel viewManagerModel,
-                                                       MenuViewModel menuViewModel,
-                                                       SingleStockTabularViewModel singleStockTabularViewModel,
-                                                       SingleStockGraphicalViewModel singleStockGraphicalViewModel,
-                                                       APIDataAccess apiDataAccessObject) {
-        SingleStockController singleStockController = SingleStockGraphicalUseCaseFactory.createSingleStockGraphicalUseCase(viewManagerModel,
-                singleStockGraphicalViewModel, apiDataAccessObject);
+                                                           MenuViewModel menuViewModel,
+                                                           Map<String, SingleStockViewModel> singleStockViewModels,
+                                                           APIDataAccess apiDataAccessObject) {
+        singleStockViewModels = new HashMap<>(singleStockViewModels);
+        SingleStockTabularViewModel singleStockTabularViewModel  = (SingleStockTabularViewModel) singleStockViewModels.remove("Table");
+        Map<String, SingleStockController> singleStockControllers = SingleStockUseCaseFactory.createSingleStockUsecase(viewManagerModel,
+                singleStockViewModels, apiDataAccessObject);
         MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel, menuViewModel);
-        return new SingleStockTabularView(singleStockTabularViewModel, singleStockController, menuController);
+        return new SingleStockTabularView(singleStockTabularViewModel, singleStockControllers, menuController);
     }
-
-    public static SingleStockController createSingleStockTabularUseCase(ViewManagerModel viewManagerModel,
-                                                                  SingleStockTabularViewModel singleStockViewModel,
-                                                                  APIDataAccess apiDataAccessObject) {
-        SingleStockOutputBoundary singleStockOutputBoundary = new SingleStockPresenter(singleStockViewModel,
-                viewManagerModel);
-        SingleStockInputBoundary singleStockInteractor = new SingleStockInteractor(singleStockOutputBoundary, apiDataAccessObject);
-        return new SingleStockController(singleStockInteractor);
-    }
-
 }
