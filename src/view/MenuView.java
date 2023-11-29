@@ -35,6 +35,9 @@ public class MenuView extends JPanel{
 
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        if (menuViewModel.hasUser()){
+            JLabel userLabel = new JLabel(MenuViewModel.USER_LABEL + menuViewModel.getState().getUsername());
+        }
 
         JLabel searchLabel = new JLabel(MenuViewModel.SEARCH_LABEL);
         searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
