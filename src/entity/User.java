@@ -23,7 +23,7 @@ public class User {
      * @param interval the customized setting of time interval for stock's historicalPrice
      * @param outputSize the customized setting of output size for stock's historicalPrice
      */
-    User(String username, String password, Map<String, Stock> favouriteStocks,
+    public User(String username, String password, Map<String, Stock> favouriteStocks,
          String interval, int outputSize) {
         this.username = username;
         this.password = password;
