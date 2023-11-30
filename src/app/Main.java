@@ -42,7 +42,7 @@ public class Main {
                 singleStockViewModels, apiDataAccess);
         views.add(optionsView, optionsView.viewName);
 
-        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
+        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess);
         views.add(menuView, menuView.viewName);
 
         SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,

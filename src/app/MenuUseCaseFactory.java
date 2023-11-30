@@ -1,9 +1,12 @@
 package app;
 
+import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuPresenter;
 import interface_adapter.menu.MenuViewModel;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchViewModel;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -16,9 +19,10 @@ public class MenuUseCaseFactory {
      * @param menuViewModel
      * @return a new MenuView object
      */
-    public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
+    public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel, SearchViewModel searchViewModel, APIDataAccess apiDataAccess) {
         MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
-        return new MenuView(menuController, menuViewModel);
+        SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, apiDataAccess);
+        return new MenuView(menuController, menuViewModel, searchController, searchViewModel);
     }
 
     /**
