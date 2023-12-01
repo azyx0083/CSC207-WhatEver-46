@@ -1,5 +1,6 @@
 package use_case.login;
 
+import entity.PasswordValidator;
 import entity.User;
 
 public class LoginInteractor implements LoginInputBoundary {
@@ -16,7 +17,8 @@ public class LoginInteractor implements LoginInputBoundary {
     public void execute(LoginInputData loginInputData) {
         String username = loginInputData.getUsername();
         String password = loginInputData.getPassword();
-        if (!userDataAccessObject.isValid(username)) {
+        PasswordValidator validator = new PasswordValidator();
+        if (!validator.passwordIsValid(password)) {
             loginPresenter.prepareFailView(username + ": Account does not exist.");
         } else {
             String pwd = userDataAccessObject.get(username).getPassword();
