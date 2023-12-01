@@ -7,8 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class SearchViewModel extends ViewModel {
-    public static String TABLE_BUTTON_LABEL = "Table";
-    public static String GRAPH_BUTTON_LABEL = "Graph";
+    public static String[] LABEL = new String[]{"Graph", "Table"};
     private SearchState state = new SearchState();
     public SearchViewModel() {
         super("Search");
