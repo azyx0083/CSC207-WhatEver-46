@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
 import org.jfree.chart.JFreeChart;
 
 public class SingleStockGraphicalView extends JPanel implements ActionListener, PropertyChangeListener {

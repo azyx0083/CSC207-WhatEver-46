@@ -1,8 +1,5 @@
 package app;
 
-import data_access.APIDataAccess;
-import entity.user_entities.CommonUserFactory;
-import entity.user_entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.menu.MenuController;

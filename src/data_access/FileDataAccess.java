@@ -15,7 +15,7 @@ public class FileDataAccess implements SignupDataAccessInterface, LoginUserDataA
     }
 
     @Override
-    public boolean existsByName(String username) {
+    public boolean isValid(String username) {
         return username.isEmpty();
     }
 
