@@ -38,6 +38,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.setPreferredSize(new Dimension(200, 200));
 
+        menuViewModel.addPropertyChangeListener(this);
+
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
