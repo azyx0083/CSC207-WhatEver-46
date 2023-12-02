@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.menu.*;
 import interface_adapter.search.*;
+import interface_adapter.single_stock.SingleStockState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class MenuView extends JPanel{
+public class MenuView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "menu";
     final MenuController menuController;
     final MenuViewModel menuViewModel;
@@ -23,18 +24,21 @@ public class MenuView extends JPanel{
 
     /**
      * Constructor method. Makes the view layout and assigns buttons their functionalities.
+     *
      * @param menuController The associated MenuController
-     * @param menuViewModel The associated  MenuViewModel
-     * /@param searchController The associated SearchController
-     * /@param searchViewModel The associated SearchViewModel
+     * @param menuViewModel  The associated  MenuViewModel
+     *                       /@param searchController The associated SearchController
+     *                       /@param searchViewModel The associated SearchViewModel
      */
-    public MenuView(MenuController menuController, MenuViewModel menuViewModel, SearchController searchController, SearchViewModel searchViewModel){
+    public MenuView(MenuController menuController, MenuViewModel menuViewModel, SearchController searchController, SearchViewModel searchViewModel) {
         this.menuController = menuController;
         this.menuViewModel = menuViewModel;
         this.searchController = searchController;
         this.searchViewModel = searchViewModel;
 
-        this.setPreferredSize(new Dimension(400,200));
+        this.setPreferredSize(new Dimension(200, 200));
+
+        menuViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -57,11 +61,46 @@ public class MenuView extends JPanel{
                 }
         );
 
+        searchInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        MenuState currentState = menuViewModel.getState();
+                        String text = searchInputField.getText() + e.getKeyChar();
+                        currentState.setStockSymbol(text);
+                        menuViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(searchLabel);
-        this.add(Box.createRigidArea(new Dimension(5,10)));
+        this.add(Box.createRigidArea(new Dimension(5, 10)));
         this.add(searchInputField);
-        this.add(Box.createRigidArea(new Dimension(5,20)));
+        this.add(Box.createRigidArea(new Dimension(5, 20)));
         this.add(search);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        MenuState state = (MenuState) evt.getNewValue();
+
+        searchInputField.setText(state.getStockSymbol());
+        this.repaint();
     }
 }
