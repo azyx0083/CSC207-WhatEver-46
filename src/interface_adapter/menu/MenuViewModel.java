@@ -1,7 +1,6 @@
 package interface_adapter.menu;
 
 import interface_adapter.ViewModel;
-import interface_adapter.single_stock.SingleStockState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -3,6 +3,7 @@ package use_case.search;
 import data_access.APIDataAccess;
 import entity.Stock;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,7 +22,7 @@ public class SearchInteractorTest {
     static void setUp(){
         apiDataAccess = new APIDataAccess();
         searchViewModel = new SearchViewModel();
-        presenter = new SearchPresenter(searchViewModel, new ViewManagerModel());
+        presenter = new SearchPresenter(searchViewModel, new MenuViewModel(), new ViewManagerModel());
     }
 
     @Test
