@@ -36,7 +36,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         this.searchController = searchController;
         this.searchViewModel = searchViewModel;
 
-        this.setPreferredSize(new Dimension(200, 200));
+        this.setSize(200, 200);
 
         menuViewModel.addPropertyChangeListener(this);
 
@@ -83,12 +83,25 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(searchLabel);
-        this.add(Box.createRigidArea(new Dimension(5, 10)));
-        this.add(searchInputField);
-        this.add(Box.createRigidArea(new Dimension(5, 20)));
-        this.add(search);
+        TextButtonPanel searchPanel = new TextButtonPanel(searchInputField, search);
+
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.ipady = 10;
+        constraints.insets = new Insets(10, 10, 10, 10);
+
+        constraints.gridy = 0;
+        constraints.gridx = 0;
+        constraints.gridwidth = 2;
+        this.add(title, constraints);
+
+        constraints.gridy = 1;
+        constraints.gridx = 0;
+        constraints.gridwidth = 1;
+        this.add(searchLabel, constraints);
+
+        constraints.gridx = 1;
+        this.add(searchPanel, constraints);
     }
 
     @Override
