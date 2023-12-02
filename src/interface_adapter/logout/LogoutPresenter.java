@@ -9,11 +9,19 @@ public class LogoutPresenter implements LogoutOutputBoundary {
     private final MenuViewModel menuViewModel;
     private ViewManagerModel viewManagerModel;
 
+    /**
+     * Constructs a LogoutPresenter.
+     * @param menuViewModel the view model for menu.
+     * @param viewManagerModel the model that manages all views.
+     */
     public LogoutPresenter(MenuViewModel menuViewModel, ViewManagerModel viewManagerModel) {
         this.menuViewModel = menuViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * Prepares the view given that the logout process succeeded.
+     */
     @Override
     public void prepareSuccessView() {
         MenuState menuState = menuViewModel.getState();

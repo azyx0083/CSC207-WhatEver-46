@@ -12,11 +12,24 @@ public class SearchViewModel extends ViewModel {
     public SearchViewModel() {
         super("Search");
     } // "Search" is the view name.
+
+    /**
+     * Assigns a SearchState to the view model.
+     * @param state the state used by the search use case.
+     */
     public void setState(SearchState state) {
         this.state = state;
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public static final Font font1 = new Font("Serif", Font.BOLD, 18); // The two fonts to display.
+
+    /**
+     * The bolded font used to display.
+     */
+    public static final Font font1 = new Font("Serif", Font.BOLD, 18);
+
+    /**
+     * The plain font used to display.
+     */
     public static final Font font2 = new Font("Serif", Font.PLAIN, 18);
 
     // This is what the Search Presenter will call to let the ViewModel know
@@ -30,6 +43,10 @@ public class SearchViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Given a SearchViewModel, get the SearchState.
+     * @return the SearchState object.
+     */
     public SearchState getState() {
         return state;
     }
