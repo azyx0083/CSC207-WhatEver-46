@@ -19,10 +19,11 @@ public class MenuUseCaseFactory {
      * @param menuViewModel
      * @return a new MenuView object
      */
-    public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel, SearchViewModel searchViewModel, APIDataAccess apiDataAccess) {
+    public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel,
+                                  SearchViewModel searchViewModel, APIDataAccess apiDataAccess) {
         MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
-        SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, apiDataAccess);
-        return new MenuView(menuController, menuViewModel, searchController, searchViewModel);
+        SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, menuViewModel, apiDataAccess);
+        return new MenuView(menuViewModel, searchController);
     }
 
     /**
