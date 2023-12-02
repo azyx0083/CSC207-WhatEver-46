@@ -1,31 +1,43 @@
 package interface_adapter.single_stock.graphical;
 
+import interface_adapter.single_stock.SingleStockData;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.DefaultHighLowDataset;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.OHLCDataset;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * this class will act like DefaultOHLCDataset, the different is this class will take HashMap
  * as the input and constructor doesn't require Key and Date.
  */
-public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
-    private HashMap<String, Object[]> data;
-    private OHLCSeriesCollection dataset = new OHLCSeriesCollection();
+public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset, SingleStockData {
+    private Map<String, Object[]> data = new HashMap<>();
 
     /**
      * initializing a map with given param
-     * @param data the map that class need
+     *
      */
-    public StockPriceDataset(HashMap<String, Object[]> data) {
-        this.data = data;
+    public StockPriceDataset() {}
+
+    @Override
+    public int getSeriesCount() {
+        return 1;
+    }
+
+    @Override
+    public Comparable getSeriesKey(int i) {
+        return "data";
     }
 
     /**
@@ -46,7 +58,7 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
      */
     @Override
     public double getHighValue(int i, int i1) {
-        return (double)data.get("high")[i1];
+        return (float)data.get("high")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "low"
@@ -66,7 +78,7 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
      */
     @Override
     public double getLowValue(int i, int i1) {
-        return (double) data.get("low")[i1];
+        return (float) data.get("low")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "open"
@@ -86,7 +98,7 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
      */
     @Override
     public double getOpenValue(int i, int i1) {
-        return (double) data.get("open")[i1];
+        return (float) data.get("open")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "close"
@@ -106,7 +118,7 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
      */
     @Override
     public double getCloseValue(int i, int i1) {
-        return (double) data.get("close")[i1];
+        return (float) data.get("close")[i1];
     }
     /**
      * get the data and cast the type to Number from the initialized map with key "volume"
@@ -116,7 +128,7 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
      */
     @Override
     public Number getVolume(int i, int i1) {
-        return (Number) data.get("volume")[i1];
+        return (int) data.get("volume")[i1];
     }
     /**
      * get the data and cast the type to double from the initialized map with key "volume"
@@ -126,71 +138,48 @@ public class StockPriceDataset extends DefaultXYDataset implements OHLCDataset{
      */
     @Override
     public double getVolumeValue(int i, int i1) {
-        return (double) data.get("volume")[i1];
+        return (int) data.get("volume")[i1];
     }
 
-    @Override
-    public DomainOrder getDomainOrder() {
-        return dataset.getDomainOrder();
-    }
 
     @Override
     public int getItemCount(int i) {
-        return dataset.getItemCount(i);
+        if(data.isEmpty()){
+            return 0;
+        } else {
+            return data.get("open").length;
+        }
     }
 
     @Override
     public Number getX(int i, int i1) {
-        return dataset.getX(i, i1);
+        String date = (String) data.get("date")[i1];
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return format.parse(date).getTime();
+        } catch (ParseException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public double getXValue(int i, int i1) {
-        return dataset.getXValue(i,i1);
+        return super.getXValue(i, i1);
     }
 
     @Override
     public Number getY(int i, int i1) {
-        return dataset.getY(i,i1);
+        return this.getClose(i, i1);
     }
 
     @Override
-    public double getYValue(int i, int i1) {
-        return dataset.getYValue(i, i1);
+    public SingleStockData updateData(Map<String, Object[]> data) {
+        this.data = data;
+        return this;
     }
 
     @Override
-    public int getSeriesCount() {
-        return dataset.getSeriesCount();
-    }
-
-    @Override
-    public Comparable getSeriesKey(int i) {
-        return dataset.getSeriesKey(i);
-    }
-
-    @Override
-    public int indexOf(Comparable comparable) {
-        return dataset.indexOf(comparable);
-    }
-
-    @Override
-    public void addChangeListener(DatasetChangeListener datasetChangeListener) {
-        dataset.addChangeListener(datasetChangeListener);
-    }
-
-    @Override
-    public void removeChangeListener(DatasetChangeListener datasetChangeListener) {
-        dataset.removeChangeListener(datasetChangeListener);
-    }
-
-    @Override
-    public DatasetGroup getGroup() {
-        return dataset.getGroup();
-    }
-
-    @Override
-    public void setGroup(DatasetGroup datasetGroup) {
-        dataset.setGroup(datasetGroup);
+    public Map<String, Object[]> getData() {
+        return this.data;
     }
 }

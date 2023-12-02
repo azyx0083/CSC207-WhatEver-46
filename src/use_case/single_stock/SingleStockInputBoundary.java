@@ -6,7 +6,8 @@ package use_case.single_stock;
 public interface SingleStockInputBoundary {
     /**
      * Let the interactor execute the SingleStock usecase using the given symbol
-     * @param symbol a valid stock symbol
+     *
+     * @param inputData the input data from interface adapter
      */
-    void execute(String symbol);
+    void execute(SingleStockInputData inputData);
 }

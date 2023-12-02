@@ -24,11 +24,12 @@ public class SingleStockInteractor implements SingleStockInputBoundary {
     /**
      * Lookup the stock with given stock symbol from the singleStockAPIDataAccessObject
      * Prepare the SingleStockOutputData using such stock and pass the outputData to singleStockPresenter for visualization
-     * @param symbol a valid stock symbol
+     *
+     * @param singleStockInputData a valid stock symbol
      */
     @Override
-    public void execute(String symbol) {
-        Stock stock = singleStockAPIDataAccessObject.getStock(symbol);
+    public void execute(SingleStockInputData singleStockInputData) {
+        Stock stock = singleStockAPIDataAccessObject.getStock(singleStockInputData.getSymbol());
         SingleStockOutputData stockOutputData = new SingleStockOutputData(stock.getName(),
                 stock.getSymbol(), stock.getCurrentPrice(), stock.getCurrency(), stock.getExchange(),
                 stock.getCountry(), stock.getType(), stock.getHistoricalPrice());

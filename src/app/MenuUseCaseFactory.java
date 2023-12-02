@@ -1,9 +1,12 @@
 package app;
 
+import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuPresenter;
 import interface_adapter.menu.MenuViewModel;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchViewModel;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -16,19 +19,22 @@ public class MenuUseCaseFactory {
      * @param menuViewModel
      * @return a new MenuView object
      */
-    public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
-        MenuOutputBoundary menuOutputBoundary = new MenuPresenter(viewManagerModel, menuViewModel);
-        MenuInputBoundary menuInputBoundary = new MenuInteractor(menuOutputBoundary);
-        MenuController menuController = createMenuController(menuInputBoundary);
-        return new MenuView(menuController, menuViewModel);
+    public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel,
+                                  SearchViewModel searchViewModel, APIDataAccess apiDataAccess) {
+        MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
+        SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, menuViewModel, apiDataAccess);
+        return new MenuView(menuViewModel, searchController);
     }
 
     /**
      * Helper method for MenuUseCaseFactory.create(). Static as other views may need a MenuController.
-     * @param menuInputBoundary
-     * @return new MenuController object
+     * @param viewManagerModel master manager model
+     * @param menuViewModel the menu view model
+     * @return new MenuController object.
      */
-    public static MenuController createMenuController(MenuInputBoundary menuInputBoundary) {
+    public static MenuController createMenuController(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
+        MenuOutputBoundary menuOutputBoundary = new MenuPresenter(viewManagerModel, menuViewModel);
+        MenuInputBoundary menuInputBoundary = new MenuInteractor(menuOutputBoundary);
         return new MenuController(menuInputBoundary);
     }
 }

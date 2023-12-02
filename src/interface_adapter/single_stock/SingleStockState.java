@@ -20,6 +20,14 @@ public class SingleStockState {
         this.data = data;
     }
 
+    /**
+     * Initialize a SingleStockState
+     * @param symbol the stock symbol
+     * @param title the title of the stock in the form Symbol-Name
+     * @param currentPrice the current price of the stock in the form CurrentPrice Currency
+     * @param detail the details of the stock in the form StockExchange | Country | StockType
+     * @param data a SingleStockData that store the historical prices of the stock
+     */
     public SingleStockState(String symbol, String title, String currentPrice, String detail, SingleStockData data) {
         this.symbol = symbol;
         this.title = title;
