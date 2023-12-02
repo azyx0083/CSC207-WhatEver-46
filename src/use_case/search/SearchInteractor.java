@@ -3,6 +3,7 @@ package use_case.search;
 public class SearchInteractor implements SearchInputBoundary {
     private final SearchOutputBoundary searchPresenter;
     private final SearchAPIDataAccessInterface searchAPIDataAccessObject;
+    private final SearchFileUserDataAccessInterface searchFileUserDataAccessInterface;
 
     /**
      * constructor
@@ -12,9 +13,11 @@ public class SearchInteractor implements SearchInputBoundary {
      *
      */
     public SearchInteractor(SearchOutputBoundary searchPresenter,
-                            SearchAPIDataAccessInterface searchAPIDataAccessObject){
+                            SearchAPIDataAccessInterface searchAPIDataAccessObject,
+                            SearchFileUserDataAccessInterface searchFileUserDataAccessInterface){
         this.searchPresenter = searchPresenter;
         this.searchAPIDataAccessObject = searchAPIDataAccessObject;
+        this.searchFileUserDataAccessInterface = searchFileUserDataAccessInterface;
     }
 
     /**
