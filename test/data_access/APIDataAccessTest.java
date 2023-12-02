@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for APIDataAccessObject
+ * The api has a per minute limited usage
+ * This tests covers all the cases including the ones when user reach the per minute limit
+ * Only run this test once every minute (otherwise no tests would pass)
+ */
 class APIDataAccessTest {
     static String emptySymbol = "";
     static String validSymbol = "AMZN";
