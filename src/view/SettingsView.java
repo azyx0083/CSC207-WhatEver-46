@@ -41,7 +41,7 @@ public class SettingsView extends JPanel {
                         if (e.getSource().equals(apply)) {
                             SettingsState settingsState = settingsViewModel.getState();
 
-                            settingsController.applySettingsChanges(
+                            settingsController.applyChanges(
                                     settingsState.getInterval(),
                                     settingsState.getDataSize(),
                                     settingsState.getFavorites());
