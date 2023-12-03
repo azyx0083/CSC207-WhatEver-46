@@ -30,4 +30,8 @@ public class SignupController {
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
+
+    public void jumpToSignup(){
+        userSignupUseCaseInteractor.jumpToSignup();
+    }
 }

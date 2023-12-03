@@ -12,4 +12,5 @@ public interface SignupOutputBoundary {
      * @param error the type of error caused by the usecase
      */
     void prepareFailView(String error);
+    void jumpToSignup();
 }

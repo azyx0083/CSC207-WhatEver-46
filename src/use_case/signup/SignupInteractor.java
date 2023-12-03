@@ -4,6 +4,7 @@ import entity.PasswordValidator;
 import entity.Stock;
 import entity.User;
 import entity.UserFactory;
+import interface_adapter.signup.SignupPresenter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,5 +49,10 @@ public class SignupInteractor implements SignupInputBoundary {
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
             userPresenter.prepareSuccessView(signupOutputData);
         }
+    }
+
+    @Override
+    public void jumpToSignup() {
+        userPresenter.jumpToSignup();
     }
 }

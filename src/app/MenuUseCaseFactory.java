@@ -3,6 +3,8 @@ package app;
 import data_access.APIDataAccess;
 import data_access.FileUserDataAccess;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuPresenter;
 import interface_adapter.menu.MenuViewModel;
@@ -10,6 +12,8 @@ import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.settings.SettingsController;
 import interface_adapter.settings.SettingsViewModel;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupViewModel;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -26,13 +30,18 @@ public class MenuUseCaseFactory {
     public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel,
                                   SearchViewModel searchViewModel, APIDataAccess apiDataAccess,
                                   SettingsUserDataAccessInterface userAccess, SettingsViewModel settingsViewModel,
-                                  FileUserDataAccess fileUserDataAccess) {
+                                  FileUserDataAccess fileUserDataAccess, SignupViewModel signupViewModel,
+                                  LoginViewModel loginViewModel) {
         //MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
         SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel,
                 menuViewModel, apiDataAccess, fileUserDataAccess);
         SettingsController settingsController = SettingsUseCaseFactory.createSettingsController(viewManagerModel, settingsViewModel,
                 userAccess);
-        return new MenuView(menuViewModel, searchController, settingsController);
+        SignupController signupController = SignupUseCaseFactory.createSignupUseCase(viewManagerModel,loginViewModel,
+                signupViewModel,fileUserDataAccess);
+        LoginController loginController = LoginUseCaseFactory.createLoginUseCase(viewManagerModel,loginViewModel,menuViewModel,
+                fileUserDataAccess);
+        return new MenuView(menuViewModel, searchController, settingsController, signupController, loginController);
     }
 
     /**

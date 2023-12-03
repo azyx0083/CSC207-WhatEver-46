@@ -19,4 +19,7 @@ public class LoginController {
 
         loginUseCaseInteractor.execute(loginInputData);
     }
+    public void jumpToLogin(){
+        loginUseCaseInteractor.jumpToLogin();
+    }
 }

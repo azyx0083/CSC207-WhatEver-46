@@ -1,8 +1,12 @@
 package view;
 
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.menu.*;
 import interface_adapter.search.*;
 import interface_adapter.settings.SettingsController;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupViewModel;
 import view.helpers.TextButtonPanel;
 
 import javax.swing.*;
@@ -19,10 +23,14 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     final MenuViewModel menuViewModel;
     final SearchController searchController;
     final SettingsController settingsController;
+    final SignupController signupController;
+    final LoginController loginController;
     private final JLabel user;
     private final JTextField searchInputField = new JTextField(20);
     private final JButton search;
     private final JButton settings;
+    private final JButton signup;
+    private final JButton login;
 
     /**
      * Constructor method. Makes the view layout and assigns buttons their functionalities.
@@ -31,10 +39,13 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
      *                       /@param searchController The associated SearchController
      *                       /@param searchViewModel The associated SearchViewModel
      */
-    public MenuView(MenuViewModel menuViewModel, SearchController searchController, SettingsController settingsController) {
+    public MenuView(MenuViewModel menuViewModel, SearchController searchController, SettingsController settingsController,
+                    SignupController signupController,LoginController loginController) {
         this.menuViewModel = menuViewModel;
         this.searchController = searchController;
         this.settingsController = settingsController;
+        this.signupController = signupController;
+        this.loginController = loginController;
 
         this.setSize(200, 200);
 
@@ -76,6 +87,30 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                     }
                 }
         );
+
+        signup = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
+        signup.setAlignmentX(Component.CENTER_ALIGNMENT);
+        signup.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(signup)){
+                            signupController.jumpToSignup();
+                        }
+                    }
+        });
+
+        login = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
+        login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        login.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(login)){
+                            loginController.jumpToLogin();
+                        }
+                    }
+        });
 
         searchInputField.addKeyListener(
                 new KeyListener() {
@@ -122,6 +157,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         constraints.gridy = 3;
         this.add(settings, constraints);
+        this.add(signup);
+        this.add(login);
     }
 
     @Override
