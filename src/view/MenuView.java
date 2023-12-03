@@ -209,6 +209,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
             beforeButtons.setVisible(false);
             afterButtons.setVisible(true);
         }
+        user.setText("Signed in as: " + menuViewModel.getState().getUsername());
         this.repaint();
     }
 }
