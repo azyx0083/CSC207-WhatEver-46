@@ -76,6 +76,7 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         viewManagerModel.setActiveView(menuView.viewName);
+        menuViewModel.firePropertyChanged();
         viewManagerModel.firePropertyChanged();
 
         application.pack();
