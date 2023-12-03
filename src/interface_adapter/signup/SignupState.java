@@ -1,5 +1,8 @@
 package interface_adapter.signup;
 
+/**
+ * the data structure that stores data SignupView needed
+ */
 public class SignupState {
     private String username = "";
     private String usernameError = null;
