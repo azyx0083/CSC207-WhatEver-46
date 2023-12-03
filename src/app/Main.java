@@ -44,11 +44,11 @@ public class Main {
         singleStockViewModels.put("Graph", singleStockGraphicalViewModel);
 
         OptionsView optionsView = OptionsUseCaseFactory.create(searchViewModel,viewManagerModel,
-                singleStockViewModels, apiDataAccess);
+                singleStockViewModels, apiDataAccess,fileUserDataAccess);
         views.add(optionsView, optionsView.viewName);
 
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess,
-                fileUserDataAccess, settingsViewModel);
+                fileUserDataAccess, settingsViewModel, fileUserDataAccess);
         views.add(menuView, menuView.viewName);
 
         SettingsView settingsView = SettingsUseCaseFactory.create(viewManagerModel, settingsViewModel, menuViewModel,

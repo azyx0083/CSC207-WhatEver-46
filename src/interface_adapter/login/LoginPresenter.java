@@ -28,7 +28,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         // On success, switch to the menu view.
 
         MenuState menuState = menuViewModel.getState();
-        menuState.setUsername(true, response.getUsername());
+        menuState.setUsername(response.getUsername());
         menuViewModel.setState(menuState);
         menuViewModel.firePropertyChanged();
 

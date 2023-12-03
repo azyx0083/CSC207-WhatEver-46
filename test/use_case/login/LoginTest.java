@@ -2,6 +2,7 @@ package use_case.login;
 import data_access.APIDataAccess;
 import data_access.InMemoryUserDataAccess;
 import entity.User;
+import entity.UserSetting;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -29,7 +30,7 @@ public class LoginTest {
         menuViewModel = new MenuViewModel();
         viewManagerModel = new ViewManagerModel();
         presenter = new LoginPresenter(viewManagerModel, menuViewModel, loginViewModel);
-        inMemoryUserDataAccess.save(new User(success, "11","1day", 30));
+        inMemoryUserDataAccess.save(new User(success, "11",new UserSetting("1day", 30)));
     }
 
     @Test

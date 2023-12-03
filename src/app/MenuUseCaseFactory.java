@@ -1,6 +1,7 @@
 package app;
 
 import data_access.APIDataAccess;
+import data_access.FileUserDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuPresenter;
@@ -24,9 +25,11 @@ public class MenuUseCaseFactory {
      */
     public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel,
                                   SearchViewModel searchViewModel, APIDataAccess apiDataAccess,
-                                  SettingsUserDataAccessInterface userAccess, SettingsViewModel settingsViewModel) {
+                                  SettingsUserDataAccessInterface userAccess, SettingsViewModel settingsViewModel,
+                                  FileUserDataAccess fileUserDataAccess) {
         //MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
-        SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, menuViewModel, apiDataAccess);
+        SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel,
+                menuViewModel, apiDataAccess, fileUserDataAccess);
         SettingsController settingsController = SettingsUseCaseFactory.createSettingsController(viewManagerModel, settingsViewModel,
                 userAccess);
         return new MenuView(menuViewModel, searchController, settingsController);

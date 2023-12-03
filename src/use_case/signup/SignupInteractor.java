@@ -12,7 +12,7 @@ import java.util.Map;
  * The interactor for Signup use case.
  */
 public class SignupInteractor implements SignupInputBoundary {
-    final SignupDataAccessInterface userDataAccessObject;
+    final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
 
     /**
@@ -20,8 +20,8 @@ public class SignupInteractor implements SignupInputBoundary {
      * @param signupDataAccessInterface the DAO object
      * @param signupOutputBoundary the signup presenter
      */
-    public SignupInteractor(SignupDataAccessInterface signupDataAccessInterface,
-                            SignupOutputBoundary signupOutputBoundary,) {
+    public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
+                            SignupOutputBoundary signupOutputBoundary) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
     }
@@ -42,10 +42,7 @@ public class SignupInteractor implements SignupInputBoundary {
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-            String interval = "1day";
-            int outputSize = 30;
-            User user = UserFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
-                    interval, outputSize);
+            User user = UserFactory.createNewUser(signupInputData.getUsername(), signupInputData.getPassword());
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);

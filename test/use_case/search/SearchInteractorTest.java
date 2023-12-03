@@ -6,6 +6,7 @@ import data_access.InMemoryUserDataAccess;
 import entity.Stock;
 import entity.User;
 import entity.UserFactory;
+import entity.UserSetting;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchPresenter;
@@ -51,7 +52,7 @@ public class SearchInteractorTest {
     void testFailViewWithUser(){
         SearchInteractor interactor = new SearchInteractor(presenter,apiDataAccess, fileUserDataAccess);
         interactor.execute(new SearchInputData(invalidSymbol, "sample"));
-        assertEquals(apiDataAccess.search(invalidSymbol), searchViewModel.getState().getSymbolError());
+        assertEquals(apiDataAccess.search(invalidSymbol, new UserSetting("1day", 30)), searchViewModel.getState().getSymbolError());
     }
 
     @Test
@@ -67,6 +68,6 @@ public class SearchInteractorTest {
     void testFailViewWithoutUser(){
         SearchInteractor interactor = new SearchInteractor(presenter,apiDataAccess, fileUserDataAccess);
         interactor.execute(new SearchInputData(invalidSymbol, null));
-        assertEquals(apiDataAccess.search(invalidSymbol), searchViewModel.getState().getSymbolError());
+        assertEquals(apiDataAccess.search(invalidSymbol, new UserSetting("1day", 30)), searchViewModel.getState().getSymbolError());
     }
 }

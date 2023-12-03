@@ -11,10 +11,10 @@ import interface_adapter.signup.SignupViewModel;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
-import use_case.signup.SignupDataAccessInterface;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.signup.SignupUserDataAccessInterface;
 import view.SignupView;
 
 public class SignupUseCaseFactory {
@@ -22,7 +22,7 @@ public class SignupUseCaseFactory {
                                     SignupViewModel signupViewModel,
                                     MenuViewModel menuViewModel,
                                     LoginViewModel loginViewModel,
-                                    SignupDataAccessInterface apiDataAccess){
+                                    SignupUserDataAccessInterface apiDataAccess){
         SignupController controller = createSignupUseCase(viewManagerModel,loginViewModel,signupViewModel,
                 apiDataAccess);
         MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel,menuViewModel);
@@ -32,7 +32,7 @@ public class SignupUseCaseFactory {
     public static SignupController createSignupUseCase(ViewManagerModel viewManagerModel,
                                                        LoginViewModel loginViewModel,
                                                        SignupViewModel signupViewModel,
-                                                       SignupDataAccessInterface apiDataAccess){
+                                                       SignupUserDataAccessInterface apiDataAccess){
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
                 signupViewModel,loginViewModel);
         SignupInputBoundary signupInputBoundary = new SignupInteractor(apiDataAccess,signupOutputBoundary);
