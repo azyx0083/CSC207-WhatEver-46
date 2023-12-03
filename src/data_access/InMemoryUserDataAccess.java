@@ -2,7 +2,7 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
-import use_case.search.SearchFileUserDataAccessInterface;
+//import use_case.search.SearchUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * InMemory version of the UserDataAccessObject to test the usecase interactors
  */
-public class InMemoryUserDataAccess  implements SearchFileUserDataAccessInterface {
+public class InMemoryUserDataAccess  /**implements SearchUserDataAccessInterface **/{
     // For the testing purpose only
     private final Map<String, User> accounts = new HashMap<>();
 

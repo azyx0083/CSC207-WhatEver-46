@@ -1,9 +1,6 @@
 package data_access;
 
-import entity.DefaultSetting;
-import entity.HistoricalPrice;
-import entity.Stock;
-import entity.UserSetting;
+import entity.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -29,7 +26,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
     }
 
     /**
-     * Set the HistoricalPrice and Exchange for the given stock using responses from the api call time series
+     * Set the HistoricalPrice for the given stock using responses from the api call time series
      * @param symbol the stock symbol required for the api call
      * @param interval the time interval required for the api call
      * @param outputSize the output size required for the api call
@@ -64,7 +61,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
     }
 
     /**
-     * Set the detailed info including stock name, currency, country and type for the given stock using response from
+     * Set the detailed info including stock name, exchange, currency, country and type for the given stock using response from
      * the api call stocks list.
      * @param symbol the stock symbol required for the api call
      * @param exchange the stock market exchange of the stock
@@ -118,16 +115,16 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
     /**
      * Using three api calls to search for the given stock symbol and store a corresponding Stock in the searchHistory
      * @param symbol the stock symbol that used to perform stock search
+     * @param setting the user setting that customize the api calls
      * @return If symbol is valid, return null. Otherwise, return the error message based on the type of exception been
      * catch.
      */
-    public String search(String symbol) {
+    public String search(String symbol, UserSetting setting) {
         try {
             if (searchHistories.containsKey(symbol)) {
                 setCurrentPrice(symbol, searchHistories.get(symbol));
             } else {
                 Stock stock = new Stock(symbol);
-                UserSetting setting = new DefaultSetting();
                 String exchange = setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), stock);
                 setInfo(symbol, exchange, stock);
                 setCurrentPrice(symbol, stock);

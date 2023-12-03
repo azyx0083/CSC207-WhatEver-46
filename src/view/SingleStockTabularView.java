@@ -3,8 +3,9 @@ package view;
 import interface_adapter.menu.MenuController;
 import interface_adapter.single_stock.SingleStockController;
 import interface_adapter.single_stock.SingleStockState;
+import interface_adapter.single_stock.tabular.SingleStockPriceTableModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
-import interface_adapter.single_stock.tabular.StockPriceTableModel;
+import view.helpers.SingleStockPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -87,7 +88,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
         currentPrice.setText(state.getCurrentPrice());
         detail.setText(state.getDetail());
 
-        table.setModel((StockPriceTableModel)state.getData());
+        table.setModel((SingleStockPriceTableModel)state.getData());
 
         // Repaint to refresh
         this.repaint();

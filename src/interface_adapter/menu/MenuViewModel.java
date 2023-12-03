@@ -2,7 +2,6 @@ package interface_adapter.menu;
 
 import interface_adapter.ViewModel;
 
-import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -10,11 +9,13 @@ public class MenuViewModel extends ViewModel {
     public static final String SEARCH_BUTTON_LABEL = "Search";
     public static final String TITLE_LABEL = "Search Menu";
     public static final String SEARCH_LABEL = "NASDAQ Stock Symbol";
-    public static final String USER_LABEL = "CURRENT USER: ";
-
-    private MenuState state = new MenuState();
+    public static final String TO_SETTINGS_BUTTON_LABEL = "Settings";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public MenuViewModel(){super("Menu");}
+    private MenuState state = new MenuState();
+
+    public MenuViewModel() {
+        super("menu");
+    }
 
     /**
      * Assigns a MenuState to the view model.
@@ -22,9 +23,6 @@ public class MenuViewModel extends ViewModel {
      */
     public void setState(MenuState state) {
         this.state = state;
-    }
-    public boolean hasUser(){
-        return this.state.hasUser();
     }
 
     /**
@@ -43,10 +41,12 @@ public class MenuViewModel extends ViewModel {
         return "menu";
     }
 
+    @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
 
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

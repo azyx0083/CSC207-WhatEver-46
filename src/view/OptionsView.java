@@ -5,6 +5,7 @@ import interface_adapter.single_stock.SingleStockController;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -17,6 +18,7 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
     private final Map<String, SingleStockController> map;
     private final String[] labelList;
     private final JLabel stockSymbol;
+    private final JLabel stockName;
     public OptionsView(SearchViewModel searchViewModel,
                        Map<String, SingleStockController> map){
         this.searchViewModel = searchViewModel;
@@ -40,15 +42,27 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
 
         //creat the label contains symbol that user searched
         stockSymbol = new JLabel();
-        stockSymbol.setFont(searchViewModel.font2);
+        stockSymbol.setFont(SearchViewModel.font2);
         stockSymbol.setAlignmentX(CENTER_ALIGNMENT);
+        stockName = new JLabel();
+        stockName.setFont(SearchViewModel.font1);
+        stockName.setAlignmentX(CENTER_ALIGNMENT);
 
 
         //create the actual window and set the display size and content
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        this.add(stockSymbol);
-        this.add(buttons);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.ipady = 10;
+        constraints.insets = new Insets(100, 100, 0, 100);
+        constraints.gridy = 0;
+        this.add(stockName, constraints);
+        constraints.gridy = 1;
+        constraints.insets = new Insets(0, 0, 0, 0);
+        this.add(stockSymbol, constraints);
+
+        constraints.gridy = 2;
+        constraints.weighty = 0.5;
+        this.add(buttons, constraints);
     }
     //let the app actually show the stock symbol
     @Override
@@ -58,6 +72,7 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
             JOptionPane.showMessageDialog(this, state.getSymbolError());
         }else{
             stockSymbol.setText(state.getSymbol());
+            stockName.setText(state.getName());
             this.repaint();
         }
     }
