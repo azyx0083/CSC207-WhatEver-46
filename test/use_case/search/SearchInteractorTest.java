@@ -30,7 +30,7 @@ public class SearchInteractorTest {
         searchViewModel = new SearchViewModel();
         presenter = new SearchPresenter(searchViewModel, new ViewManagerModel());
         fileUserDataAccess = new InMemoryUserDataAccess();
-        sampleUser = new User("sample", "111", new HashMap<>(), "1day", 10);
+        sampleUser = new User("sample", "111", "1day", 10);
         fileUserDataAccess.save(sampleUser);
     }
 
