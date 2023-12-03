@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Data structure that required for stock data visualization
  */
-public interface SingleStockData {
+public interface SingleStockPriceData {
     // There are more than one data structure required for the visualization
     // By creating this interface, the SingleStockPresenter don't need to know the actual implementation of each data
     // structure to update the new data every time
@@ -15,10 +15,10 @@ public interface SingleStockData {
     // Apply Open/Closed Principle, Liskov Substitution Principle and Strategy design pattern
 
     /**
-     * update the SingleStockData
+     * update the SingleStockPriceData
      * @param data the new stock price data
      */
-    SingleStockData updateData(Map<String, Object[]> data);
+    SingleStockPriceData updateData(Map<String, Object[]> data);
 
     // For test purpose only
     Map<String, Object[]> getData();

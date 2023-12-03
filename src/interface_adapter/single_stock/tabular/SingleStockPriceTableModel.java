@@ -1,6 +1,6 @@
 package interface_adapter.single_stock.tabular;
 
-import interface_adapter.single_stock.SingleStockData;
+import interface_adapter.single_stock.SingleStockPriceData;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Map;
@@ -8,20 +8,20 @@ import java.util.Map;
 /**
  * Store the historical data of a Stock as TableModel
  */
-public class StockPriceTableModel extends AbstractTableModel implements SingleStockData {
+public class SingleStockPriceTableModel extends AbstractTableModel implements SingleStockPriceData {
     // Need to have a TableModel to create a JTable
     // All current implementation of TableModel arrange the data by rows
     // But it is more convenient for us to have a TableModel that arrange by columns
-    // StockPriceTableModel extends AbstractTableModel to inherit all the methods except the getters
-    // It also implements the SingleStockData to provide the update functionality required for our program
+    // SingleStockPriceTableModel extends AbstractTableModel to inherit all the methods except the getters
+    // It also implements the SingleStockPriceData to provide the update functionality required for our program
     // Apply the Adapter design pattern
     private Map<String, Object[]> data;
     private final String[] columnNames = new String[]{"date", "open", "high", "low", "close", "volume"};
 
     /**
-     * Initialize a StockPriceTableModel
+     * Initialize a SingleStockPriceTableModel
      */
-    public StockPriceTableModel() {
+    public SingleStockPriceTableModel() {
         super();
     }
 
@@ -75,11 +75,11 @@ public class StockPriceTableModel extends AbstractTableModel implements SingleSt
     }
 
     /**
-     * Update the StockPriceTableModel to store the new data
+     * Update the SingleStockPriceTableModel to store the new data
      * @param data the new data
      */
     @Override
-    public StockPriceTableModel updateData(Map<String, Object[]> data) {
+    public SingleStockPriceTableModel updateData(Map<String, Object[]> data) {
         this.data = data;
         return this;
     }

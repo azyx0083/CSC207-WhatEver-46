@@ -72,6 +72,7 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
             JOptionPane.showMessageDialog(this, state.getSymbolError());
         }else{
             stockSymbol.setText(state.getSymbol());
+            stockName.setText(state.getName());
             this.repaint();
         }
     }

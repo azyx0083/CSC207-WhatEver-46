@@ -1,4 +1,4 @@
-package view;
+package view.helpers;
 
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.data.xy.OHLCDataset;

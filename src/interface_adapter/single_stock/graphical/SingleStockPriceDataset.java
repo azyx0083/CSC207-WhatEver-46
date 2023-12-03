@@ -1,34 +1,26 @@
 package interface_adapter.single_stock.graphical;
 
-import interface_adapter.single_stock.SingleStockData;
-import org.jfree.data.DomainOrder;
-import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DatasetGroup;
-import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import interface_adapter.single_stock.SingleStockPriceData;
 import org.jfree.data.xy.AbstractXYDataset;
-import org.jfree.data.xy.DefaultHighLowDataset;
-import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.OHLCDataset;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * this class will act like DefaultOHLCDataset, the different is this class will take HashMap
  * as the input and constructor doesn't require Key and Date.
  */
-public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset, SingleStockData {
+public class SingleStockPriceDataset extends AbstractXYDataset implements OHLCDataset, SingleStockPriceData {
     private Map<String, Object[]> data = new HashMap<>();
 
     /**
      * initializing a map with given param
      *
      */
-    public StockPriceDataset() {}
+    public SingleStockPriceDataset() {}
 
     @Override
     public int getSeriesCount() {
@@ -173,7 +165,7 @@ public class StockPriceDataset extends AbstractXYDataset implements OHLCDataset,
     }
 
     @Override
-    public SingleStockData updateData(Map<String, Object[]> data) {
+    public SingleStockPriceData updateData(Map<String, Object[]> data) {
         this.data = data;
         return this;
     }
