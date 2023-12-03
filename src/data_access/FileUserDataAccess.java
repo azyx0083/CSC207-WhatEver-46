@@ -3,7 +3,7 @@ package data_access;
 import entity.User;
 import entity.UserFactory;
 import org.json.JSONObject;
-import use_case.search.SearchUserDataAccessInterface;
+//import use_case.search.SearchUserDataAccessInterface;
 import use_case.settings.SettingsUserDataAccessInterface;
 
 import java.io.*;
@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * DataAccessObject responsible for user tracking
  */
-public class FileUserDataAccess implements SearchUserDataAccessInterface, SettingsUserDataAccessInterface {
+public class FileUserDataAccess implements /**SearchUserDataAccessInterface,**/ SettingsUserDataAccessInterface {
     // Have a separate DataAccessObject to interact with the Users because users and API serve different purposes
     // Apply the Single Responsibility Principle
     private Path filePath;

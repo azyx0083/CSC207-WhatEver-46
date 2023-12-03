@@ -52,7 +52,7 @@ public class SettingsView extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(apply)) {
+                        if (e.getSource().equals(returnToMenu)) {
                             menuController.returnToMenu();
                         }
                     }
@@ -66,6 +66,7 @@ public class SettingsView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String selectedOption = (String) intervalDropdown.getSelectedItem();
                 settingsViewModel.getState().setInterval(selectedOption);
+                System.out.println(settingsViewModel.getState().getInterval());
             }
         });
 
@@ -77,15 +78,10 @@ public class SettingsView extends JPanel {
         sizeDropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedOption = (int) intervalDropdown.getSelectedItem();
+                Integer selectedOption = (Integer) sizeDropdown.getSelectedItem();
                 settingsViewModel.getState().setDataSize(selectedOption);
             }
         });
-
-        interval.setAlignmentX(Component.CENTER_ALIGNMENT);
-        dataSize.setAlignmentX(Component.CENTER_ALIGNMENT);
-        apply.setAlignmentX(Component.CENTER_ALIGNMENT);
-        returnToMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -94,7 +90,7 @@ public class SettingsView extends JPanel {
 
         constraints.gridy = 0;
         constraints.gridx = 0;
-        constraints.gridwidth = 2;
+        constraints.gridwidth = 1;
         this.add(interval, constraints);
 
         constraints.gridx = 1;
@@ -108,9 +104,13 @@ public class SettingsView extends JPanel {
         this.add(sizeDropdown, constraints);
 
         constraints.gridy = 2;
+        constraints.gridx = 0;
+        constraints.gridwidth = 2;
         this.add(apply, constraints);
 
-        constraints.gridx = 1;
+        constraints.gridy = 3;
+        constraints.gridx = 0;
+        constraints.gridwidth = 2;
         this.add(returnToMenu, constraints);
     }
 }
