@@ -16,6 +16,6 @@ public class SingleStockTabularViewModel extends SingleStockViewModel {
      * Initialize the viewName and state of the SingleStockTabularViewModel
      */
     public SingleStockTabularViewModel() {
-        super("tabular", new SingleStockState(new StockPriceTableModel()));
+        super("tabular", new SingleStockState(new SingleStockPriceTableModel()));
     }
 }
