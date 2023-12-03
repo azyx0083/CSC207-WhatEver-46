@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame application = new JFrame("Single Stock Example");
+        JFrame application = new JFrame("Single Stock Visualization");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();

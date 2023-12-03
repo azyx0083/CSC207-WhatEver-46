@@ -2,6 +2,7 @@ package interface_adapter.search;
 
 import interface_adapter.ViewModel;
 
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -11,6 +12,11 @@ public class SearchViewModel extends ViewModel {
     public SearchViewModel() {
         super("Search");
     } // "Search" is the view name.
+
+    /**
+     * Assigns a SearchState to the view model.
+     * @param state the state used by the search use case.
+     */
     public void setState(SearchState state) {
         this.state = state;
     }
@@ -27,6 +33,10 @@ public class SearchViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Given a SearchViewModel, get the SearchState.
+     * @return the SearchState object.
+     */
     public SearchState getState() {
         return state;
     }
