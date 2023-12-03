@@ -42,6 +42,9 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        if (menuViewModel.hasUser()){
+            JLabel userLabel = new JLabel(MenuViewModel.USER_LABEL + menuViewModel.getState().getUsername());
+        }
 
         user = new JLabel("Signed in as: " + menuViewModel.getState().getUsername());
         user.setAlignmentX(Component.CENTER_ALIGNMENT);

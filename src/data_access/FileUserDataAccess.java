@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import use_case.search.SearchUserDataAccessInterface;
 import use_case.settings.SettingsUserDataAccessInterface;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -48,6 +48,7 @@ public class FileUserDataAccess implements SearchUserDataAccessInterface, Settin
      * Save the new user
      * @param user the new user that need to be saved
      */
+    @Override
     public void save(User user) {
         accounts.put(user.getUsername(), user);
         this.save();
