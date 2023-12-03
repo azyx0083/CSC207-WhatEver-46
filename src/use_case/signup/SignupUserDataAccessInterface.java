@@ -5,7 +5,7 @@ import entity.User;
 /**
  * APIDataAccessInterface for signup use case
  */
-public interface SignupDataAccessInterface {
+public interface SignupUserDataAccessInterface {
     /**
      * save the user in file
      * @param user the user that need to save
