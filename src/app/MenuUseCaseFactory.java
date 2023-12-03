@@ -7,6 +7,7 @@ import interface_adapter.menu.MenuPresenter;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.settings.SettingsController;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -23,7 +24,8 @@ public class MenuUseCaseFactory {
                                   SearchViewModel searchViewModel, APIDataAccess apiDataAccess) {
         MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
         SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, menuViewModel, apiDataAccess);
-        return new MenuView(menuViewModel, searchController);
+        SettingsController settingsController = SettingsUseCaseFactory.createSettingsUseCase(viewManagerModel, )
+        return new MenuView(menuViewModel, searchController, settingsController);
     }
 
     /**

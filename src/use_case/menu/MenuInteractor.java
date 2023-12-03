@@ -11,4 +11,9 @@ public class MenuInteractor implements MenuInputBoundary{
     public void prepareMenuView() {
         menuPresenter.prepareMenuView();
     }
+
+    @Override
+    public void prepareMenuView(String username) {
+        menuPresenter.prepareMenuView(username);
+    }
 }

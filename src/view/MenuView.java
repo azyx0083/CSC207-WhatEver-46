@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.menu.*;
 import interface_adapter.search.*;
+import interface_adapter.settings.SettingsController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +17,11 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     public final String viewName = "menu";
     final MenuViewModel menuViewModel;
     final SearchController searchController;
+    final SettingsController settingsController;
+    private final JLabel user;
     private final JTextField searchInputField = new JTextField(20);
     private final JButton search;
+    private final JButton settings;
 
     /**
      * Constructor method. Makes the view layout and assigns buttons their functionalities.
@@ -26,9 +30,10 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
      *                       /@param searchController The associated SearchController
      *                       /@param searchViewModel The associated SearchViewModel
      */
-    public MenuView(MenuViewModel menuViewModel, SearchController searchController) {
+    public MenuView(MenuViewModel menuViewModel, SearchController searchController, SettingsController settingsController) {
         this.menuViewModel = menuViewModel;
         this.searchController = searchController;
+        this.settingsController = settingsController;
 
         this.setSize(200, 200);
 
@@ -36,6 +41,9 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        user = new JLabel("Signed in as: " + menuViewModel.getState().getUsername());
+        user.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel searchLabel = new JLabel(MenuViewModel.SEARCH_LABEL);
         searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -50,6 +58,19 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                             MenuState menuState = menuViewModel.getState();
 
                             searchController.execute(menuState.getStockSymbol());
+                        }
+                    }
+                }
+        );
+
+        settings = new JButton(MenuViewModel.TO_SETTINGS_BUTTON_LABEL);
+        settings.setAlignmentX(Component.CENTER_ALIGNMENT);
+        settings.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(settings)) {
+                            settingsController.goToSettings(menuViewModel.getState().getUsername());
                         }
                     }
                 }
@@ -92,10 +113,18 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         constraints.gridy = 1;
         constraints.gridx = 0;
         constraints.gridwidth = 1;
+        this.add(user, constraints);
+
+        constraints.gridy = 2;
+        constraints.gridx = 0;
+        constraints.gridwidth = 1;
         this.add(searchLabel, constraints);
 
         constraints.gridx = 1;
         this.add(searchPanel, constraints);
+
+        constraints.gridy = 3;
+        this.add(settings, constraints);
     }
 
     @Override

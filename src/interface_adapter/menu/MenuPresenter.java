@@ -29,4 +29,14 @@ public class MenuPresenter implements MenuOutputBoundary {
         viewManagerModel.setActiveView(menuViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void prepareMenuView(String username) {
+        menuViewModel.getState().setStockSymbol("");
+        menuViewModel.getState().setUsername(username);
+        menuViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(menuViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }
