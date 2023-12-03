@@ -5,6 +5,7 @@ import interface_adapter.search.*;
 import interface_adapter.settings.SettingsController;
 import view.helpers.TextButtonPanel;
 
+import javax.imageio.plugins.tiff.TIFFTag;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,12 +43,16 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(MenuViewModel.font2);
+
 
         user = new JLabel("Signed in as: " + menuViewModel.getState().getUsername());
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
+        user.setFont(MenuViewModel.font3);
 
         JLabel searchLabel = new JLabel(MenuViewModel.SEARCH_LABEL);
         searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        searchLabel.setFont(MenuViewModel.font3);
 
         search = new JButton(MenuViewModel.SEARCH_BUTTON_LABEL);
         search.setAlignmentX(Component.CENTER_ALIGNMENT);
