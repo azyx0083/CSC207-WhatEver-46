@@ -9,7 +9,6 @@ import java.beans.PropertyChangeSupport;
 public class SettingsViewModel extends ViewModel {
     public static final String INTERVAL_LABEL = "interval?";
     public static final String DATA_SIZE_LABEL = "datasize?";
-    public static final String FAVORITE_STOCKS_LABEL = "fav?";
     public static final String APPLY_BUTTON_LABEL = "Apply";
     public static final String TO_MENU_BUTTON_LABEL = "Menu";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
