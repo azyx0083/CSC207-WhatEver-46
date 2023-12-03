@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.logout.LogoutController;
 import interface_adapter.menu.*;
 import interface_adapter.search.*;
 import interface_adapter.settings.SettingsController;
@@ -31,6 +32,9 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     private final JButton settings;
     private final JButton signup;
     private final JButton login;
+    private final JButton logout;
+    private final JPanel beforeButtons;
+    private final JPanel afterButtons;
 
     /**
      * Constructor method. Makes the view layout and assigns buttons their functionalities.
@@ -40,7 +44,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
      *                       /@param searchViewModel The associated SearchViewModel
      */
     public MenuView(MenuViewModel menuViewModel, SearchController searchController, SettingsController settingsController,
-                    SignupController signupController,LoginController loginController) {
+                    SignupController signupController, LoginController loginController, LogoutController logoutController) {
         this.menuViewModel = menuViewModel;
         this.searchController = searchController;
         this.settingsController = settingsController;
@@ -50,6 +54,9 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         this.setSize(200, 200);
 
         menuViewModel.addPropertyChangeListener(this);
+
+        beforeButtons = new JPanel();
+        afterButtons = new JPanel();
 
         JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -65,6 +72,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         searchLabel.setFont(MenuViewModel.font3);
 
         search = new JButton(MenuViewModel.SEARCH_BUTTON_LABEL);
+        beforeButtons.add(search);
+        afterButtons.add(search);
         search.setAlignmentX(Component.CENTER_ALIGNMENT);
         search.addActionListener(
                 new ActionListener() {
@@ -80,6 +89,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         );
 
         settings = new JButton(MenuViewModel.TO_SETTINGS_BUTTON_LABEL);
+        afterButtons.add(settings);
         settings.setAlignmentX(Component.CENTER_ALIGNMENT);
         settings.addActionListener(
                 new ActionListener() {
@@ -93,6 +103,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         );
 
         signup = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
+        beforeButtons.add(signup);
         signup.setAlignmentX(Component.CENTER_ALIGNMENT);
         signup.addActionListener(
                 new ActionListener() {
@@ -105,6 +116,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         });
 
         login = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
+        beforeButtons.add(login);
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
         login.addActionListener(
                 new ActionListener() {
@@ -115,6 +127,20 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                         }
                     }
         });
+
+        logout = new JButton(MenuViewModel.LOG_OUT_LABEL);
+        afterButtons.add(logout);
+        logout.setAlignmentX(Component.CENTER_ALIGNMENT);
+        logout.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(logout)){
+                            logoutController.execute();
+                        }
+                    }
+                }
+        );
 
         searchInputField.addKeyListener(
                 new KeyListener() {
@@ -158,11 +184,13 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         constraints.gridy = 2;
         constraints.gridx = 0;
         this.add(searchPanel, constraints);
-
         constraints.gridy = 3;
         this.add(settings, constraints);
         this.add(signup);
         this.add(login);
+        
+        this.add(beforeButtons);
+        this.add(afterButtons);
     }
 
     @Override
@@ -176,6 +204,15 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         if (state.getStockError() != null) {
             JOptionPane.showMessageDialog(this, state.getStockError());
             menuViewModel.getState().setStockError(null);
+        }
+        if (state.getUsername() == null) {
+            beforeButtons.setVisible(true);
+            afterButtons.setVisible(false);
+            this.repaint();
+        } else {
+            beforeButtons.setVisible(false);
+            afterButtons.setVisible(true);
+            this.repaint();
         }
     }
 }
