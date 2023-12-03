@@ -30,7 +30,7 @@ public class SignupTest {
         loginViewModel = new LoginViewModel();
         signupViewModel = new SignupViewModel();
         presenter = new SignupPresenter(new ViewManagerModel(), signupViewModel,loginViewModel);
-        inMemoryUserDataAccess.save(new User("exists", "1","1day", 10));
+        inMemoryUserDataAccess.save(UserFactory.createUser("exists", "1", "1day", 10));
     }
 
     @Test
