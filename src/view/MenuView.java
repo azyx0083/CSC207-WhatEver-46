@@ -9,7 +9,6 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
 import view.helpers.TextButtonPanel;
 
-import javax.imageio.plugins.tiff.TIFFTag;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

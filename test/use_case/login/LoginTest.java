@@ -23,34 +23,37 @@ public class LoginTest {
     static LoginPresenter presenter;
     static String fail = "fail";
     static String success = "success";
+    static String correctPassword = "11111";
+    static String wrongPassword = "00000";
 
     @BeforeAll
     static void setUp(){
         loginViewModel = new LoginViewModel();
         menuViewModel = new MenuViewModel();
         viewManagerModel = new ViewManagerModel();
+        inMemoryUserDataAccess = new InMemoryUserDataAccess();
         presenter = new LoginPresenter(viewManagerModel, menuViewModel, loginViewModel);
-        inMemoryUserDataAccess.save(new User(success, "11",new UserSetting("1day", 30)));
+        inMemoryUserDataAccess.save(new User(success, correctPassword,new UserSetting("1day", 30)));
     }
 
     @Test
     void testSuccessView(){
         LoginInteractor interactor = new LoginInteractor(inMemoryUserDataAccess, presenter);
-        interactor.execute(new LoginInputData(success, "1"));
+        interactor.execute(new LoginInputData(success, correctPassword));
         assertEquals("success", menuViewModel.getState().getUsername());
     }
 
     @Test
     void testUserDoesNotExist(){
         LoginInteractor interactor = new LoginInteractor(inMemoryUserDataAccess, presenter);
-        interactor.execute(new LoginInputData(fail, "1"));
+        interactor.execute(new LoginInputData(fail, correctPassword));
         assertEquals(fail + ": Account does not exist.", loginViewModel.getState().getUsernameError());
     }
 
     @Test
     void testPasswordDoesNotMatch(){
         LoginInteractor interactor = new LoginInteractor(inMemoryUserDataAccess, presenter);
-        interactor.execute(new LoginInputData(success, "2"));
+        interactor.execute(new LoginInputData(success, wrongPassword));
         assertEquals("Incorrect password for " + success + ".",
                 loginViewModel.getState().getUsernameError());
     }

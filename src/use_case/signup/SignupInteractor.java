@@ -1,9 +1,6 @@
 package use_case.signup;
 
-import entity.PasswordValidator;
-import entity.Stock;
-import entity.User;
-import entity.UserFactory;
+import entity.*;
 import interface_adapter.signup.SignupPresenter;
 
 import java.util.HashMap;
@@ -15,6 +12,8 @@ import java.util.Map;
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
+    final PasswordValidator passwordValidator;
+    final UsernameValidator usernameValidator;
 
     /**
      * initialize a signup interactor
@@ -25,6 +24,8 @@ public class SignupInteractor implements SignupInputBoundary {
                             SignupOutputBoundary signupOutputBoundary) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
+        this.passwordValidator = new PasswordValidator();
+        this.usernameValidator = new UsernameValidator();
     }
 
     /**
@@ -35,8 +36,9 @@ public class SignupInteractor implements SignupInputBoundary {
      */
     @Override
     public void execute(SignupInputData signupInputData) {
-        PasswordValidator validator = new PasswordValidator();
-        if (!validator.passwordIsValid(signupInputData.getPassword())) {
+        if (!usernameValidator.usernameIsValid(signupInputData.getUsername())) {
+            userPresenter.prepareFailView("Invalid Username");
+        } else if (!passwordValidator.passwordIsValid(signupInputData.getPassword())) {
             userPresenter.prepareFailView("Invalid Password");
         } else if (userDataAccessObject.isValid(signupInputData.getUsername())) {
             userPresenter.prepareFailView("User already exists");

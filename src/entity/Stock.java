@@ -86,10 +86,4 @@ public class Stock {
     public void setHistoricalPrice(HistoricalPrice historicalPrice) {
         this.historicalPrice = historicalPrice;
     }
-
-    public void reset() {
-        currentPrice = null;
-        historicalPrice = null;
-    }
-
 }

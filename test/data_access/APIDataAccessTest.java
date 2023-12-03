@@ -80,6 +80,7 @@ class APIDataAccessTest {
      */
     @AfterAll
     static void testFrequentRequest() {
+        apiDataAccess.search(validSymbol, defaultSetting);
         assertEquals(apiDataAccess.search(validSymbol2, defaultSetting),
                 "Frequent request. Please try again in one minute.");
     }

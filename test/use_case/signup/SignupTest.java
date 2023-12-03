@@ -1,6 +1,5 @@
 package use_case.signup;
 import data_access.InMemoryUserDataAccess;
-import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupPresenter;
@@ -15,43 +14,63 @@ public class SignupTest {
     static SignupPresenter presenter;
     static SignupViewModel signupViewModel;
     static LoginViewModel loginViewModel;
-    static UserFactory userFactory;
+    static String validUsername = "success";
+    static String empty = "";
+    static String inValidUsername = "something too long";
+    static String validPassword = "11111111";
+    static String validPassword2 = "22222222";
+    static String inValidPassword = "11";
+
     @BeforeAll
     static void setUp(){
         inMemoryUserDataAccess = new InMemoryUserDataAccess();
-        userFactory = new UserFactory();
         loginViewModel = new LoginViewModel();
         signupViewModel = new SignupViewModel();
         presenter = new SignupPresenter(new ViewManagerModel(), signupViewModel,loginViewModel);
-        inMemoryUserDataAccess.save(UserFactory.createUser("exists", "1", "1day", 10));
     }
 
     @Test
     void testSuccessView(){
         SignupInteractor interactor = new SignupInteractor(inMemoryUserDataAccess,presenter);
-        interactor.execute(new SignupInputData("success", "11", "11"));
+        interactor.execute(new SignupInputData(validUsername, validPassword, validPassword));
         assertNotNull(inMemoryUserDataAccess.getAccounts().keySet());
-        assertNotNull(inMemoryUserDataAccess.getAccounts().get("success"));
+        assertNotNull(inMemoryUserDataAccess.get("success"));
     }
 
     @Test
     void testPasswordNotMatch(){
         SignupInteractor interactor = new SignupInteractor(inMemoryUserDataAccess,presenter);
-        interactor.execute(new SignupInputData("Fail", "1", "2"));
-        assertEquals("Passwords don't match.", signupViewModel.getState().getUsernameError());
+        interactor.execute(new SignupInputData("Fail", validPassword, validPassword2));
+        assertEquals("Passwords don't match.", signupViewModel.getState().getError());
     }
 
     @Test
     void testPasswordInvalid(){
         SignupInteractor interactor = new SignupInteractor(inMemoryUserDataAccess,presenter);
-        interactor.execute(new SignupInputData("Fail", null, null));
-        assertEquals("Invalid Password", signupViewModel.getState().getUsernameError());
+        interactor.execute(new SignupInputData("Fail", inValidPassword, inValidPassword));
+        assertEquals("Invalid Password", signupViewModel.getState().getError());
+    }
+
+    @Test
+    void testUsernameInvalid() {
+        SignupInteractor interactor = new SignupInteractor(inMemoryUserDataAccess, presenter);
+        interactor.execute(new SignupInputData(inValidUsername, validPassword, validPassword));
+        assertEquals("Invalid Username", signupViewModel.getState().getError());
+    }
+
+    @Test
+    void testEmpty() {
+        SignupInteractor interactor = new SignupInteractor(inMemoryUserDataAccess, presenter);
+        interactor.execute(new SignupInputData(empty, validPassword, validPassword));
+        assertEquals("Invalid Username", signupViewModel.getState().getError());
+        interactor.execute(new SignupInputData(validUsername, empty, empty));
+        assertEquals("Invalid Password", signupViewModel.getState().getError());
     }
 
     @Test
     void testUserAlreadyExists(){
         SignupInteractor interactor = new SignupInteractor(inMemoryUserDataAccess,presenter);
-        interactor.execute(new SignupInputData("exists", "1", "1"));
-        assertEquals("User already exists", signupViewModel.getState().getUsernameError());
+        interactor.execute(new SignupInputData(validUsername, validPassword, validPassword));
+        assertEquals("User already exists", signupViewModel.getState().getError());
     }
 }
