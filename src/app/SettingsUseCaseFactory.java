@@ -1,6 +1,5 @@
 package app;
 
-import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuViewModel;
@@ -12,7 +11,7 @@ import view.SettingsView;
 
 public class SettingsUseCaseFactory {
     public static SettingsView create(ViewManagerModel viewManagerModel, SettingsViewModel settingsViewModel,
-                                      MenuViewModel menuViewModel, SettingsDataAccessInterface userAccess) {
+                                      MenuViewModel menuViewModel, SettingsUserDataAccessInterface userAccess) {
         SettingsController settingsController = createSettingsController(viewManagerModel, settingsViewModel,
                 userAccess);
         MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel, menuViewModel);
@@ -21,7 +20,7 @@ public class SettingsUseCaseFactory {
 
     public static SettingsController createSettingsController(ViewManagerModel viewManagerModel,
                                                               SettingsViewModel settingsViewModel,
-                                                              SettingsDataAccessInterface userAccess) {
+                                                              SettingsUserDataAccessInterface userAccess) {
         SettingsOutputBoundary presenter = new SettingsPresenter(viewManagerModel, settingsViewModel);
         SettingsInputBoundary interactor = new SettingsInteractor(presenter, userAccess);
 

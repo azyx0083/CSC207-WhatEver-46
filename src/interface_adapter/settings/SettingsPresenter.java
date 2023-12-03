@@ -1,7 +1,6 @@
 package interface_adapter.settings;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.menu.MenuViewModel;
 import use_case.settings.SettingsOutputBoundary;
 import use_case.settings.SettingsOutputData;
 
@@ -28,7 +27,7 @@ public class SettingsPresenter implements SettingsOutputBoundary {
         SettingsState state = settingsViewModel.getState();
         state.setInterval(settingsOutputData.getInterval());
         state.setDataSize(settingsOutputData.getDataSize());
-        state.setFavorites(settingsOutputData.getFavorites());
+//        state.setFavorites(settingsOutputData.getFavorites());
         settingsViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(settingsViewModel.getViewName());

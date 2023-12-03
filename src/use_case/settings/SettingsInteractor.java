@@ -1,32 +1,28 @@
 package use_case.settings;
 
-import data_access.APIDataAccess;
-import entity.Stock;
 import entity.User;
-import use_case.search.SearchAPIDataAccessInterface;
-import use_case.settings.SettingsOutputBoundary;
+import entity.UserSetting;
 
-import java.util.Map;
 import java.util.Set;
 
 public class SettingsInteractor implements SettingsInputBoundary{
     final SettingsOutputBoundary settingsPresenter;
-    final SettingsDataAccessInterface userAccess;
+    final SettingsUserDataAccessInterface userAccess;
 
     /**
      * constructor
      * @param settingsPresenter the presenter
      * @param userAccess to find the user
      */
-    public SettingsInteractor(SettingsOutputBoundary settingsPresenter, SettingsDataAccessInterface userAccess) {
+    public SettingsInteractor(SettingsOutputBoundary settingsPresenter, SettingsUserDataAccessInterface userAccess) {
         this.settingsPresenter = settingsPresenter;
         this.userAccess = userAccess;
     }
     @Override
     public void applyChanges(SettingsInputData settingsInputData) {
         User user = userAccess.get(settingsInputData.getUsername());
-        user.setInterval(settingsInputData.getInterval());
-        user.setOutputSize(settingsInputData.getDataSize());
+        user.getSetting().setInterval(settingsInputData.getInterval());
+        user.getSetting().setOutputSize(settingsInputData.getDataSize());
         /**Map<String, Stock> favs = user.getFavouriteStocks();
 
         String[] favs2 = settingsInputData.getFavorites();
@@ -66,11 +62,11 @@ public class SettingsInteractor implements SettingsInputBoundary{
     @Override
     public void goToSettings(String username) {
         User user = userAccess.get(username);
-        String interval = user.getInterval();
-        int dataSize = user.getOutputSize();
-        Set<String> favsSet = user.getFavouriteStocks().keySet();
-        String[] favs = favsSet.toArray(new String[0]);
-        SettingsOutputData settingsOutputData = new SettingsOutputData(interval, dataSize, favs);
+        String interval = user.getSetting().getInterval();
+        int dataSize = user.getSetting().getOutputSize();
+//        Set<String> favsSet = user.getFavouriteStocks().keySet();
+//        String[] favs = favsSet.toArray(new String[0]);
+        SettingsOutputData settingsOutputData = new SettingsOutputData(interval, dataSize);
         settingsPresenter.prepareSettingsView(settingsOutputData);
     }
 }
