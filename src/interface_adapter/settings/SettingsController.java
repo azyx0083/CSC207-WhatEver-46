@@ -14,9 +14,13 @@ public class SettingsController {
         this.settingsInputBoundary = settingsInputBoundary;
     }
 
-    public void applyChanges(String interval, int dataSize, String[] favorites) {
-        SettingsInputData settingsInputData = new SettingsInputData(interval, dataSize, favorites);
+    public void applyChanges(String interval, int dataSize, String[] favorites, String username) {
+        SettingsInputData settingsInputData = new SettingsInputData(interval, dataSize, favorites, username);
 
         settingsInputBoundary.applyChanges(settingsInputData);
+    }
+
+    public void goToSettings(String username) {
+        settingsInputBoundary.goToSettings(username);
     }
 }

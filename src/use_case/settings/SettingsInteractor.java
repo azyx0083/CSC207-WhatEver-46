@@ -1,6 +1,6 @@
 package use_case.settings;
 
-import use_case.menu.MenuOutputBoundary;
+import use_case.settings.SettingsOutputBoundary;
 
 public class SettingsInteractor implements SettingsInputBoundary{
     final SettingsOutputBoundary settingsPresenter;
@@ -10,6 +10,11 @@ public class SettingsInteractor implements SettingsInputBoundary{
     }
     @Override
     public void applyChanges(SettingsInputData settingsInputData) {
+
+    }
+
+    @Override
+    public void goToSettings(String username) {
 
     }
 }

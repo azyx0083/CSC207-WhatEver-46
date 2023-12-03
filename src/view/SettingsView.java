@@ -44,7 +44,8 @@ public class SettingsView extends JPanel {
                             settingsController.applyChanges(
                                     settingsState.getInterval(),
                                     settingsState.getDataSize(),
-                                    settingsState.getFavorites());
+                                    settingsState.getFavorites(),
+                                    settingsState.getUsername());
                         }
                     }
                 }

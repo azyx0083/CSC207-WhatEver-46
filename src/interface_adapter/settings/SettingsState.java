@@ -4,6 +4,7 @@ public class SettingsState {
     private String interval;
     private int dataSize;
     private String[] favorites;
+    private String username;
 
     public SettingsState() {
 
@@ -31,5 +32,13 @@ public class SettingsState {
 
     public void setFavorites(String[] favorites) {
         this.favorites = favorites;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
