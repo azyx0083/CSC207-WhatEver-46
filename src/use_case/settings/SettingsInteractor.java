@@ -64,7 +64,7 @@ public class SettingsInteractor implements SettingsInputBoundary{
         int dataSize = user.getSetting().getOutputSize();
 //        Set<String> favsSet = user.getFavouriteStocks().keySet();
 //        String[] favs = favsSet.toArray(new String[0]);
-        SettingsOutputData settingsOutputData = new SettingsOutputData(interval, dataSize);
+        SettingsOutputData settingsOutputData = new SettingsOutputData(username, interval, dataSize);
         settingsPresenter.prepareSettingsView(settingsOutputData);
     }
 }
