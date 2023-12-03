@@ -1,12 +1,10 @@
 package data_access;
 
-import entity.Stock;
 import entity.User;
+import entity.UserSetting;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 
 class FileUserDataAccessTest {
     static FileUserDataAccess fileUserDataAccess;
@@ -17,14 +15,7 @@ class FileUserDataAccessTest {
     static void setUp() {
         fileUserDataAccess = new FileUserDataAccess(path);
 
-        validUser = new User("aa", "aaaa", new HashMap<>(), "fwwqw", 12);
-        Stock stock1 = new Stock("amzn");
-        stock1.setInfo("amazon", "NYSE", "USD", "america", "common");
-        validUser.getSetting().addFavouriteStock(stock1);
-
-        Stock stock2 = new Stock("AAPL");
-        stock2.setInfo("apple", "NYSE", "USD", "america", "common");
-        validUser.getSetting().addFavouriteStock(stock2);
+        validUser = new User("aa", "aaaa", new UserSetting("1day", 12));
     }
 
     @BeforeEach

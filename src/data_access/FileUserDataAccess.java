@@ -3,7 +3,8 @@ package data_access;
 import entity.User;
 import entity.UserFactory;
 import org.json.JSONObject;
-import use_case.search.SearchFileUserDataAccessInterface;
+import use_case.search.SearchUserDataAccessInterface;
+import use_case.settings.SettingsUserDataAccessInterface;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,7 +15,7 @@ import java.util.Map;
 /**
  * DataAccessObject responsible for user tracking
  */
-public class FileUserDataAccess implements SearchFileUserDataAccessInterface {
+public class FileUserDataAccess implements SearchUserDataAccessInterface, SettingsUserDataAccessInterface {
     // Have a separate DataAccessObject to interact with the Users because users and API serve different purposes
     // Apply the Single Responsibility Principle
     private Path filePath;
@@ -35,8 +36,7 @@ public class FileUserDataAccess implements SearchFileUserDataAccessInterface {
                 // Use of the factory design pattern to construct the User
                 // FileUserDataAccess is independent of implementation of User
                 accounts.put(username, UserFactory.createUser(username, user.getString("password"),
-                        setting.getString("interval"), setting.getInt("outputSize"),
-                        setting.getJSONObject("favouriteStocks")));
+                        setting.getString("interval"), setting.getInt("outputSize")));
             }
         } catch (Exception ignored) {
             this.accounts = new HashMap<>();
@@ -57,8 +57,6 @@ public class FileUserDataAccess implements SearchFileUserDataAccessInterface {
      * Private helper that write all existing users to the file
      */
     private void save() {
-        for (User user : accounts.values())
-            user.reset();
         try {
             Files.writeString(filePath, new JSONObject(accounts).toString());
         } catch (IOException e) {
