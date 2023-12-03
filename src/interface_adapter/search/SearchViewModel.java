@@ -2,7 +2,6 @@ package interface_adapter.search;
 
 import interface_adapter.ViewModel;
 
-import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -16,8 +15,6 @@ public class SearchViewModel extends ViewModel {
         this.state = state;
     }
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public static final Font font1 = new Font("Serif", Font.BOLD, 18); // The two fonts to display.
-    public static final Font font2 = new Font("Serif", Font.PLAIN, 18);
 
     // This is what the Search Presenter will call to let the ViewModel know
     // to alert the View

@@ -3,6 +3,7 @@ package app;
 import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
+import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
@@ -27,8 +28,9 @@ public class OptionsUseCaseFactory {
 
     public static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
                                                        SearchViewModel searchViewModel,
+                                                       MenuViewModel menuViewModel,
                                                        APIDataAccess apiDataAccess){
-        SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel,viewManagerModel);
+        SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel,menuViewModel, viewManagerModel);
         SearchInputBoundary searchInteractor = new SearchInteractor(searchPresenter,apiDataAccess);
         return new SearchController(searchInteractor);
     }
