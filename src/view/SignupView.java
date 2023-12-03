@@ -4,6 +4,7 @@ import interface_adapter.menu.MenuController;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import view.helpers.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

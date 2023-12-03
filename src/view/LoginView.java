@@ -4,6 +4,7 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.menu.MenuController;
+import view.helpers.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
