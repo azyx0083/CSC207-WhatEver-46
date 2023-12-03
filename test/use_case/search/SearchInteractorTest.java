@@ -5,7 +5,9 @@ import data_access.FileUserDataAccess;
 import data_access.InMemoryUserDataAccess;
 import entity.Stock;
 import entity.User;
+import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,15 +24,17 @@ public class SearchInteractorTest {
     static SearchPresenter presenter;
     static SearchViewModel searchViewModel;
     static InMemoryUserDataAccess fileUserDataAccess;
+    static MenuViewModel menuViewModel;
     static User sampleUser;
 
     @BeforeAll
     static void setUp(){
         apiDataAccess = new APIDataAccess();
         searchViewModel = new SearchViewModel();
-        presenter = new SearchPresenter(searchViewModel, new ViewManagerModel());
+        menuViewModel = new MenuViewModel();
+        presenter = new SearchPresenter(searchViewModel,menuViewModel, new ViewManagerModel());
         fileUserDataAccess = new InMemoryUserDataAccess();
-        sampleUser = new User("sample", "111", new HashMap<>(), "1day", 10);
+        sampleUser = UserFactory.createUser("sample", "111", "1day", 10);
         fileUserDataAccess.save(sampleUser);
     }
 

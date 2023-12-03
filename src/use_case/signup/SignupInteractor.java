@@ -46,11 +46,10 @@ public class SignupInteractor implements SignupInputBoundary {
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-            Map<String, Stock> fav = new HashMap<>();
             String interval = "1day";
             int outputSize = 30;
             User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
-                    interval, outputSize, fav);
+                    interval, outputSize);
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
