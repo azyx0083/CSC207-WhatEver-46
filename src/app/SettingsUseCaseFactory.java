@@ -12,20 +12,18 @@ import view.SettingsView;
 
 public class SettingsUseCaseFactory {
     public static SettingsView create(ViewManagerModel viewManagerModel, SettingsViewModel settingsViewModel,
-                                      MenuViewModel menuViewModel, SettingsDataAccessInterface userAccess,
-                                      APIDataAccess apiAccess) {
+                                      MenuViewModel menuViewModel, SettingsDataAccessInterface userAccess) {
         SettingsController settingsController = createSettingsController(viewManagerModel, settingsViewModel,
-                userAccess, apiAccess);
+                userAccess);
         MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel, menuViewModel);
         return new SettingsView(settingsController, settingsViewModel, menuController);
     }
 
     public static SettingsController createSettingsController(ViewManagerModel viewManagerModel,
                                                               SettingsViewModel settingsViewModel,
-                                                              SettingsDataAccessInterface userAccess,
-                                                              APIDataAccess apiAccess) {
+                                                              SettingsDataAccessInterface userAccess) {
         SettingsOutputBoundary presenter = new SettingsPresenter(viewManagerModel, settingsViewModel);
-        SettingsInputBoundary interactor = new SettingsInteractor(presenter, userAccess, apiAccess);
+        SettingsInputBoundary interactor = new SettingsInteractor(presenter, userAccess);
 
         return new SettingsController(interactor);
     }

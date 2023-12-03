@@ -12,19 +12,22 @@ import java.util.Set;
 public class SettingsInteractor implements SettingsInputBoundary{
     final SettingsOutputBoundary settingsPresenter;
     final SettingsDataAccessInterface userAccess;
-    final APIDataAccess apiAccess;
 
-    public SettingsInteractor(SettingsOutputBoundary settingsPresenter, SettingsDataAccessInterface userAccess, APIDataAccess apiAccess) {
+    /**
+     * constructor
+     * @param settingsPresenter the presenter
+     * @param userAccess to find the user
+     */
+    public SettingsInteractor(SettingsOutputBoundary settingsPresenter, SettingsDataAccessInterface userAccess) {
         this.settingsPresenter = settingsPresenter;
         this.userAccess = userAccess;
-        this.apiAccess = apiAccess;
     }
     @Override
     public void applyChanges(SettingsInputData settingsInputData) {
         User user = userAccess.get(settingsInputData.getUsername());
         user.setInterval(settingsInputData.getInterval());
         user.setOutputSize(settingsInputData.getDataSize());
-        Map<String, Stock> favs = user.getFavouriteStocks();
+        /**Map<String, Stock> favs = user.getFavouriteStocks();
 
         String[] favs2 = settingsInputData.getFavorites();
         for (String stock : favs.keySet()) {
@@ -53,9 +56,13 @@ public class SettingsInteractor implements SettingsInputBoundary{
                     favs.put(stock, newStock);
                 }
             }
-        }
+        }**/ //uncomment if want favorites in future
     }
 
+    /**
+     * goes back to settings
+     * @param username username so settings knows whose data to manipulate
+     */
     @Override
     public void goToSettings(String username) {
         User user = userAccess.get(username);

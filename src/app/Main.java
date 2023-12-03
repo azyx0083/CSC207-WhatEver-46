@@ -46,11 +46,12 @@ public class Main {
         views.add(optionsView, optionsView.viewName);
 
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess,
-                userAccess, settingsViewModel);
+                userAccess);
         views.add(menuView, menuView.viewName);
 
         SettingsView settingsView = SettingsUseCaseFactory.create(viewManagerModel, settingsViewModel, menuViewModel,
-                userAccess, apiDataAccess);
+                userAccess);
+        views.add(settingsView, settingsView.viewName);
 
         SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,
                 menuViewModel, singleStockViewModels, apiDataAccess);

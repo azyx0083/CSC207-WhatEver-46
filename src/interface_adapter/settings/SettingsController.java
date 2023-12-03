@@ -14,8 +14,14 @@ public class SettingsController {
         this.settingsInputBoundary = settingsInputBoundary;
     }
 
-    public void applyChanges(String interval, int dataSize, String[] favorites, String username) {
-        SettingsInputData settingsInputData = new SettingsInputData(interval, dataSize, favorites, username);
+    /**
+     * calls the interactor to apply given changes to a user's settings
+     * @param interval the interval each stock period encompasses
+     * @param dataSize the number of periods to track
+     * @param username user's username
+     */
+    public void applyChanges(String interval, int dataSize, String username) {
+        SettingsInputData settingsInputData = new SettingsInputData(interval, dataSize, username);
 
         settingsInputBoundary.applyChanges(settingsInputData);
     }

@@ -18,6 +18,11 @@ public class SettingsPresenter implements SettingsOutputBoundary {
         this.viewManagerModel = viewManagerModel;
         this.settingsViewModel = settingsViewModel;
     }
+
+    /**
+     * prepares settings view and fires associated property changes
+     * @param settingsOutputData the outputdata to populate the settings view
+     */
     @Override
     public void prepareSettingsView(SettingsOutputData settingsOutputData) {
         SettingsState state = settingsViewModel.getState();
