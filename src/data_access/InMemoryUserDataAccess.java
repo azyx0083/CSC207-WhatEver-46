@@ -2,6 +2,8 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
+import use_case.search.SearchUserDataAccessInterface;
+import use_case.signup.SignupUserDataAccessInterface;
 //import use_case.search.SearchUserDataAccessInterface;
 
 import java.util.HashMap;
@@ -10,7 +12,7 @@ import java.util.Map;
 /**
  * InMemory version of the UserDataAccessObject to test the usecase interactors
  */
-public class InMemoryUserDataAccess  /**implements SearchUserDataAccessInterface **/{
+public class InMemoryUserDataAccess implements SearchUserDataAccessInterface, SignupUserDataAccessInterface {
     // For the testing purpose only
     private final Map<String, User> accounts = new HashMap<>();
 
@@ -20,6 +22,11 @@ public class InMemoryUserDataAccess  /**implements SearchUserDataAccessInterface
      */
     public void save(User user) {
         accounts.put(user.getUsername(), user);
+    }
+
+    @Override
+    public boolean isValid(String username) {
+        return accounts.containsKey(username);
     }
 
     /**
