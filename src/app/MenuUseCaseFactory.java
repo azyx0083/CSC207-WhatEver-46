@@ -8,9 +8,11 @@ import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.settings.SettingsController;
+import interface_adapter.settings.SettingsViewModel;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
+import use_case.settings.SettingsDataAccessInterface;
 import view.MenuView;
 
 public class MenuUseCaseFactory {
@@ -21,10 +23,12 @@ public class MenuUseCaseFactory {
      * @return a new MenuView object
      */
     public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel,
-                                  SearchViewModel searchViewModel, APIDataAccess apiDataAccess) {
-        MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
+                                  SearchViewModel searchViewModel, APIDataAccess apiDataAccess,
+                                  SettingsDataAccessInterface userAccess, SettingsViewModel settingsViewModel) {
+        //MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
         SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, menuViewModel, apiDataAccess);
-        SettingsController settingsController = SettingsUseCaseFactory.createSettingsUseCase(viewManagerModel, )
+        SettingsController settingsController = SettingsUseCaseFactory.createSettingsController(viewManagerModel, settingsViewModel,
+                userAccess, apiDataAccess);
         return new MenuView(menuViewModel, searchController, settingsController);
     }
 
