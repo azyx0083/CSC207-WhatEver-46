@@ -1,2 +1,4 @@
-package use_case.settings;public class SettingsInteractorTest {
+package use_case.settings;
+
+public class SettingsInteractorTest {
 }

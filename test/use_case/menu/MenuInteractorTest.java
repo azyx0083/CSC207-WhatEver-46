@@ -1,2 +1,4 @@
-package use_case.menu;public class MenuInteractorTest {
+package use_case.menu;
+
+public class MenuInteractorTest {
 }
