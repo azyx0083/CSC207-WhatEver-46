@@ -5,6 +5,7 @@ import data_access.FileUserDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.logout.LogoutController;
 import interface_adapter.menu.MenuController;
 import interface_adapter.menu.MenuPresenter;
 import interface_adapter.menu.MenuViewModel;
@@ -41,7 +42,8 @@ public class MenuUseCaseFactory {
                 signupViewModel,fileUserDataAccess);
         LoginController loginController = LoginUseCaseFactory.createLoginUseCase(viewManagerModel,loginViewModel,menuViewModel,
                 fileUserDataAccess);
-        return new MenuView(menuViewModel, searchController, settingsController, signupController, loginController);
+        LogoutController logoutController = LogoutUseCaseFactory.createLogoutUseCase(menuViewModel,viewManagerModel);
+        return new MenuView(menuViewModel, searchController, settingsController, signupController, loginController, logoutController);
     }
 
     /**
