@@ -1,7 +1,6 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -26,9 +25,7 @@ public class LoginUseCaseFactory {
                                             LoginUserDataAccessInterface apiDataAccess){
         LoginController loginController = createLoginUseCase(viewManagerModel,
                 loginViewModel,menuViewModel,apiDataAccess);
-        MenuOutputBoundary menuOutputBoundary = new MenuPresenter(viewManagerModel, menuViewModel);
-        MenuInputBoundary menuInputBoundary = new MenuInteractor(menuOutputBoundary);
-        MenuController menuController = MenuUseCaseFactory.createMenuController(menuInputBoundary);
+        MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel,menuViewModel);
         return new LoginView(loginViewModel,loginController,menuController);
     }
 
