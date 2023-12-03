@@ -1,5 +1,8 @@
 package use_case.search;
 
+import entity.User;
+import entity.UserSetting;
+
 public class SearchInteractor implements SearchInputBoundary {
     private final SearchOutputBoundary searchPresenter;
     private final SearchAPIDataAccessInterface searchAPIDataAccessObject;
@@ -26,13 +29,26 @@ public class SearchInteractor implements SearchInputBoundary {
      */
     @Override
     public void execute(SearchInputData searchInputData) {
-        Object search = searchAPIDataAccessObject.search(searchInputData.getSymbol());
-        if (search != null){
-            searchPresenter.prepareFailView((String)search);
+        if (searchInputData.getUsername() != null){
+            User user = searchFileUserDataAccessInterface.get(searchInputData.getUsername());
+            UserSetting setting = new UserSetting(user.getInterval(), user.getOutputSize());
+            String search = searchAPIDataAccessObject.search(searchInputData.getSymbol(), setting);
+            if (search != null){
+                searchPresenter.prepareFailView(search);
+            } else {
+                SearchOutputData searchOutputData = new SearchOutputData(
+                        searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
+                searchPresenter.prepareSuccessView(searchOutputData);
+            }
         } else {
-            SearchOutputData searchOutputData = new SearchOutputData(
-                    searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
-            searchPresenter.prepareSuccessView(searchOutputData);
+            String search = searchAPIDataAccessObject.search(searchInputData.getSymbol());
+            if (search != null){
+                searchPresenter.prepareFailView(search);
+            } else {
+                SearchOutputData searchOutputData = new SearchOutputData(
+                        searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
+                searchPresenter.prepareSuccessView(searchOutputData);
+            }
         }
     }
 }

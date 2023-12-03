@@ -11,4 +11,5 @@ public interface SignupDataAccessInterface {
      * @param user the user that need to save
      */
     void save(User user);
+    boolean isValid(String username);
 }

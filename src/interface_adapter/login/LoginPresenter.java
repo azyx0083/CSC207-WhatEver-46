@@ -1,7 +1,5 @@
 package interface_adapter.login;
 
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuState;
 import interface_adapter.menu.MenuViewModel;
@@ -30,7 +28,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         // On success, switch to the menu view.
 
         MenuState menuState = menuViewModel.getState();
-        menuState.setUsername(response.getUsername());
+        menuState.setUsername(true, response.getUsername());
         menuViewModel.setState(menuState);
         menuViewModel.firePropertyChanged();
 

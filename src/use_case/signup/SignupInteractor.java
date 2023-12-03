@@ -40,7 +40,9 @@ public class SignupInteractor implements SignupInputBoundary {
     public void execute(SignupInputData signupInputData) {
         PasswordValidator validator = new PasswordValidator();
         if (!validator.passwordIsValid(signupInputData.getPassword())) {
-            userPresenter.prepareFailView("User already exists.");
+            userPresenter.prepareFailView("Invalid Password");
+        } else if (userDataAccessObject.isValid(signupInputData.getUsername())) {
+            userPresenter.prepareFailView("User already exists");
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {

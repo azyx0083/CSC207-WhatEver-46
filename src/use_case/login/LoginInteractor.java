@@ -17,8 +17,7 @@ public class LoginInteractor implements LoginInputBoundary {
     public void execute(LoginInputData loginInputData) {
         String username = loginInputData.getUsername();
         String password = loginInputData.getPassword();
-        PasswordValidator validator = new PasswordValidator();
-        if (!validator.passwordIsValid(password)) {
+        if (!userDataAccessObject.isValid(username)) {
             loginPresenter.prepareFailView(username + ": Account does not exist.");
         } else {
             String pwd = userDataAccessObject.get(username).getPassword();
