@@ -6,7 +6,7 @@ import entity.UserSetting;
 public class SearchInteractor implements SearchInputBoundary {
     private final SearchOutputBoundary searchPresenter;
     private final SearchAPIDataAccessInterface searchAPIDataAccessObject;
-    private final SearchFileUserDataAccessInterface searchFileUserDataAccessInterface;
+    private final SearchUserDataAccessInterface searchUserDataAccessInterface;
 
     /**
      * constructor
@@ -17,10 +17,10 @@ public class SearchInteractor implements SearchInputBoundary {
      */
     public SearchInteractor(SearchOutputBoundary searchPresenter,
                             SearchAPIDataAccessInterface searchAPIDataAccessObject,
-                            SearchFileUserDataAccessInterface searchFileUserDataAccessInterface){
+                            SearchUserDataAccessInterface searchFileUserDataAccessInterface){
         this.searchPresenter = searchPresenter;
         this.searchAPIDataAccessObject = searchAPIDataAccessObject;
-        this.searchFileUserDataAccessInterface = searchFileUserDataAccessInterface;
+        this.searchUserDataAccessInterface = searchFileUserDataAccessInterface;
     }
 
     /**
@@ -29,26 +29,15 @@ public class SearchInteractor implements SearchInputBoundary {
      */
     @Override
     public void execute(SearchInputData searchInputData) {
-        if (searchInputData.getUsername() != null){
-            User user = searchFileUserDataAccessInterface.get(searchInputData.getUsername());
-            UserSetting setting = new UserSetting(user.getInterval(), user.getOutputSize());
-            String search = searchAPIDataAccessObject.search(searchInputData.getSymbol(), setting);
-            if (search != null){
-                searchPresenter.prepareFailView(search);
-            } else {
-                SearchOutputData searchOutputData = new SearchOutputData(
-                        searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
-                searchPresenter.prepareSuccessView(searchOutputData);
-            }
+        User user = searchUserDataAccessInterface.get(searchInputData.getUsername());
+        UserSetting setting = user.getSetting();
+        String search = searchAPIDataAccessObject.search(searchInputData.getSymbol(), setting);
+        if (search != null){
+            searchPresenter.prepareFailView(search);
         } else {
-            String search = searchAPIDataAccessObject.search(searchInputData.getSymbol());
-            if (search != null){
-                searchPresenter.prepareFailView(search);
-            } else {
-                SearchOutputData searchOutputData = new SearchOutputData(
-                        searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
-                searchPresenter.prepareSuccessView(searchOutputData);
-            }
+            SearchOutputData searchOutputData = new SearchOutputData(
+                    searchAPIDataAccessObject.getName(searchInputData.getSymbol()), searchInputData.getSymbol());
+            searchPresenter.prepareSuccessView(searchOutputData);
         }
     }
 }

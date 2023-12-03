@@ -25,9 +25,7 @@ public class SignupUseCaseFactory {
                                     SignupDataAccessInterface apiDataAccess){
         SignupController controller = createSignupUseCase(viewManagerModel,loginViewModel,signupViewModel,
                 apiDataAccess);
-        MenuOutputBoundary menuOutputBoundary = new MenuPresenter(viewManagerModel, menuViewModel);
-        MenuInputBoundary menuInputBoundary = new MenuInteractor(menuOutputBoundary);
-        MenuController menuController = MenuUseCaseFactory.createMenuController(menuInputBoundary);
+        MenuController menuController = MenuUseCaseFactory.createMenuController(viewManagerModel,menuViewModel);
         return new SignupView(controller,signupViewModel,menuController);
 
     }
@@ -37,8 +35,7 @@ public class SignupUseCaseFactory {
                                                        SignupDataAccessInterface apiDataAccess){
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
                 signupViewModel,loginViewModel);
-        UserFactory factory = new CommonUserFactory();
-        SignupInputBoundary signupInputBoundary = new SignupInteractor(apiDataAccess,signupOutputBoundary,factory);
+        SignupInputBoundary signupInputBoundary = new SignupInteractor(apiDataAccess,signupOutputBoundary);
         return new SignupController(signupInputBoundary);
     }
 }

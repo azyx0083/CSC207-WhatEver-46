@@ -14,20 +14,16 @@ import java.util.Map;
 public class SignupInteractor implements SignupInputBoundary {
     final SignupDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
-    final UserFactory userFactory;
 
     /**
      * initialize a signup interactor
      * @param signupDataAccessInterface the DAO object
      * @param signupOutputBoundary the signup presenter
-     * @param userFactory using for create user
      */
     public SignupInteractor(SignupDataAccessInterface signupDataAccessInterface,
-                            SignupOutputBoundary signupOutputBoundary,
-                            UserFactory userFactory) {
+                            SignupOutputBoundary signupOutputBoundary,) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
-        this.userFactory = userFactory;
     }
 
     /**
@@ -48,7 +44,7 @@ public class SignupInteractor implements SignupInputBoundary {
         } else {
             String interval = "1day";
             int outputSize = 30;
-            User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
+            User user = UserFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
                     interval, outputSize);
             userDataAccessObject.save(user);
 
