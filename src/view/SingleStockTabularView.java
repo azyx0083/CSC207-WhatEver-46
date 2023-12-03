@@ -5,6 +5,7 @@ import interface_adapter.single_stock.SingleStockController;
 import interface_adapter.single_stock.SingleStockState;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import interface_adapter.single_stock.tabular.StockPriceTableModel;
+import view.helpers.SingleStockPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

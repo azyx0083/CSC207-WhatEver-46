@@ -19,6 +19,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.SegmentedTimeline;
+import view.helpers.SingleStockCandleStickRenderer;
+import view.helpers.SingleStockPanel;
 
 public class SingleStockGraphicalView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "graphical";
