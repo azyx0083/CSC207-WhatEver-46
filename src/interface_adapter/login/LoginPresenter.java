@@ -45,6 +45,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void jumpToLogin() {
+        loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

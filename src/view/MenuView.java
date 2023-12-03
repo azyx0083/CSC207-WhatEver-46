@@ -185,6 +185,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         constraints.gridx = 0;
         this.add(searchPanel, constraints);
 
+        constraints.gridy = 3;
         this.add(beforeButtons);
         this.add(afterButtons);
     }
@@ -202,7 +203,6 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
             menuViewModel.getState().setStockError(null);
         }
         if (state.getUsername() == null) {
-            System.out.println(1);
             beforeButtons.setVisible(true);
             afterButtons.setVisible(false);
         } else {
