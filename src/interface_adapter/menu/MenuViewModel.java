@@ -1,11 +1,20 @@
 package interface_adapter.menu;
 
-public class MenuViewModel {
+import interface_adapter.ViewModel;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class MenuViewModel extends ViewModel {
     public static final String SEARCH_BUTTON_LABEL = "Search";
     public static final String TITLE_LABEL = "Search Menu";
-    public static final String SEARCH_LABEL = "NASDAQ Stock Symbol";
-
+    public static final String SEARCH_LABEL = "Stock Symbol";
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private MenuState state = new MenuState();
+
+    public MenuViewModel() {
+        super("menu");
+    }
 
     /**
      * Assigns a MenuState to the view model.
@@ -29,5 +38,15 @@ public class MenuViewModel {
      */
     public String getViewName() {
         return "menu";
+    }
+
+    @Override
+    public void firePropertyChanged() {
+        support.firePropertyChange("state", null, this.state);
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 }

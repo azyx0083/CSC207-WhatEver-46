@@ -2,15 +2,17 @@ package app;
 
 
 import data_access.APIDataAccess;
-import entity.Stock;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.single_stock.SingleStockController;
-import interface_adapter.single_stock.SingleStockTabularViewModel;
+import interface_adapter.menu.MenuViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.single_stock.SingleStockViewModel;
-import use_case.single_stock.SingleStockAPIDataAccessInterface;
+import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
+import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import  view.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,29 +21,41 @@ public class Main {
 
         CardLayout cardLayout = new CardLayout();
 
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
         APIDataAccess apiDataAccess = new APIDataAccess();
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
 
-        // Initialize the table view, will replace this part with the input field in Menu
-        String symbol = "AMZN";
-        String name = apiDataAccess.validSymbol(symbol);
-        Stock stock = apiDataAccess.getStockData(name, symbol);
+        MenuViewModel menuViewModel = new MenuViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
+        SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel();
+        SingleStockGraphicalViewModel singleStockGraphicalViewModel = new SingleStockGraphicalViewModel();
 
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-        SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel(name, symbol,
-                stock.getHistoricalPrices(), stock.getHistoricalDates());
+        Map<String, SingleStockViewModel> singleStockViewModels = new HashMap<>();
+        singleStockViewModels.put("Table", singleStockTabularViewModel);
+        singleStockViewModels.put("Graph", singleStockGraphicalViewModel);
 
-        SingleStockGraphicalView graphicalView = new SingleStockGraphicalView();
+        OptionsView optionsView = OptionsUseCaseFactory.create(searchViewModel,viewManagerModel,
+                singleStockViewModels, apiDataAccess);
+        views.add(optionsView, optionsView.viewName);
 
-        SingleStockTabularView singleStockTabularView = SingleStockUseCaseFactory.createTabular(viewManagerModel,
-                singleStockTabularViewModel, apiDataAccess);
+        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess);
+        views.add(menuView, menuView.viewName);
 
-        MenuView menuView = new MenuView();
-//        views.add(graphicalView, graphicalView.viewName);
+        SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,
+                menuViewModel, singleStockViewModels, apiDataAccess);
         views.add(singleStockTabularView,singleStockTabularView.viewName);
-//        views.add(menuView, menuView.viewName);
+
+        SingleStockGraphicalView singleStockGraphicalView = SingleStockGraphicalUseCaseFactory.createGraphical(viewManagerModel,
+                menuViewModel, singleStockViewModels, apiDataAccess);
+        views.add(singleStockGraphicalView,singleStockGraphicalView.viewName);
+
+        viewManagerModel.setActiveView(menuView.viewName);
+        viewManagerModel.firePropertyChanged();
+
         application.pack();
         application.setVisible(true);
     }
