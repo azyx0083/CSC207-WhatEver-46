@@ -1,5 +1,7 @@
 package use_case.search;
 
+import entity.UserFactory;
+
 public class SearchInteractor implements SearchInputBoundary {
     private final SearchOutputBoundary searchPresenter;
     private final SearchAPIDataAccessInterface searchAPIDataAccessObject;
@@ -23,7 +25,7 @@ public class SearchInteractor implements SearchInputBoundary {
      */
     @Override
     public void execute(SearchInputData searchInputData) {
-        String search = searchAPIDataAccessObject.search(searchInputData.getSymbol());
+        String search = searchAPIDataAccessObject.search(searchInputData.getSymbol(), UserFactory.createDefaultUser().getSetting());
         if (search != null){
             searchPresenter.prepareFailView(search);
         } else {

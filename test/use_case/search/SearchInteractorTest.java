@@ -2,6 +2,7 @@ package use_case.search;
 
 import data_access.APIDataAccess;
 import entity.Stock;
+import entity.UserSetting;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchPresenter;
@@ -17,12 +18,14 @@ public class SearchInteractorTest {
     static String invalidSymbol = "112";
     static SearchPresenter presenter;
     static SearchViewModel searchViewModel;
+    static UserSetting defaultSetting;
 
     @BeforeAll
     static void setUp(){
         apiDataAccess = new APIDataAccess();
         searchViewModel = new SearchViewModel();
         presenter = new SearchPresenter(searchViewModel, new MenuViewModel(), new ViewManagerModel());
+        defaultSetting = new UserSetting("1day", 30);
     }
 
     @Test
@@ -38,6 +41,6 @@ public class SearchInteractorTest {
     void testFailView(){
         SearchInteractor interactor = new SearchInteractor(presenter,apiDataAccess);
         interactor.execute(new SearchInputData(invalidSymbol));
-        assertEquals(apiDataAccess.search(invalidSymbol), searchViewModel.getState().getSymbolError());
+        assertEquals(apiDataAccess.search(invalidSymbol, defaultSetting), searchViewModel.getState().getSymbolError());
     }
 }
