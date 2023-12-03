@@ -67,6 +67,14 @@ public class Main {
                 menuViewModel, singleStockViewModels, apiDataAccess);
         views.add(singleStockGraphicalView,singleStockGraphicalView.viewName);
 
+        SignupView signupView = SignupUseCaseFactory.createSignupView(viewManagerModel,signupViewModel,menuViewModel,
+                loginViewModel,fileUserDataAccess);
+        views.add(signupView, signupView.viewName);
+
+        LoginView loginView = LoginUseCaseFactory.createLoginView(viewManagerModel,loginViewModel,menuViewModel,
+                fileUserDataAccess);
+        views.add(loginView, loginView.viewName);
+
         viewManagerModel.setActiveView(menuView.viewName);
         viewManagerModel.firePropertyChanged();
 
