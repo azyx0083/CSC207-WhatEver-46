@@ -2,6 +2,7 @@ package app;
 
 
 import data_access.APIDataAccess;
+import data_access.FileUserDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchViewModel;
@@ -26,6 +27,7 @@ public class Main {
         application.add(views);
 
         APIDataAccess apiDataAccess = new APIDataAccess();
+        FileUserDataAccess fileUserDataAccess = new FileUserDataAccess("file.txt");
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
@@ -46,11 +48,11 @@ public class Main {
         views.add(optionsView, optionsView.viewName);
 
         MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess,
-                userAccess);
+                fileUserDataAccess, settingsViewModel);
         views.add(menuView, menuView.viewName);
 
         SettingsView settingsView = SettingsUseCaseFactory.create(viewManagerModel, settingsViewModel, menuViewModel,
-                userAccess);
+                fileUserDataAccess);
         views.add(settingsView, settingsView.viewName);
 
         SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,

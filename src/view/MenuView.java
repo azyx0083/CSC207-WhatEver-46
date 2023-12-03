@@ -3,6 +3,7 @@ package view;
 import interface_adapter.menu.*;
 import interface_adapter.search.*;
 import interface_adapter.settings.SettingsController;
+import view.helpers.TextButtonPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,7 +99,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        TextButtonPanel searchPanel = new TextButtonPanel(searchInputField, search);
+        TextButtonPanel searchPanel = new TextButtonPanel(searchLabel, searchInputField, search);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -117,10 +118,6 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         constraints.gridy = 2;
         constraints.gridx = 0;
-        constraints.gridwidth = 1;
-        this.add(searchLabel, constraints);
-
-        constraints.gridx = 1;
         this.add(searchPanel, constraints);
 
         constraints.gridy = 3;

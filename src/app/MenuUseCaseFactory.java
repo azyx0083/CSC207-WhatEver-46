@@ -12,7 +12,7 @@ import interface_adapter.settings.SettingsViewModel;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
-import use_case.settings.SettingsDataAccessInterface;
+import use_case.settings.SettingsUserDataAccessInterface;
 import view.MenuView;
 
 public class MenuUseCaseFactory {
@@ -24,11 +24,11 @@ public class MenuUseCaseFactory {
      */
     public static MenuView create(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel,
                                   SearchViewModel searchViewModel, APIDataAccess apiDataAccess,
-                                  SettingsDataAccessInterface userAccess, SettingsViewModel settingsViewModel) {
+                                  SettingsUserDataAccessInterface userAccess, SettingsViewModel settingsViewModel) {
         //MenuController menuController = createMenuController(viewManagerModel, menuViewModel);
         SearchController searchController = OptionsUseCaseFactory.createSearchUseCase(viewManagerModel, searchViewModel, menuViewModel, apiDataAccess);
         SettingsController settingsController = SettingsUseCaseFactory.createSettingsController(viewManagerModel, settingsViewModel,
-                userAccess, apiDataAccess);
+                userAccess);
         return new MenuView(menuViewModel, searchController, settingsController);
     }
 
