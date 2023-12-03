@@ -7,6 +7,7 @@ import use_case.search.SearchAPIDataAccessInterface;
 import use_case.settings.SettingsOutputBoundary;
 
 import java.util.Map;
+import java.util.Set;
 
 public class SettingsInteractor implements SettingsInputBoundary{
     final SettingsOutputBoundary settingsPresenter;
@@ -57,6 +58,12 @@ public class SettingsInteractor implements SettingsInputBoundary{
 
     @Override
     public void goToSettings(String username) {
-
+        User user = userAccess.get(username);
+        String interval = user.getInterval();
+        int dataSize = user.getOutputSize();
+        Set<String> favsSet = user.getFavouriteStocks().keySet();
+        String[] favs = favsSet.toArray(new String[0]);
+        SettingsOutputData settingsOutputData = new SettingsOutputData(interval, dataSize, favs);
+        settingsPresenter.prepareSettingsView(settingsOutputData);
     }
 }

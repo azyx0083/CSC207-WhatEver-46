@@ -5,8 +5,8 @@ import use_case.menu.MenuOutputBoundary;
 import view.MenuView;
 
 public class MenuPresenter implements MenuOutputBoundary {
-    final MenuViewModel menuViewModel;
-    ViewManagerModel viewManagerModel;
+    private final MenuViewModel menuViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * Constructor class. Commits to memory the view models associated with menu.
