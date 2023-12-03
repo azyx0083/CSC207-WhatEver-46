@@ -19,6 +19,6 @@ public class SettingsOutputData {
     }
 
     public String[] getFavorites() {
-        return favorites.clone(); // Return a separate object to prevent modification
+        return favorites;
     }
 }
