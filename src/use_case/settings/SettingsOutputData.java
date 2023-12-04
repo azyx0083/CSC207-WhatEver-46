@@ -1,19 +1,15 @@
 package use_case.settings;
 
 public class SettingsOutputData {
-    final private String username;
     final private String interval;
     final private int dataSize;
+    final private String username;
 //    final private String[] favorites;
-    public SettingsOutputData(String username, String interval, int dataSize) {
-        this.username = username;
+    public SettingsOutputData(String interval, int dataSize, String username) {
         this.interval = interval;
         this.dataSize = dataSize;
+        this.username = username;
 //        this.favorites = favorites;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getInterval() {
@@ -22,6 +18,10 @@ public class SettingsOutputData {
 
     public int getDataSize() {
         return dataSize;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
 //    public String[] getFavorites() {
