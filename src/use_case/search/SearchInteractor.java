@@ -1,8 +1,12 @@
 package use_case.search;
 
+import entity.User;
+import entity.UserSetting;
+
 public class SearchInteractor implements SearchInputBoundary {
     private final SearchOutputBoundary searchPresenter;
     private final SearchAPIDataAccessInterface searchAPIDataAccessObject;
+    private final SearchUserDataAccessInterface searchUserDataAccessInterface;
 
     /**
      * constructor
@@ -12,9 +16,11 @@ public class SearchInteractor implements SearchInputBoundary {
      *
      */
     public SearchInteractor(SearchOutputBoundary searchPresenter,
-                            SearchAPIDataAccessInterface searchAPIDataAccessObject){
+                            SearchAPIDataAccessInterface searchAPIDataAccessObject,
+                            SearchUserDataAccessInterface searchFileUserDataAccessInterface){
         this.searchPresenter = searchPresenter;
         this.searchAPIDataAccessObject = searchAPIDataAccessObject;
+        this.searchUserDataAccessInterface = searchFileUserDataAccessInterface;
     }
 
     /**
@@ -23,7 +29,9 @@ public class SearchInteractor implements SearchInputBoundary {
      */
     @Override
     public void execute(SearchInputData searchInputData) {
-        String search = searchAPIDataAccessObject.search(searchInputData.getSymbol());
+        User user = searchUserDataAccessInterface.get(searchInputData.getUsername());
+        UserSetting setting = user.getSetting();
+        String search = searchAPIDataAccessObject.search(searchInputData.getSymbol(), setting);
         if (search != null){
             searchPresenter.prepareFailView(search);
         } else {

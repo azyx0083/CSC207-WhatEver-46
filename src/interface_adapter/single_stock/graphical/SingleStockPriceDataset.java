@@ -146,11 +146,16 @@ public class SingleStockPriceDataset extends AbstractXYDataset implements OHLCDa
     @Override
     public Number getX(int i, int i1) {
         String date = (String) data.get("date")[i1];
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return format.parse(date).getTime();
-        } catch (ParseException e){
-            throw new RuntimeException(e);
+        } catch (ParseException ignore) {
+            try {
+                return format2.parse(date).getTime();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

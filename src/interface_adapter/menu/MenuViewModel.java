@@ -7,8 +7,10 @@ import java.beans.PropertyChangeSupport;
 
 public class MenuViewModel extends ViewModel {
     public static final String SEARCH_BUTTON_LABEL = "Search";
-    public static final String TITLE_LABEL = "Search Menu";
-    public static final String SEARCH_LABEL = "Stock Symbol";
+    public static final String TITLE_LABEL = "Menu";
+    public static final String SEARCH_LABEL = "Enter a stock symbol";
+    public static final String TO_SETTINGS_BUTTON_LABEL = "Settings";
+    public static final String LOG_OUT_LABEL = "Log out";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private MenuState state = new MenuState();
 

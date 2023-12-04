@@ -1,8 +1,8 @@
-package app;
+package app.factory;
 
 import data_access.APIDataAccess;
+import data_access.FileUserDataAccess;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
@@ -20,7 +20,8 @@ public class OptionsUseCaseFactory {
     public static OptionsView create(SearchViewModel searchViewModel,
                                      ViewManagerModel viewManagerModel,
                                      Map<String, SingleStockViewModel> singleStockViewModels,
-                                     APIDataAccess dataAccess){
+                                     APIDataAccess dataAccess,
+                                     FileUserDataAccess fileUserDataAccess){
         Map<String, SingleStockController> map = SingleStockUseCaseFactory.createSingleStockUsecase(viewManagerModel,
                 singleStockViewModels,dataAccess);
         return new OptionsView(searchViewModel,map);
@@ -29,9 +30,10 @@ public class OptionsUseCaseFactory {
     public static SearchController createSearchUseCase(ViewManagerModel viewManagerModel,
                                                        SearchViewModel searchViewModel,
                                                        MenuViewModel menuViewModel,
-                                                       APIDataAccess apiDataAccess){
+                                                       APIDataAccess apiDataAccess,
+                                                       FileUserDataAccess fileUserDataAccess){
         SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel,menuViewModel, viewManagerModel);
-        SearchInputBoundary searchInteractor = new SearchInteractor(searchPresenter,apiDataAccess);
+        SearchInputBoundary searchInteractor = new SearchInteractor(searchPresenter,apiDataAccess,fileUserDataAccess);
         return new SearchController(searchInteractor);
     }
 

@@ -1,9 +1,6 @@
 package data_access;
 
-import entity.DefaultSetting;
-import entity.HistoricalPrice;
-import entity.Stock;
-import entity.UserSetting;
+import entity.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,7 +18,7 @@ import java.util.Map;
  * DataAccessObject that is responsible for all API calls
  */
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
-    private static final String API_KEY = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
+    private static final String API_KEY = "645ec5ac8emsh35e1f43b32b17e2p1d365bjsnd2dea193b697";
     private final Map<String, Stock> searchHistories;
 
     public APIDataAccess() {
@@ -118,16 +115,17 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
     /**
      * Using three api calls to search for the given stock symbol and store a corresponding Stock in the searchHistory
      * @param symbol the stock symbol that used to perform stock search
+     * @param setting the user setting that customize the api calls
      * @return If symbol is valid, return null. Otherwise, return the error message based on the type of exception been
      * catch.
      */
-    public String search(String symbol) {
+    public String search(String symbol, UserSetting setting) {
         try {
             if (searchHistories.containsKey(symbol)) {
                 setCurrentPrice(symbol, searchHistories.get(symbol));
+                setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), searchHistories.get(symbol));
             } else {
                 Stock stock = new Stock(symbol);
-                UserSetting setting = new DefaultSetting();
                 String exchange = setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), stock);
                 setInfo(symbol, exchange, stock);
                 setCurrentPrice(symbol, stock);

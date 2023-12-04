@@ -20,4 +20,8 @@ public class MenuController{
         menuInputBoundary.prepareMenuView();
     }
 
+    public void returnToMenu(String username) {
+        menuInputBoundary.prepareMenuView(username);
+    }
+
 }

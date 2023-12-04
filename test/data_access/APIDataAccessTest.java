@@ -1,7 +1,7 @@
 package data_access;
 
-import entity.DefaultSetting;
 import entity.Stock;
+import entity.UserSetting;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +18,16 @@ class APIDataAccessTest {
     static String validSymbol = "AMZN";
     static String validSymbol2 = "AAPL";
     static String invalidSymbol = "aakkk";
-    static DefaultSetting defaultSetting = new DefaultSetting();
+    static UserSetting defaultSetting = new UserSetting("1day", 30);
     static APIDataAccess apiDataAccess = new APIDataAccess();
 
+    /**
+     * Search a valid symbol
+     */
     @Test
     void testValid() {
         assert !apiDataAccess.getSearchHistories().containsKey(validSymbol);
-        assertNull(apiDataAccess.search(validSymbol));
+        assertNull(apiDataAccess.search(validSymbol, defaultSetting));
         assertNotNull(apiDataAccess.getName(validSymbol));
         Stock stock = apiDataAccess.getStock(validSymbol);
         assertNotNull(stock.getName());
@@ -42,29 +45,43 @@ class APIDataAccessTest {
 
     }
 
+    /**
+     * Search an invalid symbol
+     */
     @Test
     void testInvalid() {
-        assertEquals(apiDataAccess.search(invalidSymbol),
+        assertEquals(apiDataAccess.search(invalidSymbol, defaultSetting),
                 String.format("%s is not a valid symbol. Please enter a correct stock symbol.", invalidSymbol));
         assertNull(apiDataAccess.getStock(invalidSymbol));
     }
 
+    /**
+     * Search an empty symbol
+     */
     @Test
     void testEmpty() {
-        assertEquals(apiDataAccess.search(emptySymbol),
+        assertEquals(apiDataAccess.search(emptySymbol, defaultSetting),
                 String.format("%s is not a valid symbol. Please enter a correct stock symbol.", emptySymbol));
         assertNull(apiDataAccess.getStock(emptySymbol));
     }
 
+    /**
+     * Only valid stock has been store in the searchHistory
+     */
     @Test
     void testSearchHistory() {
         assert apiDataAccess.getSearchHistories().containsKey(validSymbol);
-        assertNull(apiDataAccess.search(validSymbol));
+        assert !apiDataAccess.getSearchHistories().containsKey(invalidSymbol);
+        assert !apiDataAccess.getSearchHistories().containsKey(emptySymbol);
     }
 
+    /**
+     * Reach the per minute limit
+     */
     @AfterAll
     static void testFrequentRequest() {
-        assertEquals(apiDataAccess.search(validSymbol2),
+        apiDataAccess.search(validSymbol, defaultSetting);
+        assertEquals(apiDataAccess.search(validSymbol2, defaultSetting),
                 "Frequent request. Please try again in one minute.");
     }
 }

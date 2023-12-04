@@ -5,8 +5,8 @@ import use_case.menu.MenuOutputBoundary;
 import view.MenuView;
 
 public class MenuPresenter implements MenuOutputBoundary {
-    final MenuViewModel menuViewModel;
-    ViewManagerModel viewManagerModel;
+    private final MenuViewModel menuViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * Constructor class. Commits to memory the view models associated with menu.
@@ -24,6 +24,16 @@ public class MenuPresenter implements MenuOutputBoundary {
     @Override
     public void prepareMenuView() {
         menuViewModel.getState().setStockSymbol("");
+        menuViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(menuViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareMenuView(String username) {
+        menuViewModel.getState().setStockSymbol("");
+        menuViewModel.getState().setUsername(username);
         menuViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(menuViewModel.getViewName());

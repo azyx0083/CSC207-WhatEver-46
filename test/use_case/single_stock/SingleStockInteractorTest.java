@@ -2,6 +2,7 @@ package use_case.single_stock;
 
 import data_access.APIDataAccess;
 import entity.Stock;
+import entity.UserSetting;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.single_stock.SingleStockPresenter;
 import interface_adapter.single_stock.SingleStockViewModel;
@@ -26,7 +27,7 @@ class SingleStockInteractorTest {
     static void setUp() {
         apiDataAccess = new APIDataAccess();
         for (String symbol : validSymbol) {
-            apiDataAccess.search(symbol);
+            apiDataAccess.search(symbol, new UserSetting("1day", 30));
             assert apiDataAccess.getSearchHistories().containsKey(symbol);
         }
         tabularViewModel = new SingleStockTabularViewModel();

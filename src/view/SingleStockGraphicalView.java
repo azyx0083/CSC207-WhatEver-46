@@ -22,6 +22,9 @@ import org.jfree.chart.axis.SegmentedTimeline;
 import view.helpers.SingleStockCandleStickRenderer;
 import view.helpers.SingleStockPanel;
 
+/**
+ * Visualize the data of a stock in graphical form.
+ */
 public class SingleStockGraphicalView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "graphical";
     private final JButton menu;
@@ -30,6 +33,14 @@ public class SingleStockGraphicalView extends JPanel implements ActionListener, 
     private final JLabel currentPrice;
     private final JFreeChart chart;
 
+    /**
+     * Construct a graphical display of a single stock.
+     * @param viewModel the information needed to construct such a display.
+     * @param singleStockControllers the map that contain all the controller that correspond to the buttons.
+     *                               the keys are the same as button labels
+     *                               the values are the corresponding controllers
+     * @param menuController the interface that connect to the menu button.
+     */
     public SingleStockGraphicalView(SingleStockGraphicalViewModel viewModel,
                                     Map<String, SingleStockController> singleStockControllers,
                                     MenuController menuController){
@@ -77,6 +88,11 @@ public class SingleStockGraphicalView extends JPanel implements ActionListener, 
 
     }
 
+    /**
+     * Refresh the current view using a new evt value.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SingleStockState state = (SingleStockState) evt.getNewValue();

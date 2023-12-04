@@ -1,4 +1,4 @@
-package app;
+package app.factory;
 
 import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
