@@ -5,11 +5,14 @@ import data_access.APIDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.single_stock.SingleStockViewModel;
 import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
 import interface_adapter.single_stock.tabular.SingleStockTabularViewModel;
 import  view.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,19 +34,23 @@ public class Main {
         SingleStockTabularViewModel singleStockTabularViewModel = new SingleStockTabularViewModel();
         SingleStockGraphicalViewModel singleStockGraphicalViewModel = new SingleStockGraphicalViewModel();
 
-        SearchView searchView = SearchUseCaseFactory.create(searchViewModel, singleStockTabularViewModel,
-                singleStockGraphicalViewModel, viewManagerModel, apiDataAccess);
-        views.add(searchView, searchView.viewName);
+        Map<String, SingleStockViewModel> singleStockViewModels = new HashMap<>();
+        singleStockViewModels.put("Table", singleStockTabularViewModel);
+        singleStockViewModels.put("Graph", singleStockGraphicalViewModel);
 
-        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel);
+        OptionsView optionsView = OptionsUseCaseFactory.create(searchViewModel,viewManagerModel,
+                singleStockViewModels, apiDataAccess);
+        views.add(optionsView, optionsView.viewName);
+
+        MenuView menuView = MenuUseCaseFactory.create(viewManagerModel, menuViewModel, searchViewModel, apiDataAccess);
         views.add(menuView, menuView.viewName);
 
-        SingleStockTabularView singleStockTabularView = SingleStockUseCaseFactory.createTabular(viewManagerModel,
-                menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+        SingleStockTabularView singleStockTabularView = SingleStockTabularUseCaseFactory.createTabular(viewManagerModel,
+                menuViewModel, singleStockViewModels, apiDataAccess);
         views.add(singleStockTabularView,singleStockTabularView.viewName);
 
-        SingleStockGraphicalView singleStockGraphicalView = SingleStockUseCaseFactory.createGraphical(viewManagerModel,
-                menuViewModel, singleStockTabularViewModel, singleStockGraphicalViewModel, apiDataAccess);
+        SingleStockGraphicalView singleStockGraphicalView = SingleStockGraphicalUseCaseFactory.createGraphical(viewManagerModel,
+                menuViewModel, singleStockViewModels, apiDataAccess);
         views.add(singleStockGraphicalView,singleStockGraphicalView.viewName);
 
         viewManagerModel.setActiveView(menuView.viewName);

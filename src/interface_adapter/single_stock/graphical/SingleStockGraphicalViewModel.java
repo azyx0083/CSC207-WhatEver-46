@@ -16,6 +16,6 @@ public class SingleStockGraphicalViewModel extends SingleStockViewModel {
      * Initialize viewName and state for the SingleStockGraphicalViewModel
      */
     public SingleStockGraphicalViewModel() {
-        super("graphical", new SingleStockState(new StockPriceDataset()));
+        super("graphical", new SingleStockState(new SingleStockPriceDataset()));
     }
 }

@@ -1,7 +1,14 @@
 package data_access;
 
-import entity.*;
+import entity.DefaultSetting;
+import entity.HistoricalPrice;
+import entity.Stock;
+import entity.UserSetting;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import use_case.search.SearchAPIDataAccessInterface;
 import use_case.single_stock.SingleStockAPIDataAccessInterface;
 
@@ -9,17 +16,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONObject;
-
 
 /**
  * DataAccessObject that is responsible for all API calls
  */
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
-    private static final String API_KEY = System.getenv("API_KEY");
+    private static final String API_KEY = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
     private final Map<String, Stock> searchHistories;
 
     public APIDataAccess() {
@@ -27,7 +29,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
     }
 
     /**
-     * Set the HistoricalPrice and Exchange for the given stock using responses from the api call time series
+     * Set the HistoricalPrice for the given stock using responses from the api call time series
      * @param symbol the stock symbol required for the api call
      * @param interval the time interval required for the api call
      * @param outputSize the output size required for the api call
@@ -62,7 +64,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
     }
 
     /**
-     * Set the detailed info including stock name, currency, country and type for the given stock using response from
+     * Set the detailed info including stock name, exchange, currency, country and type for the given stock using response from
      * the api call stocks list.
      * @param symbol the stock symbol required for the api call
      * @param exchange the stock market exchange of the stock
