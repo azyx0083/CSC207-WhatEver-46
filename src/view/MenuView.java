@@ -63,7 +63,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         title.setFont(MenuViewModel.font2);
 
 
-        user = new JLabel("Signed in as: " + menuViewModel.getState().getUsername());
+        user = new JLabel();
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
         user.setFont(MenuViewModel.font3);
 
@@ -186,8 +186,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(searchPanel, constraints);
 
         constraints.gridy = 3;
-        this.add(beforeButtons);
-        this.add(afterButtons);
+        this.add(beforeButtons, constraints);
+        this.add(afterButtons, constraints);
     }
 
     @Override
@@ -198,14 +198,19 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     public void propertyChange(PropertyChangeEvent evt) {
         MenuState state = (MenuState) evt.getNewValue();
         searchInputField.setText(null);
+        // popup for error
         if (state.getStockError() != null) {
             JOptionPane.showMessageDialog(this, state.getStockError());
             menuViewModel.getState().setStockError(null);
         }
+        // Switch between guest and register
         if (state.getUsername() == null) {
+            user.setVisible(false);
             beforeButtons.setVisible(true);
             afterButtons.setVisible(false);
         } else {
+            user.setText("Signed in as: " + state.getUsername());
+            user.setVisible(true);
             beforeButtons.setVisible(false);
             afterButtons.setVisible(true);
         }
