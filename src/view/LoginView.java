@@ -142,6 +142,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         passwordInputField.setText(null);
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
+            state.setUsernameError(null);
         }
     }
 

@@ -80,8 +80,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(search)) {
                             MenuState menuState = menuViewModel.getState();
-
-                            searchController.execute(menuState.getStockSymbol(), menuState.getUsername());
+                            if (menuState.getStockSymbol() != null)
+                                searchController.execute(menuState.getStockSymbol(), menuState.getUsername());
                         }
                     }
                 }

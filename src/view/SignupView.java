@@ -172,6 +172,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         repeatPasswordInputField.setText(null);
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
+            state.setError(null);
         }
     }
 
