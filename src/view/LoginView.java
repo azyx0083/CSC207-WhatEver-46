@@ -20,10 +20,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginViewModel loginViewModel;
 
     final JTextField usernameInputField = new JTextField(15);
-    private final JLabel usernameErrorField = new JLabel();
 
     final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
     final JButton cancel;
@@ -38,6 +36,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(LoginViewModel.font2);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Username"), usernameInputField);
@@ -110,12 +109,25 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     }
                 });
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
-        this.add(passwordInfo);
-        this.add(passwordErrorField);
-        this.add(buttons);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.ipady = 10;
+        constraints.insets = new Insets(15, 20, 15, 20);
+
+        constraints.gridy = 0;
+        constraints.gridx = 0;
+        constraints.gridwidth = 2;
+        this.add(title, constraints);
+
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        this.add(usernameInfo, constraints);
+
+        constraints.gridy = 2;
+        this.add(passwordInfo, constraints);
+
+        constraints.gridy = 4;
+        this.add(buttons, constraints);
     }
 
     @Override

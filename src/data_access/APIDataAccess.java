@@ -18,7 +18,7 @@ import java.util.Map;
  * DataAccessObject that is responsible for all API calls
  */
 public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchAPIDataAccessInterface {
-    private static final String API_KEY = "e8af6cedf9mshf35e68a5b040250p12fc53jsne75b26c51cd0";
+    private static final String API_KEY = "645ec5ac8emsh35e1f43b32b17e2p1d365bjsnd2dea193b697";
     private final Map<String, Stock> searchHistories;
 
     public APIDataAccess() {
@@ -123,6 +123,7 @@ public class APIDataAccess implements SingleStockAPIDataAccessInterface, SearchA
         try {
             if (searchHistories.containsKey(symbol)) {
                 setCurrentPrice(symbol, searchHistories.get(symbol));
+                setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), searchHistories.get(symbol));
             } else {
                 Stock stock = new Stock(symbol);
                 String exchange = setHistoricalPrice(symbol, setting.getInterval(), setting.getOutputSize(), stock);

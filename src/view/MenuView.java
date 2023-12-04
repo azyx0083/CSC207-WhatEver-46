@@ -65,7 +65,6 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         user = new JLabel();
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
-        user.setFont(MenuViewModel.font3);
 
         JLabel searchLabel = new JLabel(MenuViewModel.SEARCH_LABEL);
         searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

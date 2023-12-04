@@ -34,6 +34,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(SignupViewModel.font2);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
@@ -131,13 +132,29 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             }
         });
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.ipady = 10;
+        constraints.insets = new Insets(15, 20, 15, 20);
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(passwordInfo);
-        this.add(repeatPasswordInfo);
-        this.add(buttons);
+        constraints.gridy = 0;
+        constraints.gridx = 0;
+        constraints.gridwidth = 2;
+        this.add(title, constraints);
+
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        this.add(usernameInfo, constraints);
+
+        constraints.gridy = 2;
+        this.add(passwordInfo, constraints);
+
+        constraints.gridy = 3;
+        this.add(repeatPasswordInfo, constraints);
+
+        constraints.gridy = 4;
+        this.add(buttons, constraints);
+
 
     }
 
