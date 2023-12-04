@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * the data structure that store all the information SignupView needed
+ * the ViewModel that store all the Label and state that SignupView needed
  */
 public class SignupViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Sign Up View";

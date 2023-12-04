@@ -15,6 +15,12 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final MenuViewModel menuViewModel;
     private final ViewManagerModel viewManagerModel;
 
+    /**
+     * initialize the LoginPresenter
+     * @param viewManagerModel the ViewModel that using to switch between different Views
+     * @param menuViewModel the ViewModel that contains all information required to prepare a MenuView
+     * @param loginViewModel the ViewModel that contains all information required to prepare a LoginView
+     */
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           MenuViewModel menuViewModel,
                           LoginViewModel loginViewModel) {
@@ -23,6 +29,11 @@ public class LoginPresenter implements LoginOutputBoundary {
         this.loginViewModel = loginViewModel;
     }
 
+    /**
+     * When the usecase succeed, presenter will pass the data to MenuView and switch current View to
+     * MenuView
+     * @param response the data required for prepare
+     */
     @Override
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the menu view.
@@ -36,6 +47,10 @@ public class LoginPresenter implements LoginOutputBoundary {
         this.viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * When the usecase failed, presenter will set up the error in LoginView by given message
+     * @param error the message of error
+     */
     @Override
     public void prepareFailView(String error) {
         LoginState loginState = loginViewModel.getState();
@@ -43,6 +58,10 @@ public class LoginPresenter implements LoginOutputBoundary {
         loginViewModel.firePropertyChanged();
     }
 
+    /**
+     * When called, Presenter will switch current View to LoginView and mention the ViewManager
+     * Model that the property was changed
+     */
     @Override
     public void jumpToLogin() {
         loginViewModel.firePropertyChanged();

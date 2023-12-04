@@ -75,7 +75,7 @@ public class SingleStockTabularView extends JPanel implements ActionListener, Pr
     }
 
     /**
-     * Update the current view using the new value of PropertyChangeEvert evt.
+     * Update the current view using the new value of PropertyChangeEvent evt.
      * @param evt A PropertyChangeEvent object describing the event source
      *          and the property that has changed.
      */

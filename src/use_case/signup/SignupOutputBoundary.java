@@ -9,8 +9,12 @@ public interface SignupOutputBoundary {
 
     /**
      * prepare a visualization of failed usecase
-     * @param error the type of error caused by the usecase
+     * @param error the message of error
      */
     void prepareFailView(String error);
+
+    /**
+     * Switch the current View(whatever it is) to SignupView
+     */
     void jumpToSignup();
 }

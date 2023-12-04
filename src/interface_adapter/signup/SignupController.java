@@ -31,6 +31,9 @@ public class SignupController {
         userSignupUseCaseInteractor.execute(signupInputData);
     }
 
+    /**
+     * When called, switch the current View(whatever it is) to LoginView
+     */
     public void jumpToSignup(){
         userSignupUseCaseInteractor.jumpToSignup();
     }

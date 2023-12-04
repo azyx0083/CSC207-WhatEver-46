@@ -16,10 +16,6 @@ public class SignupOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
-    /**
-     * get the username
-     * @return the username of this usecase
-     */
     public String getUsername() {
         return username;
     }

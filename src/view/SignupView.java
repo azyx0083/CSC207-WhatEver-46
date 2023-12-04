@@ -15,6 +15,9 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * A View that contains fields and button to allow guests signup or return to menu
+ */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
     private final SignupController signupController;
@@ -25,6 +28,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final JButton signUp;
     private final JButton cancel;
+
+    /**
+     * Initializing a View to allow guest signup
+     * @param signupController the Controller to begin the process of signup
+     * @param signupViewModel the DS contains the state
+     * @param menuController the Controller to allow guests return to menuView
+     */
     public SignupView(SignupController signupController, SignupViewModel signupViewModel,
                       MenuController menuController){
         this.signupController = signupController;
@@ -164,6 +174,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     }
 
+    /**
+     * Update the current view using the new value of PropertyChangeEvent evt.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SignupState state = (SignupState) evt.getNewValue();
