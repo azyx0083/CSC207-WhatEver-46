@@ -1,9 +1,8 @@
-package app;
+package app.factory;
 
 import data_access.APIDataAccess;
 import data_access.FileUserDataAccess;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
@@ -15,7 +14,6 @@ import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
 import view.OptionsView;
 
-import java.io.File;
 import java.util.Map;
 
 public class OptionsUseCaseFactory {

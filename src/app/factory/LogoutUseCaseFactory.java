@@ -1,4 +1,4 @@
-package app;
+package app.factory;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logout.LogoutController;

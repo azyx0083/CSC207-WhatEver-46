@@ -1,16 +1,12 @@
-package app;
+package app.factory;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.menu.MenuController;
-import interface_adapter.menu.MenuPresenter;
 import interface_adapter.menu.MenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
-import use_case.menu.MenuInputBoundary;
-import use_case.menu.MenuInteractor;
-import use_case.menu.MenuOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
