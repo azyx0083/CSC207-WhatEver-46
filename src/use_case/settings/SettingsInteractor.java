@@ -20,6 +20,7 @@ public class SettingsInteractor implements SettingsInputBoundary{
         User user = userAccess.get(settingsInputData.getUsername());
         user.getSetting().setInterval(settingsInputData.getInterval());
         user.getSetting().setOutputSize(settingsInputData.getDataSize());
+        userAccess.save(user);
 //        Map<String, Stock> favs = user.getFavouriteStocks();
 //
 //        String[] favs2 = settingsInputData.getFavorites();
