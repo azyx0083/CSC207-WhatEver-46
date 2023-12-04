@@ -27,7 +27,9 @@ public class SettingsPresenter implements SettingsOutputBoundary {
         SettingsState state = settingsViewModel.getState();
         state.setInterval(settingsOutputData.getInterval());
         state.setDataSize(settingsOutputData.getDataSize());
+        state.setUsername(settingsOutputData.getUsername());
 //        state.setFavorites(settingsOutputData.getFavorites());
+        state.setUsername(settingsOutputData.getUsername());
         settingsViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(settingsViewModel.getViewName());
