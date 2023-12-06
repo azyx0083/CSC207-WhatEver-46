@@ -49,10 +49,10 @@ Feature SingleStockTabular visualization: Amanda
 Feature Setting: Winston
 Feature Menu: Winston
 Feature Signup and Login: Charles
-Feature Logout(only has interface_adapter and use_case):Andy
+Feature Logout(only has interface_adapter and use_case): Andy
 Feature Search and Options view:
   use_case and view: Charles
-  interface_adapter: Winston
+  interface_adapter: Andy
 Final debugging and optimization:
   Layouts optimization: Amanda
   Bug fixing: Amanda and Charles
@@ -70,7 +70,7 @@ Tests:
 
 ## Design Patterns, Principles and Clean Architecture applied
 We will show the design patterns, SOLID principles and Architecture we applied in our program and its contributors who applied it to our program.
-We using Clean Architecture as our overall code framework. Contributors: Amanda, Charles, Winston, Andy
+We're using Clean Architecture as our overall code framework. Contributors: Amanda, Charles, Winston, Andy
 Design Patterns and SOLID principles based on Clean Architecture:
 Facade, Factory, Observer, Adapter, DIP.
 Other design patterns and SOLID principle in out program:
