@@ -66,6 +66,9 @@ All follows clean architecture. Each layer in the clean architecture has its own
 **Contributor**: Amanda
 
 ### Interface Segregation Principle
+* two different data access object interfaces, one interface for only one purpose.
+
+**Contributor**: Charles
 
 ### Dependency Inversion Principle
 * the use of interface between interactor and presenter, interactor and data access object
@@ -99,6 +102,9 @@ All follows clean architecture. Each layer in the clean architecture has its own
 **Contributor**: Winston, Charles, Andy, Amanda
 
 ### Facade
+* username validator and password validator used by signupInteractor been assigned to two individual classes, separate class to deal with different actors.
+
+**Contributor**: Charles
 
 ## Tasks and Duties
 ### Minimum Viable Product
