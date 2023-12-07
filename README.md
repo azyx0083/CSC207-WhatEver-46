@@ -46,7 +46,7 @@ We currently use 3 endpoints
 All follows clean architecture. Each layer in the clean architecture has its own package. Within each package, all usecase also has separate package.
 
 ## Design Patterns and SOLID Principle
-### Single Responsibility
+### Single Responsibility Principle
 * the use of two separate DataAccessObject to manage user relates data and API related data
 
 **Contributor**: Amanda
