@@ -1,88 +1,150 @@
 # CSC207-WhatEver-46
 
 ## Project Domain
-We focus on making multiple customizable visualizations of different stocks on the stock market(now focusing on NASDAQ).
+We focus on making multiple customizable visualizations of different stocks on the stock market.
 
 ## Software Specifications
-Our projects support efficient access to real-time stock data, includes data from real-time stock exchanges, especially NASDAQ. We also provides multiple kinds of stock visualization, currently we support traditional tabular view and candlestick graph. We also allow registered users to customize their visualizations.
+Our projects should  
+1. support efficient access to real-time stock data, includes data from real-time stock exchanges, especially NASDAQ
+2. provides multiple kinds of stock visualization, especially traditional tabular view and candlestick graph
+3. allow some level of customization after registered
+4. help analyzing and visualizing stock data efficiently
 
 ## API Usage
 Twelve Data in RapidAPI (https://rapidapi.com/twelvedata/api/twelve-data1/)
 We currently use 3 endpoints
-1. Time Series --- access the historical price
-2. Real-time Price --- access the real-time price
-3. Stock List --- access the detailed information: the name, type and stock market exchange, etc.
+1. **Time Series** --- access the historical price
+2. **Real-time Price** --- access the real-time price
+3. **Stock List** --- access the detailed information: the name, type, stock market exchange, etc.
 
-## Main Functionality
-Two different visualizations:
-    * Official CandleStick graph with open, high, low, close
-    * Tabular Chart contains stock information
-Signup and Login:
-    * Allow Users to signup, login
-Menu and Search:
-    * All kind of users can search for a stock by its symbol
-    * Users can choose to signup or login on menu
-    * If user already logged in, he will see the setting and log out feature
-Options:
-    * After search use case succeed, users will be able to choose which visualizations they want
-Setting:
-    * Only registered users have access to this feature
-    * Allow users to choose the interval and output size of the data, their visualizations will change based on their choices
+## Current Functionality
+### Menu and Search
+   * All kind of users can search for a stock by its symbol
+   * Popup should automatically appear if the symbol is invalid or exceed the per minute limit
+   * Users can choose to signup or login on menu
+   * If user already logged in, he will see the setting and log out feature
 
-## Designers and Contributors of Each Feature
-More specific contributions could be seen in Insights on github(accurate to lines)
-Package entity: Amanda
-Package data_access: Amanda
-Package app: 
-  Main: Amanda
-  Package factory:
-    LoginUseCaseFactory, LogoutUseCaseFactory, SignupUseCaseFactory: Charles
-    OptionsUseCaseFactory: OCP applied, designed and implemented by: Charles and Amanda
-    MenuUseCaseFactory, SettingsUseCaseFactory: Winston
-    SingleStockGraphicalUseCaseFactory, SingleStockTabularUseCaseFactory, SingleStockUseCaseFactory: Amanda
+### Options
+   * After search use case succeed, users will be able to choose which visualizations they want
 
-For remaining part we will count contributions by features based on Clean Architecture
-Feature SingleStockGraphical visualization:
-  interface_adapter, use_case, debugging and design of view: Amanda
-  basic framework of view: Andy
-Feature SingleStockTabular visualization: Amanda
-Feature Setting: Winston
-Feature Menu: Winston
-Feature Signup and Login: Charles
-Feature Logout(only has interface_adapter and use_case): Andy
-Feature Search and Options view:
-  use_case and view: Charles
-  interface_adapter: Andy
-Final debugging and optimization:
-  Layouts optimization: Amanda
-  Bug fixing: Amanda and Charles
+### Visualization of a single stock data (currently only support two)
+   * Official CandleStick graph with open, high, low, close prices and volume
+   * Tabular Chart contains stock information
 
-UML diagrams: Amanda and Charles
+### Signup and Login
+   * Allow Users to signup, login and access the customization features
 
-Tests:
-  data_access: Amanda
-  entity: Amanda
-  use_case:
-    menu and settings: Winston
-    login,logout, search and signup: Charles
-    single_stock: Amanda
-  bug fixing of tests: Amanda
+### Setting
+   * Only registered users have access to this feature
+   * Allow users to choose the interval and output size of the data, their visualizations will change based on their choices
+     * **Interval** – the time interval between each historical price
+     * **Output size** – the number of historical price 
+     * A default setting with **30** outputs and **per day** interval
 
-## Design Patterns, Principles and Clean Architecture applied
-We will show the design patterns, SOLID principles and Architecture we applied in our program and its contributors who applied it to our program.
-We're using Clean Architecture as our overall code framework. Contributors: Amanda, Charles, Winston, Andy
-Design Patterns and SOLID principles based on Clean Architecture:
-Facade, Factory, Observer, Adapter, DIP.
-Other design patterns and SOLID principle in out program:
-SRP in the data_access: Amanda
-OCP in menuView and SingleStock and Options Feature: Amanda and Charles
-LSP and adapter in SingleStock Feature: Amanda
-Dependency Injection in SingleStock Feature: Amanda
-Facade in Signup Feature: Charles
-ISP in Search Feature: Charles
+## Structure and Packaging
+All follows clean architecture. Each layer in the clean architecture has its own package. Within each package, all usecase also has separate package.
+
+## Design Patterns and SOLID Principle
+### Single Responsibility
+* the use of two separate DataAccessObject to manage user relates data and API related data
+
+**Contributor**: Amanda
+
+### Open-closed Principle
+* the use of map as parameter instead of hard coding each controller and buttons in factory and view
+* open to new visualization
+* close to modification on existing factories and views
+
+**Contributor**: Charles, Amanda
+
+### Liskov substitution Principle
+* all subclasses of SingleStockPriceData interface share the same property
+    * store historical data of a stock
+    * can be updated by the presenter
+
+**Contributor**: Amanda
+
+### Interface Segregation Principle
+
+### Dependency Inversion Principle
+* the use of interface between interactor and presenter, interactor and data access object
+
+**Contributor**: Winston, Charles, Andy, Amanda
+
+### Adapter
+* subclasses of SingleStockPriceData interface
+* inherit methods from existing class to support visualization and component generation
+* implement the updateData() to allow update in SingleStockPresenter
+
+**Contributor**: Amanda, Charles
+
+### Dependency Injection
+* subclasses of SingleStockViewModel construct the corresponding subclass of SingleStockPriceData first, then use it to construct the SingleStockState
+* no hard dependency between SingleStockState and SingleStockPriceData
+* any subclasses of SingleStockState are allowed in SingleStockState
+* fully reusable SingleStockState for all visualization
+
+**Contributor**: Amanda
+
+### Factory
+* the use of different factories in app package to construct different views and controllers
+* the use fo UserFactory in entity package to construct a registered user or a default user
+
+**Contributor**: Winston, Charles, Andy, Amanda
+
+### Observer
+* the use of viewModel and state to trigger and refresh corresponding view
+
+**Contributor**: Winston, Charles, Andy, Amanda
+
+### Facade
+
+## Tasks and Duties
+### Minimum Viable Product
+1. Stock and HistoricalPrice (entity) - Amanda
+2. APIDataAccessObject - Amanda
+3. Menu usecase - Winston
+4. Search usecase - Charles & Andy
+5. SingleStock usecase - Amanda
+
+**Deadline**: Nov 19, 2023 
+
+### First Bug Fixing
+1. Main and factories
+2. Debug and testing
+3. Documentation and naming convention 
+4. Refine view layout
+
+**Contributor**: Winston, Charles, Andy, Amanda
+
+**Deadline**: Nov 22, 2023
+
+### Additional Features
+1. Login & signup usecase - Charles
+2. Logout usecase - Andy
+3. Setting usecase - Winston
+4. FileUserDataAccess - Amanda
+
+**Deadline**: Dec 1, 2023
+
+### Second Bug Fixing
+1. Bridge different usecase
+2. Minor changes in the minimum viable product to support new features
+3. Debug and testing
+4. Documentation and naming convention
+5. Refine view layout
+
+**Contributor**: Winston, Charles, Andy, Amanda
+
+**Deadline**: Dec 3, 2023
 
 ## Further Improvements and Potential Next Step
-Since our code allows adding unlimited visualizations without modifying existing code, if we have chance to keep working on this project, we may adding new visualizaitons such as line chart and histograms to allows users to conduct more comprehensive analysis of the stock market.
-We also want to add a Favourite Stock List for each registered user, this feature will allow users to keep track on some stocks they interested more.
+### New visualizations
+  * line chart
+  * histogram
+  * ....
+### More precise setting features to increase efficiency and support wider range of customization
+  * a list of favourite stock
+  * ....
 
   
