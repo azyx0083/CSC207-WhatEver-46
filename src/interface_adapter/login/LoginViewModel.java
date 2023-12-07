@@ -5,6 +5,9 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * the ViewModel that store all the Label and state that LoginView needed
+ */
 public class LoginViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Log In View";
