@@ -12,6 +12,7 @@ Our projects should
 
 ## API Usage
 Twelve Data in RapidAPI (https://rapidapi.com/twelvedata/api/twelve-data1/)
+
 We currently use 3 endpoints
 1. **Time Series** --- access the historical price
 2. **Real-time Price** --- access the real-time price
@@ -120,10 +121,12 @@ All follows clean architecture. Each layer in the clean architecture has its own
 **Deadline**: Nov 22, 2023
 
 ### Additional Features
-1. Login & signup usecase - Charles
-2. Logout usecase - Andy
-3. Setting usecase - Winston
-4. FileUserDataAccess - Amanda
+1. Login usecase - Charles
+2. Signup usecase - Charles
+3. Logout usecase - Andy
+4. Setting usecase - Winston
+5. FileUserDataAccess - Amanda
+6. User and UserSetting (entity) - Winston
 
 **Deadline**: Dec 1, 2023
 
