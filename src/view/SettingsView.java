@@ -1,14 +1,17 @@
 package view;
 
 import interface_adapter.menu.MenuController;
-import interface_adapter.settings.SettingsController;
-import interface_adapter.settings.SettingsState;
-import interface_adapter.settings.SettingsViewModel;
+import interface_adapter.menu.MenuState;
+import interface_adapter.settings.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class SettingsView extends JPanel {
     public final String viewName = "settings";
