@@ -1,14 +1,14 @@
 package view;
 
-import app.factory.LoginUseCaseFactory;
+import app.factory.SignupUseCaseFactory;
 import data_access.FileUserDataAccess;
-import entity.User;
-import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.menu.MenuState;
 import interface_adapter.menu.MenuViewModel;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -18,53 +18,63 @@ import java.awt.event.KeyEvent;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LoginViewTest {
-    static LoginViewModel loginViewModel;
-    static LoginView loginView;
-    static User sampleUser;
-    static ViewManagerModel viewManagerModel;
-    static MenuViewModel menuViewModel;
+public class SignupViewTest {
     static FileUserDataAccess fileUserDataAccess;
+    static LoginViewModel loginViewModel;
+    static MenuViewModel menuViewModel;
+    static SignupViewModel signupViewModel;
+    static ViewManagerModel viewManagerModel;
+    static SignupView signupView;
+
 
     @BeforeAll
     static void setUp() {
         fileUserDataAccess = new FileUserDataAccess("file.txt");
         fileUserDataAccess.clear();
-        sampleUser = UserFactory.createUser("sample", "password", "1day", 10);
-        fileUserDataAccess.save(sampleUser);
         loginViewModel = new LoginViewModel();
-        viewManagerModel = new ViewManagerModel();
         menuViewModel = new MenuViewModel();
-        loginView = LoginUseCaseFactory.createLoginView(viewManagerModel,loginViewModel,menuViewModel,
-                fileUserDataAccess);
+        signupViewModel = new SignupViewModel();
+        viewManagerModel = new ViewManagerModel();
+        signupView = SignupUseCaseFactory.createSignupView(viewManagerModel, signupViewModel, menuViewModel,
+                loginViewModel, fileUserDataAccess);
 
         // Create the UI
         JFrame jf = new JFrame();
-        jf.setContentPane(loginView);
+        jf.setContentPane(signupView);
         jf.pack();
         jf.setVisible(true);
     }
 
-
-    // Tests whether the login button in the login view works.
+    // Tests whether the signup button in SignupView works.
     @Test
-    public void testLoginButtonPerformed() {
+    public void testSignupButtonPerformed() {
         // Manual user input
         String sampleUserName = "sample";
         String samplePassword = "password";
-        simulateUserTyping(loginView.usernameInputField, sampleUserName);
-        simulateUserTyping(loginView.passwordInputField, samplePassword);
+        String sampleRepeatPassword = "password";
+        simulateUserTyping(signupView.usernameInputField, sampleUserName);
+        simulateUserTyping(signupView.passwordInputField, samplePassword);
+        simulateUserTyping(signupView.repeatPasswordInputField, sampleRepeatPassword);
 
         // Test that the text are indeed in the username fields and password fields
-        assertEquals(sampleUserName, loginView.usernameInputField.getText());
-        assertEquals(samplePassword, new String(loginView.passwordInputField.getPassword()));
+        assertEquals(sampleUserName, signupView.usernameInputField.getText());
+        assertEquals(samplePassword, new String(signupView.passwordInputField.getPassword()));
+        assertEquals(sampleRepeatPassword, new String(signupView.repeatPasswordInputField.getPassword()));
 
-        loginView.logIn.doClick(); // Click the Button
+        signupView.signUp.doClick(); // Click the button
+
+        // Check if the SignupState changed
+        SignupState signupState = signupViewModel.getState();
+        assertEquals(sampleUserName, signupState.getUsername());
+        assertEquals(samplePassword, signupState.getPassword());
+        assertEquals(sampleRepeatPassword, signupState.getRepeatPassword());
+
+        /*
+        Check if the LoginState changed; A successful signup process would lead to a change in LoginState because
+        a switch to the login view
+         */
         LoginState loginState = loginViewModel.getState();
-
-        // Check if the loginState has changed
         assertEquals(sampleUserName, loginState.getUsername());
-        assertEquals(samplePassword, loginState.getPassword());
     }
 
     // Helper method to simulate user typing in the input fields
@@ -94,14 +104,10 @@ public class LoginViewTest {
     @Test
     public void testCancelButtonPerformed() {
 
-        loginView.cancel.doClick(); // Click the Button
+        signupView.cancel.doClick(); // Click the Button
 
         // Check(Ensure) that after clicking the button, the menuState has an empty stock symbol.
         MenuState menuState = menuViewModel.getState();
         assertEquals("", menuState.getStockSymbol());
     }
-
-
-
-
 }
