@@ -4,14 +4,6 @@ import interface_adapter.menu.MenuController;
 import interface_adapter.single_stock.SingleStockController;
 import interface_adapter.single_stock.SingleStockState;
 import interface_adapter.single_stock.graphical.SingleStockGraphicalViewModel;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Map;
-
 import interface_adapter.single_stock.graphical.SingleStockPriceDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -22,16 +14,23 @@ import org.jfree.chart.axis.SegmentedTimeline;
 import view.helpers.SingleStockCandleStickRenderer;
 import view.helpers.SingleStockPanel;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Map;
+
 /**
  * Visualize the data of a stock in graphical form.
  */
 public class SingleStockGraphicalView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "graphical";
-    private final JButton menu;
-    private final JLabel title;
-    private final JLabel detail;
-    private final JLabel currentPrice;
-    private final JFreeChart chart;
+    final JButton menu;
+    final JLabel title;
+    final JLabel detail;
+    final JLabel currentPrice;
+    final JFreeChart chart;
 
     /**
      * Construct a graphical display of a single stock.
