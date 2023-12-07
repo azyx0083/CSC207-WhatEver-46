@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SignupViewTest {
     static FileUserDataAccess fileUserDataAccess;
@@ -43,6 +44,15 @@ public class SignupViewTest {
         jf.setContentPane(signupView);
         jf.pack();
         jf.setVisible(true);
+    }
+
+    // Checks that the signup view is set up with buttons
+    @Test
+    public void testSetUp() {
+        // Checks that the buttons aren't null
+        assertNotNull(signupView);
+        assertNotNull(signupView.signUp);
+        assertNotNull(signupView.cancel);
     }
 
     // Tests whether the signup button in SignupView works.

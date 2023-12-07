@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LoginViewTest {
     static LoginViewModel loginViewModel;
@@ -45,8 +46,16 @@ public class LoginViewTest {
         jf.setVisible(true);
     }
 
+    // Checks that the login view is set up with buttons
+    @Test
+    public void testSetUp() {
+        // Checks that the buttons aren't null
+        assertNotNull(loginView);
+        assertNotNull(loginView.logIn);
+        assertNotNull(loginView.cancel);
+    }
 
-    // Tests whether the login button in the login view works.
+    // Checks whether the login button in the login view works.
     @Test
     public void testLoginButtonPerformed() {
         // Manual user input

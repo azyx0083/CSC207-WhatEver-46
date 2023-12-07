@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class OptionsViewTest {
     static SearchViewModel searchViewModel;
@@ -50,6 +51,13 @@ public class OptionsViewTest {
         jf.setContentPane(optionsView);
         jf.pack();
         jf.setVisible(true);
+    }
+
+    // Checks that the options view is set up with buttons
+    @Test
+    public void testSetUp() {
+        // Checks that the view isn't null
+        assertNotNull(optionsView);
     }
 
     // Given that the user searched a stock, check if the optionView get updated

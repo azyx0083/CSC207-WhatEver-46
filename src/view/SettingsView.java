@@ -1,17 +1,14 @@
 package view;
 
 import interface_adapter.menu.MenuController;
-import interface_adapter.menu.MenuState;
-import interface_adapter.settings.*;
+import interface_adapter.settings.SettingsController;
+import interface_adapter.settings.SettingsState;
+import interface_adapter.settings.SettingsViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class SettingsView extends JPanel {
     public final String viewName = "settings";
@@ -20,8 +17,8 @@ public class SettingsView extends JPanel {
     final MenuController menuController;
     JLabel interval = new JLabel(SettingsViewModel.INTERVAL_LABEL);
     JLabel dataSize = new JLabel(SettingsViewModel.DATA_SIZE_LABEL);
-    private final JButton apply;
-    private final JButton returnToMenu;
+    final JButton apply;
+    final JButton returnToMenu;
 
     public SettingsView(SettingsController settingsController, SettingsViewModel settingsViewModel, MenuController menuController) {
         this.settingsController = settingsController;
