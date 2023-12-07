@@ -27,7 +27,7 @@ public class SignupPresenter implements SignupOutputBoundary {
     }
 
     /**
-     * When the usecase success, presenter will pass the data to LoginView and
+     * When the usecase succeed, presenter will pass the data to LoginView and
      * switch current View to LoginView
      * @param response the data that loginView needed
      */
@@ -54,6 +54,10 @@ public class SignupPresenter implements SignupOutputBoundary {
         signupViewModel.firePropertyChanged();
     }
 
+    /**
+     * When called, Presenter will switch current View to SignupView and mention the ViewManager
+     * Model that the property was changed
+     */
     @Override
     public void jumpToSignup() {
         signupViewModel.firePropertyChanged();

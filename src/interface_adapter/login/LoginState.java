@@ -1,5 +1,8 @@
 package interface_adapter.login;
 
+/**
+ * the DataStructure that stores actual data that LoginView need
+ */
 public class LoginState {
     private String username = "";
     private String usernameError = null;

@@ -53,6 +53,10 @@ public class SignupInteractor implements SignupInputBoundary {
         }
     }
 
+    /**
+     * When called, Interactor will call the Presenter(by direct call OutputBoundary) and ask
+     * it to switch current View(whatever current View is) to SignupView.
+     */
     @Override
     public void jumpToSignup() {
         userPresenter.jumpToSignup();
