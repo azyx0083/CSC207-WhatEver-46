@@ -17,8 +17,8 @@ public class OptionsView extends JPanel implements ActionListener, PropertyChang
     private final SearchViewModel searchViewModel;
     private final Map<String, SingleStockController> map;
     private final String[] labelList;
-    private final JLabel stockSymbol;
-    private final JLabel stockName;
+    final JLabel stockSymbol;
+    final JLabel stockName;
     public OptionsView(SearchViewModel searchViewModel,
                        Map<String, SingleStockController> map){
         this.searchViewModel = searchViewModel;

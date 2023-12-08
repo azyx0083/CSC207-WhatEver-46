@@ -26,12 +26,12 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     final SettingsController settingsController;
     final SignupController signupController;
     final LoginController loginController;
-    private final JLabel user;
+    final JLabel user;
     private final JTextField searchInputField = new JTextField(20);
     private final JButton search;
     private final JButton settings;
-    private final JButton signup;
-    private final JButton login;
+    final JButton signup;
+    final JButton login;
     private final JButton logout;
     private final JPanel beforeButtons;
     private final JPanel afterButtons;

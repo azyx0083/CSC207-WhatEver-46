@@ -27,11 +27,11 @@ import view.helpers.SingleStockPanel;
  */
 public class SingleStockGraphicalView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "graphical";
-    private final JButton menu;
-    private final JLabel title;
-    private final JLabel detail;
-    private final JLabel currentPrice;
-    private final JFreeChart chart;
+    final JButton menu;
+    final JLabel title;
+    final JLabel detail;
+    final JLabel currentPrice;
+    final JFreeChart chart;
 
     /**
      * Construct a graphical display of a single stock.

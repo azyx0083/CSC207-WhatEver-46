@@ -20,8 +20,8 @@ public class SettingsView extends JPanel {
     final MenuController menuController;
     JLabel interval = new JLabel(SettingsViewModel.INTERVAL_LABEL);
     JLabel dataSize = new JLabel(SettingsViewModel.DATA_SIZE_LABEL);
-    private final JButton apply;
-    private final JButton returnToMenu;
+    final JButton apply;
+    final JButton returnToMenu;
 
     public SettingsView(SettingsController settingsController, SettingsViewModel settingsViewModel, MenuController menuController) {
         this.settingsController = settingsController;

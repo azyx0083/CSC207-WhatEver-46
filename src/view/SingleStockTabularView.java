@@ -19,11 +19,11 @@ import java.util.Map;
  */
 public class SingleStockTabularView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "tabular";
-    private final JButton menu;
-    private final JLabel title;
-    private final JLabel currentPrice;
-    private final JLabel detail;
-    private final JTable table;
+    final JButton menu;
+    final JLabel title;
+    final JLabel currentPrice;
+    final JLabel detail;
+    final JTable table;
 
     /**
      * Initializing a tabular display of a single stock.
